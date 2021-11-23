@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="1.5.0" author="igor klimovich">
+        <createTable tableName="order">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/></column>
+            <column name="date" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_price" type="DECIMAL" >
+            </column>
+            <column name="user_id" type="INT">
+            </column>
+            <column name="state_order_id" type="INT">
+            </column>
+        </createTable>
+    </changeSet>
+    
+    <changeSet id="1.5.1" author="igor klimovich">
+        <addForeignKeyConstraint baseTableName="order"
+                                 baseColumnNames="user_id"
+                                 constraintName="fk_User"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    
+    <changeSet id="1.5.2" author="igor klimovich">
+        <addForeignKeyConstraint baseTableName="order"
+                                 baseColumnNames="state_order_id"
+                                 constraintName="fk_State_order"
+                                 referencedTableName="state_order"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>
+

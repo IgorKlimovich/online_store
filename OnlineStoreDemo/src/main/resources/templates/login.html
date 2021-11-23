@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <link href="/css/login.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+</head>
+<body class="text-center" id="body">
+
+<main class="form-signin">
+    <form method="post" action="/login" th:object="${user}">
+
+        <h1 class="h3 mb-3 fw-normal">Войдите</h1>
+
+        <div class="form-floating">
+            <input type="text" class="form-control"
+
+                   id="floatingInput" name="login" placeholder="Логин"
+                   onfocus="return myfunc();" onblur="return myfunc1();"
+            >
+
+
+
+            <label for="floatingInput" class="ls" id="log">Логин</label>
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control " placeholder="Пароль"
+                   id="floatingPassword" name="password"
+                   onfocus="return myfunc2();" onblur="return myfunc3();"
+            >
+
+            <label for="floatingPassword" id="log1">Пароль</label>
+        </div>
+        <label for="remember-me" class="rem">
+            <input type="checkbox" class="check" name="remember-me" id="remember-me"> Запомнить меня
+        </label>
+
+        <div class="er-col" th:text="${error}"></div>
+        <button class="w-100 btn btn-lg my-btn-log" type="submit">Войти</button>
+
+    </form>
+    <form action="sign-up" method="get">
+        <button class="w-100 btn btn-lg btn-reg my-btn-reg mtb" type="submit"
+        >Зарегистрироваться
+        </button>
+    </form>
+
+
+</main>
+<footer th:insert="blocks/footer::footer"></footer>
+
+
+<script type="text/javascript" src="/js/login.js"></script>
+</body>
+</html>

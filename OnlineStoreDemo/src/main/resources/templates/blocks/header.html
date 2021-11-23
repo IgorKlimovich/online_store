@@ -1,0 +1,49 @@
+<div th:fragment="header">
+    <header class="color-head nav  p-3" id="hd">
+        <div>
+            <div class=" justify-content-center ">
+
+
+                <ul class="nav col-12  justify-content-center ">
+                    <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
+                    <form class="col-12  mb-3 me-lg-3 ">
+                        <input type="search" class=" wdi" placeholder="Поиск товара..."
+                               aria-label="Search">
+                        <button type="button" class="btn  sc">Найти</button>
+                    </form>
+
+                    <li><a href="/admin" class="nav-link fs mg px-2 add dd text-secondary"
+                           sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
+
+
+                    <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
+                    <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
+                    <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
+                    <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
+                    <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
+
+                    <div class="text-end" sec:authorize="!isAuthenticated()">
+                        <form th:method="get" th:action="@{/login}">
+                            <button type="submit" class="btn btn-outline-light me-2">Войти</button>
+                        </form>
+                        <form th:method="get" th:action="@{/sign-up}">
+                            <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
+                        </form>
+                    </div>
+                    <div class="text-end" sec:authorize="isAuthenticated()">
+                        <form th:method="get" th:action="@{/logout}">
+                            <button type="submit" class="btn btn-outline-light me-2"
+                                    onClick="return confirm('Вы действительно хотите выйти?');"
+                            >Выйти</button>
+                        </form>
+                        <form th:method="get" th:action="@{/}">
+                            <button type="submit" class="btn btn-warning">Удалить профиль</button>
+                        </form>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+
+</div>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="/css/header.css" rel="stylesheet">
+    <link href="/css/users.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
+</head>
+<body>
+<header class="color-head nav  p-3" id="hd">
+    <div>
+        <div class="mg-tp justify-content-center ">
+
+            <ul class="nav col-12  justify-content-center ">
+                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
+                <form class="col-12  mb-3 me-lg-3 ">
+                    <input type="search" class=" wdi" placeholder="Поиск товара..."
+                           aria-label="Search">
+                    <button type="button" class="btn my-btn sc">Найти</button>
+                </form>
+
+                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-secondary"
+                       sec:authorize="hasAuthority('ADMIN')">Админ</a></li>
+
+
+                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
+                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
+                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
+                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
+                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
+
+                <div class="text-end" sec:authorize="!isAuthenticated()">
+                    <form th:method="get" th:action="@{/login}">
+                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
+                    </form>
+                    <form th:method="get" th:action="@{/sign-up}">
+                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="text-end" sec:authorize="isAuthenticated()">
+                    <form th:method="get" th:action="@{/logout}">
+                        <button type="submit" class="btn my-btn btn-outline-light me-2"
+                                onClick="return confirm('Вы действительно хотите выйти?');"
+                        >Выйти
+                        </button>
+                    </form>
+                    <form th:method="get" th:action="@{/}">
+                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
+                    </form>
+                </div>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="content">
+    <div class="table-users">
+        <form method="get" action="/admin/users">
+            <h1 class="tit-users"> Все зарегистрированные пользователи</h1>
+            <div class="sort">
+                <h2 class="sort-tit"> Сортировать пользователей:</h2>
+                <label for="parameter" class="label-users">Выберите параметр</label>
+                <select class="select-sort" name="parameter" id="parameter">
+
+                    <option value="login">Логин</option>
+                    <option value="email">email</option>
+                    <option value="phoneNumber">Номер телефона</option>
+                    <option value="firstName">Имя</option>
+                    <option value="lastName">Фамилия</option>
+                </select>
+
+                <button type="submit"  class="btn-sort">Сортировать</button>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="tab">
+
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col"> Имя</th>
+                <th scope="col"> Фамилия</th>
+                <th scope="col"> email</th>
+                <th scope="col"> логин</th>
+                <th scope="col"> номер</th>
+            </tr>
+
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td>
+                    <a
+                            th:text="${user.firstName}" th:href="@{/admin/user/{id}(id=${user.id})}"></a>
+                </td>
+                <td>
+                    <a
+                            th:text="${user.lastName}"></a>
+                </td>
+                <td>
+                    <a
+                            th:text="${user.email}"></a>
+                </td>
+                <td>
+                    <a
+                            th:text="${user.login}"></a>
+                </td>
+                <td>
+                    <a
+                            th:text="${user.phoneNumber}"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:insert="blocks/footer::footer"></footer>
+
+</body>
+</html>

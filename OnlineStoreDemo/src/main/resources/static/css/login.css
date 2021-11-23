@@ -1,0 +1,156 @@
+
+body {
+    margin: 0;
+    line-height: 1.5;
+    color:  #212529;
+    padding-top: 40px;
+
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.text-center {
+    text-align: center!important;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.fw-normal {
+    font-weight: 400!important;
+}
+.h3 {
+    margin-top: 0;
+    line-height: 1.2;font-size: calc(1.3rem + .6vw);
+}
+
+.form-floating>label {
+    padding-left: 20px;
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+    border: 1px
+    solid transparent;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out,transform .1s ease-in-out;
+    color: #818287;
+    padding-top: 2px;
+    display: none;
+}
+
+.form-floating {
+    position: relative;
+}
+
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+
+.form-floating>.form-control, .form-floating>.form-select {
+    height: calc(3.5rem
+    + 2px
+    );
+
+}
+.form-control {
+    width: 100%;
+    font-size: 1rem;
+    color: #212529;
+    background-color: #fff;
+    border: 1px
+    solid #ced4da;
+    border-radius: 0.25rem;
+
+}
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+}
+
+
+
+.w-100 {
+    width: 100%;
+}
+.btn-group-lg>.btn, .btn-lg {
+    font-size: 1.25rem;
+    border-radius: 0.3rem;
+}
+
+.btn {
+    cursor: pointer;
+    line-height: 1.5;
+    color: white;
+    background-color: darkred;
+    border: 1px solid transparent;
+    padding: 16px;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+}
+.text-muted {
+    --bs-text-opacity: 1;
+    color: #6c757d;
+}
+
+.mt-5 {
+    margin-top: 3rem;
+}
+INPUT:focus {
+    outline: 0;
+    outline-offset: 0;
+    border:5px solid rgba(234, 155, 154, 0.8);
+}
+input:focus::placeholder{
+    color: transparent;
+
+}
+input::placeholder{
+    padding-left:20px;
+
+}
+
+.noshow {
+    display: none
+}
+.er-col{
+    color: #8b0000;
+}
+
+.btn-reg{
+    background-color: #9a9073;
+}
+.mtb{
+    margin-top: 2px;
+}
+.my-btn-log:hover{
+    background-color: #6c0404;
+    color: white;
+}
+.btn-reg:hover{
+    background-color: #706954;
+    color: white;
+}
+
+body{
+    background-color: #DCDFEA ;
+    font-family:'Roboto', sans-serif;
+}
+
+.check{
+    display: inline;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.rem{
+    font-size: 17px;
+
+}
