@@ -1,86 +1,120 @@
 
-.main-col{
+.main-col {
     color: white;
 }
-.prod-col{
+
+.prod-col {
     color: black;
 }
 
-.tit{
+.tit {
     padding-left: 400px;
-    display:flex;
+    display: flex;
 }
 
-.table td{
+.table td {
     padding-bottom: 20px;
     word-break: break-all;
 }
-.table th{
+
+.table th {
     padding-bottom: 30px;
-    padding-right: 30px
-;
+    padding-right: 30px;
 }
-.tab{
-    width:100% ;
+
+.tab {
+    width: 100%;
 }
-.ai{
+
+.ai {
 
     width: 1160px;
     padding-left: 20px;
 }
 
-/*.btn {*/
-
-/*    padding-top: 0.375rem;*/
-/*    padding-right: 0.75rem;*/
-/*    padding-bottom: 0.375rem;*/
-/*    padding-left: 0.75rem;*/
-/*    border-radius: 0.25rem;*/
-/*    border-top-left-radius: 0.25rem;*/
-/*    border-top-right-radius: 0.25rem;*/
-/*    border-bottom-right-radius: 0.25rem;*/
-/*    border-bottom-left-radius: 0.25rem;*/
-/*}*/
-.btn-wid{
+.btn-wid {
     width: 90px;
     margin-left: 30px;
     margin-right: 100px;
 }
-.btn-col-1{
+
+.btn-col-1 {
     background-color: inherit;
 }
 
-.btn-wid1{
+.btn-wid1 {
     width: 100px;
     margin-left: 100px;
 }
+
 .my-4 {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
 }
-/*.justify-content-center{*/
-/*    justify-content: center;*/
-/*}*/
+
 .pb-3 {
     padding-bottom: 1rem;
 }
+
 .border-bottom {
-    border-bottom: 1px
-    solid #2c2f33;
+    border-bottom: 1px solid #2c2f33;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: #a5abb4;
 }
+
 .text-center {
     text-align: center;
 }
+
 .text-muted {
     color: #6c757d;
 }
-.nav-1{
+
+.nav-1 {
     display: flex;
     list-style: none;
 }
-.mar-t{
+
+.mar-t {
     margin-top: 320px;
+}
+tr{
+    border: 2px solid #969491;
+    height: 300px;
+    border-radius: 30px;
+    width: 600px;
+    margin-right: 90px;
+}
+
+td{
+    width: inherit;
+    height: inherit;
+}
+
+/*.btn-look{*/
+/*    color: white;*/
+/*    background-color: darkred;*/
+/*    padding: 6px 24px;*/
+/*    border-radius: 49px;*/
+/*    border: 1px solid transparent;*/
+/*    cursor: pointer;*/
+/*}*/
+
+
+table{
+    margin: auto;
+}
+
+
+.a-look{
+    text-decoration: none;
+    color: white;
+}
+tbody{
+    display: grid;
+}
+
+.tb-mt{
+    margin-top: 100px;
 }

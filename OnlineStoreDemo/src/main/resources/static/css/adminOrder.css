@@ -1,0 +1,12 @@
+.ul-prod{
+    display: flex;
+    list-style: none;
+}
+
+.li-price{
+    margin-left: 20px;
+}
+
+.li-price-prod{
+    margin: auto;
+}

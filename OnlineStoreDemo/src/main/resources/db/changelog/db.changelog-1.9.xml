@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+      http://www.liquibase.org/xml/ns/pro
+      http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
+
+    <changeSet id="1.9.0" author="igor klimovich">
+        <createTable tableName="card">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cvv" type="VARCHAR(100)">
+                <constraints nullable="false" />
+            </column>
+            <column name="total_amount" type="DECIMAL">
+                <constraints nullable="false" />
+            </column>
+            <column name="user_id" type="INT">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1.9.1" author="igor klimovich">
+      <addForeignKeyConstraint baseTableName="card"
+                               baseColumnNames="user_id"
+                               constraintName="Fk_Card"
+                               referencedTableName="user"
+                               referencedColumnNames="id"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>
+

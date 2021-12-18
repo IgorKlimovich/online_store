@@ -3,7 +3,6 @@ package org.academy.OnlineStoreDemo.controller;
 
 import org.academy.OnlineStoreDemo.form.UserForm;
 import org.academy.OnlineStoreDemo.service.UserService;
-import org.academy.OnlineStoreDemo.service.UtilService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,39 +18,37 @@ import javax.validation.Valid;
 @RequestMapping("/sign-up")
 public class SignUpController {
 
+    private static final String SIGN_UP="sign-up";
     private final UserService userService;
-    private final UtilService utilService;
 
-    public SignUpController(UserService userService, UtilService utilService) {
+    public SignUpController(UserService userService) {
         this.userService = userService;
-        this.utilService = utilService;
     }
 
     @GetMapping
     public String getSignUpPage(Model model){
         model.addAttribute("userForm", new UserForm());
-        return "sign-up";
+        return SIGN_UP;
     }
 
     @PostMapping
-    public String signUp(@ModelAttribute @Valid UserForm userForm,
-                         BindingResult bindingResult, Model model){
-        System.out.println(userForm);
+    public String signUp(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, Model model){
+        System.out.println(bindingResult.toString());
         if (bindingResult.hasErrors()){
-            return "sign-up";
+            return SIGN_UP;
         }
-        if (utilService.isExistUserByLogin(userForm.getLogin())){
+        if (Boolean.TRUE.equals(userService.existsUserByLogin(userForm.getLogin()))){
             model.addAttribute("existLogin", "такой логин уже существует");
-            return "sign-up";
+            return SIGN_UP;
         }
-        if (utilService.isExistUserByEmail(userForm.getEmail())){
+        if (Boolean.TRUE.equals(userService.existsUserByEmail(userForm.getEmail()))){
             model.addAttribute("existEmail", "такой email уже существует");
-            return "sign-up";
+            return SIGN_UP;
         }
 
-        if (utilService.isExistUserByPhoneNumber(userForm.getPhoneNumber())){
+        if (Boolean.TRUE.equals(userService.existsUserByPhoneNumber(userForm.getPhoneNumber()))){
             model.addAttribute("existPhoneNumber", "такой номер уже существует");
-            return "sign-up";
+            return SIGN_UP;
         }
 
         userService.create(userForm);

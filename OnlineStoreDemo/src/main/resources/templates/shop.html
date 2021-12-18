@@ -4,59 +4,14 @@
 
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/shop.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <title>Shop</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Главная</title>
 </head>
 <body>
 
-
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class="mg-tp justify-content-center ">
-
-
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn sc">Найти</button>
-                </form>
-
-                    <li><a href="/admin" class="nav-link fs mg px-2 ad dd  text-white"
-                           sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
-
-
-                <li><a href="#" class="nav-link fs mg px-2 text-secondary">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
-
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
-
+<header th:insert="blocks/header::header"></header>
 
 <div class="bl">
     <div class="search">
@@ -66,36 +21,34 @@
             <form action="/search" method="get">
                 <div class="form-group1">
                     <label for="category"> Введите категорию</label>
-                    <input autocomplete="off" list="category"  type="text"
+                    <input autocomplete="off" list="category" type="text"
                            id="input" name="category">
-                    <datalist id="category" >
-                        <option th:each="productCategory : ${productCategories}"
-                                th:text="${productCategory.name}"
-                                th:value="${productCategory.name}">
+                    <datalist id="category">
+                        <option th:each="productCategoryDto : ${productCategoriesDto}"
+                                th:text="${productCategoryDto.name}"
+                                th:value="${productCategoryDto.name}">
                         </option>
                     </datalist>
                     <div class="ser" th:text="${noCategory}"></div>
                 </div>
-
                 <div class="form-group1">
                     <label for="name"> Введите название</label>
                     <input autocomplete="off" list="name" type="text" name="name">
                     <datalist id="name">
-                        <option
-                                th:each="product : ${products}"
-                                th:text="${product.name}"
-                                th:value="${product.name}"></option>
+                        <option th:each="productDto : ${productsDto}"
+                                th:text="${productDto.name}"
+                                th:value="${productDto.name}"></option>
                     </datalist>
                 </div>
                 <div class="ser" th:text="${noName}"></div>
                 <div class="form-group2">
                     <label for="minPrice"> Введите минимальную цену</label>
-                    <input type="text" id="minPrice" name="minPrice">
+                    <input type="number" id="minPrice" name="minPrice">
                 </div>
                 <div class="ser" th:text="${noMinPrice}"></div>
                 <div class="form-group2">
                     <label for="maxPrice"> Введите максимальную цену</label>
-                    <input type="text" id="maxPrice" name="maxPrice">
+                    <input type="number" id="maxPrice" name="maxPrice">
                 </div>
                 <div class="ser" th:text="${noMaxPrice}"></div>
                 <input type="submit" class="btn-search btn-search-color" value="Найти">
@@ -103,11 +56,8 @@
         </div>
     </div>
     <div class="ai">
-        <div>
-            <h2 class="tit">Лучшие предложения:</h2>
-        </div>
+        <div><h2 class="tit">Последние поступления:</h2></div>
         <div class="tab">
-
             <table class="table ">
                 <thead>
                 <tr>
@@ -116,26 +66,24 @@
                     <th scope="col"> Цена</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="product : ${products}">
-                    <td> <a class="td-ref" th:text="${product.name}" th:href="@{/shop/{id}(id=${product.id})}"></a></td>
-                    <td th:text="${product.productCategory.name}"></td>
-                    <td th:text="${product.price}"></td>
 
-                    <td>
-                        <form>
-                            <button type="submit" class="btn btn-wid btn-col-1"> В корзину</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
+
+                    <tbody>
+                    <tr th:each="productDto : ${productsLastDto}">
+                        <td><a class="td-ref" th:text="${productDto.name}"
+                               th:href="@{/shop/{id}(id=${productDto.id})}"> </a></td>
+                        <td th:text="${productDto.productCategoryDto.name}"></td>
+                        <td th:text="${productDto.price}"></td>
+
+                    </tr>
+                    </tbody>
+
             </table>
         </div>
     </div>
 </div>
-
 <footer th:insert="blocks/footer::footer"></footer>
-
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>
 

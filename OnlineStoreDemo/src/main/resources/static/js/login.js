@@ -1,33 +1,39 @@
 function myfunc() {
-    let label=document.getElementById('log');
-    let input=document.getElementById('floatingInput');
+    let label = document.getElementById('log');
+    let input = document.getElementById('floatingInput');
     console.log(input.value.length);
-    console.log('helo')
-    label.style.display='inline';
+    label.style.display = 'inline';
 }
 
 function myfunc1() {
-    let label=document.getElementById('log');
-
-    let input=document.getElementById('floatingInput');
-    if (input.value.length===0){
-        label.style.display='none';
+    let label = document.getElementById('log');
+    let input = document.getElementById('floatingInput');
+    if (input.value.length === 0) {
+        label.style.display = 'none';
     }
 }
 
 function myfunc2() {
-    let label1=document.getElementById('log1');
-    let input1=document.getElementById('floatingPassword');
-    console.log(input1.value.length);
-    console.log('helo')
-    label1.style.display='inline';
+    let label1 = document.getElementById('log1');
+    let input1 = document.getElementById('floatingPassword');
+    label1.style.display = 'inline';
 }
 
 function myfunc3() {
-    let label1=document.getElementById('log1');
-
-    let input1=document.getElementById('floatingPassword');
-    if (input1.value.length===0){
-        label1.style.display='none';
+    let label1 = document.getElementById('log1');
+    let input1 = document.getElementById('floatingPassword');
+    if (input1.value.length === 0) {
+        label1.style.display = 'none';
     }
+}
+function show_hide_password(target){
+    var input = document.getElementById('floatingPassword');
+    if (input.getAttribute('type') == 'password') {
+        target.classList.add('view');
+        input.setAttribute('type', 'text');
+    } else {
+        target.classList.remove('view');
+        input.setAttribute('type', 'password');
+    }
+    return false;
 }

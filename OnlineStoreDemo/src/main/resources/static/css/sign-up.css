@@ -1,63 +1,58 @@
 
-
-.container{
+.container {
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
 }
-body{
-    background-color: #DCDFEA ;
+
+body {
+    background-color: #DCDFEA;
     padding-top: 40px;
     margin: 0;
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,
-    "Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji"
-    ,"Segoe UI Symbol","Noto Color Emoji";;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
     font-size: 18px;
     line-height: 1.5;
 }
 
-
-
 *, ::after, ::before {
     box-sizing: border-box;
 }
+
 .text-center {
-    text-align: center!important;
+    text-align: center !important;
 }
-
-
-
 
 .fw-normal {
-    font-weight: 400!important;
+    font-weight: 400 !important;
     margin-left: 60px;
 }
-
-
 
 .h3, h3 {
     font-size: calc(1.3rem + .6vw);
 }
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
 }
-@media (min-width: 1200px){
+
+@media (min-width: 1200px) {
     .h1, h1 {
         font-size: 2.5rem;
     }
 }
+
 .h1, h1 {
     font-size: calc(1.375rem + 1.5vw);
 }
 
-
-.form-floating>.form-control, .form-floating>.form-select {
+.form-floating > .form-control, .form-floating > .form-select {
     height: calc(3.5rem
     + 2px
     );
     line-height: 1.25;
 }
+
 .form-control {
     width: 100%;
     padding: 1.15rem 0.75rem 10px;
@@ -69,6 +64,7 @@ body{
     border-image-repeat: initial;
     border-radius: 0.25rem;
 }
+
 button, input, optgroup, select, textarea {
     font-family: inherit;
     line-height: inherit;
@@ -81,11 +77,13 @@ button, input, optgroup, select, textarea {
 .w-100 {
     width: 100%;
 }
+
 INPUT:focus {
     outline: 0;
     outline-offset: 0;
-    border:5px solid rgba(234, 155, 154, 0.8);
+    border: 5px solid rgba(234, 155, 154, 0.8);
 }
+
 .btn {
     color: white;
     cursor: pointer;
@@ -105,61 +103,79 @@ INPUT:focus {
 
 .text-muted {
     --bs-text-opacity: 1;
-    color: #6c757d!important;
+    color: #6c757d !important;
 }
+
 .mb-3 {
 
     margin-top: 20px;
 }
 
-
-.er-col{
+.er-col {
     color: #8b0000;
 }
 
-
-.btn-reg{
+.btn-reg {
     background-color: #9a9073;
 }
 
-.col-sm-6{
+.col-sm-6 {
     width: 50%;
 }
-.row {
 
+.row {
     display: flex;
     flex-wrap: wrap;
-
 }
-input:focus::placeholder{
+
+input:focus::placeholder {
     color: transparent;
-
 }
-input::placeholder{
-    padding-left:8px;
 
+input::placeholder {
+    padding-left: 8px;
 }
 
 .col-12 {
     flex: 0 0 auto;
     width: 100%;
 }
-.form-label{
+
+.form-label {
     padding-left: 20px;
     position: absolute;
     font-size: 14px;
-    border: 1px
-    solid transparent;
+    border: 1px solid transparent;
     display: none;
     padding-top: 2px;
     color: #818287;
 }
 
-.my-btn-log:hover{
+.my-btn-log:hover {
     background-color: #6c0404;
     color: white;
 }
-.btn-reg:hover{
+
+.btn-reg:hover {
     background-color: #706954;
     color: white;
 }
+
+.pass{
+    position: relative;
+}
+.password-control{
+    margin-right: 23px;
+    margin-top: 6px;
+    position: absolute;
+    top: 11px;
+    right: 6px;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
+}
+.password-control.view {
+    background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
+}
+

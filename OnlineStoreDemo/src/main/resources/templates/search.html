@@ -2,63 +2,98 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link href="css/search.css" rel="stylesheet">
-    <link href="css/header.css" rel="stylesheet">
-    <link href="css/footer.css" rel="stylesheet">
-    <title>Title</title>
+    <title id="title">Товары</title>
+<!--    <link href="/css/products.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/orders.css">
+    <link rel="stylesheet" href="/css/search.css">
+
+
 </head>
 <body>
 
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class=" mg-tp justify-content-center ">
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn sc">Найти</button>
-                </form>
-
-                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-white"
-                       sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
+<header th:insert="blocks/header::header"></header>
 
 
-                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
 
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
-        </div>
+
+
+<div class="tb-mt" th:if="${notEmpty}">
+<!--    <div><h2 class="tit">Лучшие предложения:</h2></div>-->
+    <div class="tab">
+        <table class="table ">
+<!--            <thead>-->
+<!--            <tr>-->
+<!--                <th scope="col"> Название</th>-->
+<!--                <th scope="col"> Категория</th>-->
+<!--                <th scope="col"> Цена</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+            <tbody >
+            <tr th:each="productDto : ${productsDto}">
+                <td>
+                    <div class="prof-items">
+                        <div><h4>Название</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${productDto.name}"></h4></div>
+                    </div>
+                    <div class="prof-items">
+                        <div><h4>Категория</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${productDto.productCategoryDto.name}">
+
+                        </h4></div>
+                    </div>
+                    <div class="prof-items mb-ord">
+                        <div><h4>Стоимость</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${productDto.price}"></h4></div>
+                    </div>
+                    <div>
+                        <div class="tab-td" style="display: flex">
+                            <form method="get" action="/orders/show_products">
+<!--                                <input type="hidden" name="id" th:value="${order.id}">-->
+                                <button class="add-card upd-btn mt-btn" type="submit">
+                                    <a th:href="@{/shop/{id}(id=${productDto.id})}"
+                                    class="a-look">Посмотреть</a>
+                                </button>
+                            </form>
+<!--                            <div class="state" th:if="${order.stateOrder.name.equals('NEW')}">-->
+<!--                                <h3 class="state-text">Новый</h3>-->
+<!--                            </div>-->
+<!--                            <div class="state" th:if="${order.stateOrder.name.equals('PAID')}">-->
+<!--                                <h3 class="state-text">Оплачено</h3>-->
+<!--                            </div>-->
+<!--                            <div class="state" th:if="${order.stateOrder.name.equals('DELIVERED')}">-->
+<!--                                <h3 class="state-text">Выполнено</h3>-->
+<!--                            </div>-->
+                        </div>
+                    </div>
+
+
+
+
+
+<!--                <td><a class="td-ref" th:text="${productDto.name}"-->
+<!--                       th:href="@{/shop/{id}(id=${productDto.id})}"></a></td>-->
+<!--                <td th:text="${productDto.productCategoryDto.name}"></td>-->
+<!--                <td th:text="${productDto.price}"></td>-->
+<!--                <td>-->
+<!--                    <form>-->
+<!--                        <button type="submit" class="btn btn-wid btn-col-1"> В корзину</button>-->
+<!--                    </form>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
     </div>
-</header>
+</div>
 
 
-
-<div th:text="${empty}"></div>
+<div th:if="${empty}" th:text="${empty}">
 
 </div>
-<footer th:insert="blocks/footer::footer"></footer>
 
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>

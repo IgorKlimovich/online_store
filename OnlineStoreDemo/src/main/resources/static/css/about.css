@@ -1,0 +1,114 @@
+.container{
+    margin-top: 150px;
+    margin-left: 140px;
+}
+
+.title{
+    font-size: 48px;
+    font-weight: 500;
+}
+strong{
+    font-style: italic;
+    font-size: 48px;
+}
+
+.tit{
+    display: flex;
+}
+
+.img1{
+
+    margin-left: 150px;
+}
+
+
+body{
+    background-color: white;
+}
+.img2{
+
+    margin-top: 100px;
+
+}
+
+.title1{
+    font-size: 34px;
+    margin-top: 140px;
+    text-align: center;
+    font-weight: 600;
+}
+.feature{
+    display: flex;
+    margin-top: 150px;
+    margin-left: 140px;
+}
+
+.img3{
+    margin-left: 100px;
+}
+
+.feature-item{
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    inline-size: max-content;
+    font-family: cursive;
+    font-size: 20px;
+}
+
+.feature-icon{
+    margin-right: 30px;
+}
+.contact{
+    display: flex;
+    margin-top: 150px;
+    margin-bottom: 150px;
+}
+.contact-item{
+    margin-left: 80px;
+}
+
+.cont-vac{
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;;
+}
+.cont-btn{
+    margin-left: 96px;
+}
+
+.cont-text{
+    font-size: 24px;
+    font-family: system-ui;
+    font-weight: 500;
+}
+
+.btn-vac{
+
+    background-color: darkred;
+    color: white;
+    padding: 15px 70px;
+    font-size: 16px;
+    font-family: 'Roboto', serif;
+    border: 1px solid;
+    border-radius: 31px;
+}
+
+.photo{
+    border-radius: 43px;
+}
+
+.con-photo{
+    margin-left: 60px;
+}
+
+.ref-cont{
+    color: white;
+    text-decoration: none;
+}
+.btn-vac:hover{
+    background-color: #6c0404;
+    color: white;
+}
+
+

@@ -2,95 +2,121 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/css/header.css">
-    <link rel="stylesheet" type="text/css" href="/css/footer.css">
-    <title>Admin</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Админ</title>
 </head>
 <body>
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class="mg-tp justify-content-center ">
 
+<header th:insert="blocks/header::header"></header>
 
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn  sc">Найти</button>
-                </form>
-
-                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-secondary"
-                       sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
-
-
-                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
-
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
 
 <div class="container">
     <div class="us">
-        <form method="get" class="form-us" action="/admin/search">
-            <h2 class="tit-us"> Найти пользователя</h2>
-            <label class="label-us" for="parameter">Выберите параметр</label>
-            <select class="select-us" name="parameter" id="parameter"> Найти пользователя по:
-                <option value="all">Показать всех</option>
-                <option value="login" >Логин</option>
-                <option value="email">email</option>
-                <option value="phoneNumber">Номер телефона</option>
-            </select>
-            <input class="input-us" type="text" name="name">
-            <button class="btn-us" type="submit" > Найти </button>
-        </form>
-        <div>
-            <h3 class="error-us" th:text="${error}"></h3>
+        <div class="find-user">
+            <form method="get" class="form-us" action="/admin/search">
+                <h2 class="tit-us"> Найти пользователя</h2>
+                <label class="label-us" for="parameter">Выберите параметр</label>
+                <select class="select-us" name="parameter" id="parameter"> Найти пользователя по:
+                    <option value="all">Показать всех</option>
+                    <option value="login">Логин</option>
+                    <option value="email">email</option>
+                    <option value="phoneNumber">Номер телефона</option>
+                </select>
+                <input class="input-us" type="text" name="name">
+                <div class="end">
+                    <div class="btn-mr">
+                        <button class="find-btn" type="submit"> Найти</button>
+                    </div>
+                    <div>
+                        <h3 class="error-us" th:text="${error}"></h3>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="find-order">
+            <form method="get" class="form-us" action="/admin/searchOrders">
+                <h2 class="tit-us"> Найти заказы</h2>
+                <label class="label-us" for="parameter">Выберите параметр</label>
+                <select class="select-us" name="parameterOrder" id="parameterOrder"> Найти заказы по:
+                    <option value="all">Показать все</option>
+                    <option value="new">Все новые</option>
+                    <option value="paid">Все оплаченные</option>
+                    <option value="delivered">Все обработанные</option>
+                    <!--                    <option value="phoneNumber">Зака</option>-->
+                </select>
+                <input class="input-us" type="text" name="name">
+                <div class="end">
+                    <div class="btn-mr">
+                        <button class="find-btn" type="submit"> Найти</button>
+                    </div>
+                    <div>
+                        <h3 class="error-us"></h3>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+    </div>
+    <div class="prod">
+        <div class="find-prod">
+            <form class="form-prod" action="/admin/searchProducts">
+                <h2 class="tit-prod">Найти товар</h2>
+                <label class="label-us" for="parameterProd">Выберите параметр</label>
+                <select class="select-us" name="parameterProd" id="parameterProd"> Найти товар по:
+                    <option value="allProd">Показать все</option>
+
+                    <option value="category" class="aa">Категория</option>
+
+                    <option value="nameProd">Название</option>
+
+                </select>
+                <input class="input-us" type="text" name="nameProd">
+                <div class="end">
+                    <div class="btn-mr">
+                        <button class="find-btn" type="submit"> Найти</button>
+                    </div>
+                    <div>
+                        <h3 class="error-us" th:text="${errorProduct}"></h3>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="find-cat">
+            <form class="form-prod" action="/admin/searchProductCategories">
+                <h2 class="tit-prod">Найти категорию</h2>
+                <label class="label-us" for="parameterProductCategory">Выберите параметр</label>
+                <select class="select-us" name="parameterProductCategory"
+                        id="parameterProductCategory"> Найти категорию по:
+                    <option value="allCategories">Показать все</option>
+                    <option value="categoryName" class="aa">Название</option>
+
+                </select>
+                <input class="input-us" type="text" name="nameProdCat">
+                <div class="end">
+                    <div class="btn-mr">
+                        <button class="find-btn" type="submit"> Найти</button>
+                    </div>
+                    <div>
+                        <h3 class="error-us" th:text="${errorCategory}"></h3>
+                    </div>
+                </div>
+
+            </form>
+
         </div>
 
     </div>
-
-
-
-    <div class="prod">
-        <form class="form-prod">
-            <h2 class="tit-prod">Найти товар</h2>
-        </form>
-    </div>
 </div>
-
-
-
-
-
-
-
-
 <footer th:insert="blocks/footer::footer"></footer>
-
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>

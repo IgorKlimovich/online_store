@@ -1,5 +1,9 @@
 package org.academy.OnlineStoreDemo.config;
 
+import org.academy.OnlineStoreDemo.security.AuthenticationFailureHandlerImpl;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -31,5 +35,21 @@ public class ApplicationConfig {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(driverManagerDataSource());
         return jdbcTokenRepository;
+    }
+
+    @Bean
+    AuthenticationFailureHandlerImpl authenticationFailureHandler(){
+        return new AuthenticationFailureHandlerImpl();
+    }
+
+
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper modelMapper= new ModelMapper();
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE)
+                .setFieldMatchingEnabled(true).
+                setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PRIVATE);
+        return modelMapper;
     }
 }

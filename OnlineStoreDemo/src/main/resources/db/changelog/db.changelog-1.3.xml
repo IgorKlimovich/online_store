@@ -16,10 +16,10 @@
             <column name="name" type="VARCHAR(50)" >
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="amount" type="INT">
+            <column name="amount" type="INT" defaultValue="0">
             </column>
-            <column name="price" type="DECIMAL">
-            </column>
+<!--            <column name="price" type="DECIMAL">-->
+<!--            </column>-->
         </createTable>
     </changeSet>
 </databaseChangeLog>

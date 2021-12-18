@@ -1,0 +1,47 @@
+.my-4 {
+    margin-top: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.nav-1 {
+    display: flex;
+    list-style: none;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #2c2f33;
+    border-bottom-color: #a5abb4;
+}
+
+.pb-3 {
+    padding-bottom: 1rem;
+}
+
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.nav-link {
+    text-decoration: none;
+}
+
+.text-muted {
+    color: #6c757d;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.pxy-2 {
+    margin-left: 20px;
+}
+
+
+
+
+

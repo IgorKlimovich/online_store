@@ -1,17 +1,15 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
+import org.academy.OnlineStoreDemo.dto.ProductDto;
+import org.academy.OnlineStoreDemo.dto.UserDto;
 import org.academy.OnlineStoreDemo.form.UserForm;
-import org.academy.OnlineStoreDemo.model.Order;
-import org.academy.OnlineStoreDemo.model.Role;
-import org.academy.OnlineStoreDemo.model.State;
-import org.academy.OnlineStoreDemo.model.User;
-import org.academy.OnlineStoreDemo.repository.UserRepository;
+import org.academy.OnlineStoreDemo.model.entity.*;
+import org.academy.OnlineStoreDemo.model.repository.UserRepository;
 import org.academy.OnlineStoreDemo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,13 +21,18 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    private final ModelMapper modelMapper;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.modelMapper = modelMapper;
     }
 
-    public User findByLogin(String login) {
-        return userRepository.findByLogin(login);
+    @Override
+    public UserDto findByLogin(String login) {
+        User user= userRepository.findByLogin(login);
+        return modelMapper.map(user,UserDto.class);
     }
 
 
@@ -55,9 +58,22 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void update(UserForm userForm, UserDto userDto) {
+        User user = modelMapper.map(userDto,User.class);
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEmail(userForm.getEmail());
+        user.setLogin(userForm.getLogin());
+        user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
     public User findByEmail(String email) {
-        User user= userRepository.findByEmail(email);
-        if (user==null){
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             try {
                 throw new NullPointerException("user not found");
             } catch (NullPointerException e) {
@@ -68,36 +84,90 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User findByPhoneNumber(String phoneNumber){
-        return userRepository.findByPhoneNumber(phoneNumber);
+    @Override
+    public UserDto findByPhoneNumber(String phoneNumber) {
+        User user=userRepository.findByPhoneNumber(phoneNumber);
+        return modelMapper.map(user, UserDto.class);
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    @Override
+    public List<UserDto> findAll() {
+        List<User> users = userRepository.findAll();
+        List<UserDto> usersDto = new ArrayList<>();
+        for (User user : users) {
+            UserDto map = modelMapper.map(user, UserDto.class);
+            usersDto.add(map);
+        }
+        return usersDto;
     }
 
-    public User findById(Integer id){
-        Optional<User> candidate=userRepository.findById(id);
-        return candidate.orElseGet(User::new);
-    }
+        @Override
+        public UserDto findById (Integer id){
+            Optional<User> candidate = userRepository.findById(id);
+            User user= null;
+            try {
+                user = candidate.orElseThrow(Exception::new);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return modelMapper.map(user,UserDto.class);
 
-    public void toBan(Integer id){
-        User user =findById(id);
-        State state = new State();
-        state.setId(2);
-        state.setName("BANNED");
-        user.setState(state);
-        System.out.println(user.getState().getName());
-        userRepository.save(user);
-    }
+        }
 
-    public void unBan(Integer id){
-        User user =findById(id);
-        State state= new State();
-        state.setId(1);
-        state.setName("ACTIVE");
-        user.setState(state);
-        userRepository.save(user);
+        @Override
+        public void toBan (Integer id){
+            User user = userRepository.getById(id);
+            State state = new State();
+            state.setId(2);
+            state.setName("BANNED");
+            user.setState(state);
+            userRepository.save(user);
+        }
+
+        @Override
+        public void unBan (Integer id){
+            User user = userRepository.getById(id);
+            State state = new State();
+            state.setId(1);
+            state.setName("ACTIVE");
+            user.setState(state);
+            userRepository.save(user);
+        }
+
+        @Override
+        public void setDelete (String login){
+            User user = userRepository.findByLogin(login);
+            State state = new State();
+            state.setId(3);
+            state.setName("DELETED");
+            user.setState(state);
+            userRepository.save(user);
+        }
+
+        @Override
+        public void setActive (String login){
+            User user = userRepository.findByLogin(login);
+            State state = new State();
+            state.setId(1);
+            state.setName("ACTIVE");
+            user.setState(state);
+            userRepository.save(user);
+        }
+
+        @Override
+        public Boolean existsUserByEmail (String email){
+            return userRepository.existsUserByEmail(email);
+        }
+
+        @Override
+        public Boolean existsUserByLogin (String login){
+            return userRepository.existsUserByLogin(login);
+        }
+
+        @Override
+        public Boolean existsUserByPhoneNumber (String phoneNumber){
+            return userRepository.existsUserByPhoneNumber(phoneNumber);
+        }
+
     }
-}
 

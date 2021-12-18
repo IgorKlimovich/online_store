@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/demo.css">
+
+    <meta charset="UTF-8">
+    <title id="tit" class="aaa">Title</title>
+</head>
+<body>
+<!--<header th:insert="blocks/header::header"></header>-->
+
+
+
+
+
+<header class="color-head nav  p-3" id="hd">
+    <div>
+        <div class="mg-tp justify-content-center ">
+            <ul class="nav col-12  justify-content-center topmenu">
+                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
+                <form class="col-12  mb-3 me-lg-3 " action="/search/header">
+                    <input type="text" class=" wdi" placeholder="Поиск товара..."
+                           name="searchHeader">
+                    <button type="submit" class="btn my-btn  sc">Найти</button>
+                </form>
+                <li><a href="/admin" id="admin" class="nav-link fs mg px-2 add dd text-secondary"
+                       sec:authorize="hasAuthority('ADMIN')" onmouseover="aa();"
+                onmouseout="aa2()">Админ</a></li>
+                <li><a href="/shop" class="nav-link fs mg px-2 text-white"  >Главная</a></li>
+                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a>
+                    <div class="submenu">
+                        <ul class="list-submenu">
+                            <li><a href="#">все товары</a></li>
+                            <li><a href="#">все категории</a></li>
+                        </ul>
+                    </div>
+
+
+                </li>
+                <li><a href="/order" class="nav-link fs px-2 text-white">Корзина</a>
+
+                <ul class="submenu">
+                    <li><a>профиль</a></li>
+                    <li><a>моя корзина</a></li>
+                </ul>
+
+                </li>
+                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
+                <li><a href="/about" class="nav-link fs px-2 text-white">О нас</a></li>
+                <div class="text-end" sec:authorize="!isAuthenticated()">
+                    <form th:method="get" th:action="@{/login}">
+                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
+                    </form>
+                    <form th:method="get" th:action="@{/sign-up}">
+                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
+                    </form>
+                </div>
+                <div class="text-end " sec:authorize="isAuthenticated()">
+                    <div class="prof">
+                        <a href="#" class="dropdown-toggle" onclick="openListProfile()">
+                            <img src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg" width="45"
+                                 class="prof-img">
+                        </a>
+
+                    </div>
+                    <div id="list-profile">
+                        <ul id="list" class="dropdown-menu ">
+                            <li class="color-item">
+                                <a href="/shop" class="list-item">Мой профиль</a>
+                            </li>
+                            <li class="color-item" >
+                                <a href="/orders" class="list-item" >Мои покупки</a>
+                            </li>
+                            <li class="color-item" >
+                                <a href="#" onclick="openModalSignOuts();"
+                                   class="list-item">Выйти </a>
+                            </li >
+                            <li class="color-item">
+                                    <a href="#" class="list-item"
+                                       onclick="openModelDeleteProfile();">Удалить профиль</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div id="openModalSignOut" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Выйти</h3>
+                <a href="#close" onclick="closeModalSignOut();"
+                   title="Close" id="sign-out" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="mb-head">
+                        Вы действительно хотите выйти?
+                    </div>
+                    <div class="cont">
+                        <form method="post" th:action="@{/logout}">
+                            <div class="del-prof-btn">
+                                <button class="modal-btn-yes" type="submit">Да</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <button type="button" class="modal-btn-no">
+                                <a onclick="closeModalSignOutButton();" class="ref-close"
+                                   href="#close">Отмена</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="openModalDeleteProfile" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Удаление профиля</h3>
+                <a href="#close" onclick="closeModalDeleteProfile();"
+                   title="Close" id="closeDel" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="mb-head">
+                        Вы действительно хотите удалить профиль?
+                    </div>
+                    <div class="cont">
+                        <form method="post" th:action="@{/shop/delete}">
+                            <div class="del-prof-btn">
+                                <button class="modal-btn-yes" type="submit">Да</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <button type="button" class="modal-btn-no">
+                                <a onclick="closeModalDeleteProfileButton();" class="ref-close"
+                                   href="#close">Отмена</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <form method="post" action="/demo/load" enctype="multipart/form-data">
+         <input type="file" name="file">
+        <button type="submit" multiple="true">Сохранить</button>
+    </form>
+</div>
+
+
+<img th:src="@{${userDemo.photosImagePath}}" width="300" />
+<!--<img src="C:/Users/админ/Downloads/OnlineStoreDemo/./user-photos/6/fvNrEc3ffWw.jpg">-->
+
+<!--<div>-->
+<!--    <img th:src="@{'data:image/jpg;base64,'+${userDemo.image}}" >-->
+<!--</div>-->
+
+
+
+<footer th:insert="blocks/footer::footer"></footer>
+
+<script type="text/javascript" src="/js/demo.js"></script>
+</body>
+</html>

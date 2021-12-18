@@ -1,0 +1,64 @@
+tbody {
+  display: flex;
+    flex-wrap: wrap;
+    margin-left: 80px;
+}
+tr{
+    margin-right: 40px;
+    margin-bottom: 30px;
+}
+
+
+.btn-look{
+    background-color: darkred;
+    padding: 10px 30px;
+    border: 1px solid #f6f6f6;
+    border-radius: 3px;
+}
+.btn-look:hover{
+    background-color: #6c0404;
+}
+
+.ref{
+    color: white;
+    text-decoration: none;
+}
+
+td{
+    /*border: 3px solid rgb(11, 2, 2);*/
+    /*border-radius: 0.25rem;*/
+
+}
+.tab-td{
+    margin-top: -4px;
+
+}
+
+.bd-placeholder-img{
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+h2{
+    margin-left: 83px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

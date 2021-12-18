@@ -1,47 +1,59 @@
-.container{
+.container {
     display: flex;
+}
+body {
+    /* background-color: white; */
+    /* background: url(https://catherineasquithgallery.com/uploads/posts/2021-02/1613464638_24-p-fon-dlya-prezentatsii-delovoi-stil-27.jpg); */
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+
+.us {
+    width: 50%;
+    /*background-color: darkgrey;*/
+    border-radius: 8px;
 
 }
-.us{
+#okno-us{
+    display: none;
+}
+
+#okno-us:target{
+    display: block;
+}
+
+.prod {
     width: 50%;
-    background-color: darkgrey;
+    /*background-color: mintcream;*/
     border-radius: 8px;
 }
 
-.prod{
-    width: 50%;
-    background-color: mintcream;
-    border-radius: 8px;
-}
-
-.form-us{
+.form-us {
     display: grid;
     padding-left: 50px;
     padding-top: 40px;
 }
 
-.label-us{
-    font-family: 'Roboto';
+.label-us {
+    font-family: 'Roboto', serif;
     font-size: large;
     font-weight: 600;
     padding-bottom: 20px;
     padding-top: 30px;
 }
 
-.select-us{
+.select-us {
     padding-left: 10px;
     width: 30%;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     margin-bottom: 10px;
-    font-family: 'Roboto';
+    font-family: 'Roboto', serif;
     font-weight: 600;
     border: 1px solid #9ca0a4;
     border-radius: 3px;
-
 }
 
-.input-us{
+.input-us {
     width: 50%;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -51,63 +63,122 @@
     background-color: #fff;
     border: 1px solid #eae5e5;
 }
-.btn-us{
+
+.btn-us {
     width: 20%;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 3px;
     border: 1px solid #9ca0a4;
-
 }
 
 INPUT:focus {
     outline: 0;
     outline-offset: 0;
-    border:5px solid rgba(234, 155, 154, 0.8);
+    border: 5px solid rgba(234, 155, 154, 0.8);
 }
 
-.tit-us{
+.tit-us {
     margin-left: auto;
     margin-right: auto;
 }
 
-.btn-us:hover{
-   background-color:  #d4d8dc;
+.btn-us:hover {
+    background-color: #d4d8dc;
 }
-.error-us{
+
+.error-us {
     color: darkred;
     text-align: center;
-    margin-top: 30px;
+   margin: 0;
 }
 
 select:focus {
     outline: 0;
     outline-offset: 0;
-    border:5px solid rgba(234, 155, 154, 0.8);
+    border: 5px solid rgba(234, 155, 154, 0.8);
 }
 
-.form-prod{
+.form-prod {
     display: grid;
     padding-left: 50px;
     padding-top: 40px;
 }
-.tit-prod{
+
+.tit-prod {
     margin-left: auto;
     margin-right: auto;
 }
 
+.aa:hover{
+    background-color: red;
+}
 
+option:hover{
+    background-color: black;
+}
 
+option:focus{
+    background-color: black;
+}
 
+.find-user{
+    margin-left: 99px;
+    border: 2px solid #b2afaf;
+    /*margin-bottom: 200px;*/
+    margin-top: 100px;
+    margin-right: 50px;
+    border-radius: 43px;
+}
 
+.find-order{
+    margin-left: 99px;
+    border: 2px solid #b2afaf;
+    margin-bottom: 200px;
+    margin-top: 100px;
+    margin-right: 50px;
+    border-radius: 43px;
+}
 
+.find-prod{
+    margin-left: 50px;
+    border: 2px solid #b2afaf;
+    /*margin-bottom: 200px;*/
+    margin-top: 100px;
+    margin-right: 100px;
+    border-radius: 43px;
+}
 
+.find-cat{
+    margin-left: 50px;
+    border: 2px solid #b2afaf;
+    margin-bottom: 200px;
+    margin-top: 100px;
+    margin-right: 100px;
+    border-radius: 43px;
+}
 
+.find-btn:hover {
+    background-color: #6c0404;
+    color: white;
+}
 
+.find-btn{
+    color: white;
+    background-color: darkred;
+    padding: 6px 24px;
+    border-radius: 49px;
+    border: 1px solid transparent;
+    cursor: pointer;
 
-
-
-
-
-
+}
+.end{
+    display: flex;
+    align-items: baseline;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+.btn-mr{
+    margin-right: 50px;
+}
 

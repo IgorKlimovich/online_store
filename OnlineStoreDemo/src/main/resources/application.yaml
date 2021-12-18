@@ -13,3 +13,26 @@ spring:
     url: jdbc:mysql://localhost:3306/online_store
     user: root
     password:
+  servlet:
+    multipart:
+      max-file-size: 2000000
+
+
+
+logging:
+  level:
+    org.springframework: ERROR
+    org.academy: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: C:/Users/админ/Downloads/OnlineStoreDemo/OnlineStoreDemo/logs/app.log
+
+
+#upload:
+#  path: C:/Users/админ/Downloads/uploads
+
+
+
+

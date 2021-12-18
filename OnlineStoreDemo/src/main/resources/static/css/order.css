@@ -1,0 +1,254 @@
+
+.modal-btn-no:hover {
+    background-color: #706954;
+    color: white;
+}
+body{
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+.cont {
+    display: flex;
+    margin-top: 20px;
+    margin-left: 132px;
+}
+hr{
+    height: 2px;
+    border: none;
+    background-color: #d0cccc;
+    margin-bottom: 20px;
+}
+
+.dis{
+    display: flex;
+    margin-bottom: 5px;
+}
+.ref-close{
+    text-decoration: none;
+    color: white;
+}
+
+.inp-mod{
+    padding-left: 60px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+
+    margin-left: 20px;
+    border: 1px solid grey;
+    border-radius: 3px;
+}
+textarea:focus{
+    outline: 0;
+    outline-offset: 0;
+    border: 5px solid rgba(234, 155, 154, 0.8);
+}
+
+INPUT:focus {
+    outline: 0;
+    outline-offset: 0;
+    border: 5px solid rgba(234, 155, 154, 0.8);
+}
+
+.ml1{
+    margin-left: 120px;
+}
+
+.ml2{
+    margin-left: 143px;
+}
+.ml3{
+    margin-left: 160px;
+}
+
+body{
+    background-color: white;
+}
+
+.title-ord{
+    font-size: 33px;
+    font-weight: 600;
+    margin-top: 50px;
+    margin-left: 81px;
+    margin-bottom: 40px;
+    font-family: sans-serif;
+}
+.container-ord{
+    display: flex;
+    margin-left: 60px;
+    margin-bottom: 120px;
+}
+
+
+.order{
+    width: 70%;
+    /*margin-left: 500px;*/
+}
+.table-ord{
+    width: 100%;
+}
+
+.td-ref{
+    text-decoration: none;
+    color: #706f6f;
+    font-family: system-ui;
+}
+
+.order-main{
+    margin-left: 129px;
+    margin-right: 137px;
+    border: 2px solid #c8c8c8;
+    border-radius: 28px;
+    /*background-color: #c8c8c8;*/
+}
+.h2-order{
+    text-align: center;
+    padding-bottom: 15px;
+}
+.order-btn{
+    text-align: center;
+}
+.btn-order{
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 40px;
+    padding-right: 40px;
+    color: white;
+    background-color: darkred;
+    border-radius: 42px;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-family: cursive;
+    border: 1px;
+
+}
+
+.order-cont{
+    /*background-color: #ececec;*/
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.order-price{
+    margin-left: 237px;
+}
+
+.order-cost{
+    margin-top: 2px;
+    margin-left: 30px;
+    padding-top: 19px;
+    margin-bottom: 18px;
+}
+.order-full{
+    margin-top: -21px;
+    display: flex;
+}
+
+.full-price{
+    margin-left: 30px;
+    margin-right: 154px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tr{
+    border-bottom: 3px solid #d4d3d3;
+}
+
+.price{
+    padding-bottom: 45px;
+    font-weight: 700;
+    font-size: 20px;
+}
+.modal-btn{
+    color: white;
+    background-color: darkred;
+    padding: 10px 60px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+}
+
+.er-col{
+    color: darkred;
+}
+.modal-btn:hover {
+    background-color: #6c0404;
+    color: white;
+}
+
+.btns{
+    margin-left: 82px;
+}
+
+.er-name{
+    margin-left: 235px;
+    margin-bottom: 20px;
+}
+
+.er-number{
+    margin-left: 221px;
+    margin-bottom: 20px;
+}
+
+.er-cvv{
+    margin-left: 236px;
+    margin-bottom: 20px;
+}
+
+.inp-choose{
+margin-left: 144px;
+}
+.btns-choose{
+    display: flex;
+    margin-top: 35px;
+    margin-left: 144px;
+}
+
+.err-choose{
+    margin-left: 356px;
+}
+
+.success{
+    margin-bottom: 0px;
+    padding-top: 5px;
+    color: darkred;
+    margin-top: 7px;
+    padding-bottom: 16px;
+}
+.del-ord{
+    background-color: transparent;
+    border: none;
+    color: #828686;
+    font-size: 17px;
+    font-family: unset;
+    cursor: pointer;
+ }
+
+.no-money-btn{
+    margin-left: 320px;
+}
+
+.order-head{
+    background-color: #cccccc;
+
+    padding-top: 1px;
+    border-top-left-radius: 27px;
+    border-top-right-radius: 27px;
+    margin: -2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
