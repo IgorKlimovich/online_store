@@ -23,6 +23,8 @@
             <column name="is_exist" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
+            <column name="amount" type="INT" defaultValue="0">
+            </column>
             <column name="product_category_id" type="INT">
             </column>
         </createTable>

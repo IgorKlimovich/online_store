@@ -1,11 +1,26 @@
 package org.academy.OnlineStoreDemo.service;
 
-import org.academy.OnlineStoreDemo.model.Product;
-
+import org.academy.OnlineStoreDemo.dto.ProductDto;
+import org.academy.OnlineStoreDemo.model.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    List<Product> findAll();
-    Product findById(Integer id);
+    List<ProductDto> findAll();
+
+    ProductDto findById(Integer id);
+
+    Boolean existsProductByName(String name);
+
+    List<ProductDto> findAllByName(String name);
+
+    List<ProductDto> findAllByIds(List<Integer> id);
+
+    void saveWithCategoryName(ProductDto productDto, String categoryName);
+
+    void update(ProductDto product);
+
+    void delete(ProductDto productDto);
+
+    List<ProductDto> findLast();
 }

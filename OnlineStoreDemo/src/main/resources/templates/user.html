@@ -2,58 +2,15 @@
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
-    <link href="/css/header.css" rel="stylesheet">
+    <title id="title">Пользователь</title>
+    <link href="/css/blocks/header.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
 </head>
 <body>
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class="mg-tp justify-content-center ">
 
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn sc">Найти</button>
-                </form>
-
-                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-white"
-                       sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
-
-
-                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
-
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
-
+<header th:insert="blocks/header::header"></header>
 
 <div class="tab">
-
     <table class="table ">
         <thead>
         <tr>
@@ -65,46 +22,23 @@
             <th scope="col"> роль</th>
             <th scope="col"> статус</th>
         </tr>
-
         </thead>
         <tbody>
-        <tr >
-            <td >
-                <a
-                        th:text="${user.firstName}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.lastName}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.email}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.login}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.phoneNumber}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.role.name}" ></a>
-            </td>
-            <td >
-                <a
-                        th:text="${user.state.name}" ></a>
-            </td>
-          <td th:if="${user.state.name.equals('ACTIVE')}">
-                <form th:method="post" th:action="@{/admin/user/{id}/ban(id=${user.id})}" >
+        <tr>
+            <td><a th:text="${user.firstName}"></a></td>
+            <td><a th:text="${user.lastName}"></a></td>
+            <td><a th:text="${user.email}"></a></td>
+            <td><a th:text="${user.login}"></a></td>
+            <td><a th:text="${user.phoneNumber}"></a></td>
+            <td><a th:text="${user.role.name}"></a></td>
+            <td><a th:text="${user.state.name}"></a></td>
+            <td th:if="${user.state.name.equals('ACTIVE')}">
+                <form th:method="post" th:action="@{/admin/user/{id}/ban(id=${user.id})}">
                     <button type="submit" class="btn btn-wid btn-col-1">Заблокировать</button>
                 </form>
             </td>
-
             <td th:if="${user.state.name.equals('BANNED')}">
-                <form th:method="post" th:action="@{/admin/user/{id}/unban(id=${user.id})}" >
+                <form th:method="post" th:action="@{/admin/user/{id}/unban(id=${user.id})}">
                     <button type="submit" class="btn btn-wid btn-col-1">Разблокировать</button>
                 </form>
             </td>
@@ -112,5 +46,6 @@
         </tbody>
     </table>
 </div>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>

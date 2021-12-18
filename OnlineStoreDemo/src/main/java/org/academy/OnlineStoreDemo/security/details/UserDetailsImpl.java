@@ -3,7 +3,7 @@ package org.academy.OnlineStoreDemo.security.details;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.academy.OnlineStoreDemo.model.User;
+import org.academy.OnlineStoreDemo.model.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,7 +41,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !user.getState().getName().equals("BANNED");
     }
 
     @Override
@@ -51,6 +51,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !user.getState().getName().equals("DELETED");
     }
 }

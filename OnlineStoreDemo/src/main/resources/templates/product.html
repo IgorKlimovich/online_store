@@ -2,61 +2,116 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/header.css">
+    <title id="title">Товар</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/product.css">
 </head>
 <body>
 
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class="mg-tp justify-content-center ">
+<header th:insert="blocks/header::header"></header>
 
 
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn sc">Найти</button>
+
+<div class="tab">
+    <table class="table ">
+        <thead>
+        <tr>
+            <th scope="col"> Название</th>
+            <th scope="col"> Категория</th>
+            <th scope="col"> Цена</th>
+            <th scope="col"> Колличество</th>
+            <th scope="col"> Описание</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a class="td-ref" th:text="${productDto.name}"></a></td>
+            <td><a th:text="${productDto.productCategoryDto.name}"></a></td>
+            <td><a th:text="${productDto.price}"></a></td>
+            <td><a th:text="${productDto.amount}"></a></td>
+            <td><a th:text="${productDto.description}"></a></td>
+
+            <td>
+                <form method="post" action="/orders/add">
+                    <input type="hidden" name="id" th:value="${productDto.id}">
+                    <button type="submit" class="btn btn-wid btn-col-1" id="choose"> В корзину</button>
                 </form>
+            </td>
 
-                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-white"
-                       sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
-                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-white">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
-
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
+<div id="openModalErrorAdd" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Ошибка добавления</h3>
+                <a href="#close" onclick="closeModalErrorAdd();"
+                   title="Close" id="closeDel" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="mb-head">
+                        К сожалению этого товара сейчас нету в наличии
+                    </div>
+                    <div class="cont">
+                        <div>
+                            <button type="button" class="modal-btn-yes btn-error-add">
+                                <a onclick="closeModalErrorAddButton();" class="ref-close"
+                                   href="#close">Хорошо</a></button>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
+            </div>
         </div>
     </div>
-</header>
+</div>
 
-<h1 th:text="${product.name}"></h1>
+<div id="openModalChoosePath" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Выбрать действие</h3>
+                <a href="#close"
+                   title="Close" id="closeChoosePath" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="mb-head">
+                        остаться в товарах или перейти к заказам
+                    </div>
+                    <div class="cont">
+                        <div>
+                            <button type="button" class="modal-btn-yes">
+                                <a href="/products" onclick="closeModalChoosePathButton();" class="ref-close"
+                                   >В товары</a></button>
+                        </div>
+                        <div>
+                            <button type="button" class="modal-btn-no">
+                                <a href="/orders" onclick="closeModalChoosePathButton();" class="ref-close"
+                                  >К заказам</a></button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${error}">
+    <input type="hidden" id="flag" th:value="${error}">
+</div>
+
 
 <footer th:insert="blocks/footer::footer"></footer>
-
+<script type="text/javascript" src="/js/product.js"></script>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>

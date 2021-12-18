@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" type="text/css" href="/css/admin.css">-->
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Админ</title>
+</head>
+<body>
+
+<header th:insert="blocks/header::header"></header>
+<div>
+<!--    <div class="table-users">-->
+<!--        <form method="post" action="/admin/sortProducts">-->
+<!--            <h1 class="tit-users"> Заказы</h1>-->
+<!--            <div class="sort">-->
+<!--                <h2 class="sort-tit"> Сортировать заказы по:</h2>-->
+<!--                <tr th:each="order : ${orders}">-->
+<!--                    <td><input style="display: none" type="hidden" name="ids" th:value="${order.id}"></td>-->
+
+<!--                </tr>-->
+
+<!--                <label for="parameter" class="label-users">Выберите параметр</label>-->
+
+<!--                <select class="select-sort" name="parameter" id="parameter">-->
+<!--                    <option value="name">Название</option>-->
+<!--                    <option value="category">Категория</option>-->
+<!--                    <option value="price">Цена</option>-->
+<!--                    <option value="description">Описание</option>-->
+<!--                    <option value="isExist">Наличие</option>-->
+<!--                </select>-->
+<!--                <button type="submit" class="btn-sort">Сортировать</button>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+    <hr/>
+    <div class="tab">
+        <table class="table ">
+            <thead>
+            <tr>
+                <th scope="col"> Номер</th>
+                <th scope="col"> Пользователь</th>
+                <th scope="col"> Статус</th>
+<!--                <th scope="col"> Описание</th>-->
+<!--                <th scope="col"> Наличие</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td><a th:text="${order.id}" th:href="@{/admin/order/{id}(id=${order.id})}"></a></td>
+<!--                <td><a th:text="${order.productCategory.name}"></a></td>-->
+                <td><a th:text="${order.user.login}"></a></td>
+                <td><a th:text="${order.stateOrder.name}"></a></td>
+<!--                <td><a th:text="${product.isExist}"></a></td>-->
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>

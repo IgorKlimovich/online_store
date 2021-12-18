@@ -1,7 +1,7 @@
 package org.academy.OnlineStoreDemo.security.details;
 
-import org.academy.OnlineStoreDemo.model.User;
-import org.academy.OnlineStoreDemo.repository.UserRepository;
+import org.academy.OnlineStoreDemo.model.entity.User;
+import org.academy.OnlineStoreDemo.model.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

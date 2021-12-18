@@ -9,10 +9,10 @@
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
 
     <changeSet id="1.5.0" author="igor klimovich">
-        <createTable tableName="order">
+        <createTable tableName="orders">
             <column name="id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/></column>
-            <column name="date" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()">
+            <column name="current_dates" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP()" >
                 <constraints nullable="false"/>
             </column>
             <column name="full_price" type="DECIMAL" >
@@ -25,7 +25,7 @@
     </changeSet>
     
     <changeSet id="1.5.1" author="igor klimovich">
-        <addForeignKeyConstraint baseTableName="order"
+        <addForeignKeyConstraint baseTableName="orders"
                                  baseColumnNames="user_id"
                                  constraintName="fk_User"
                                  referencedTableName="user"
@@ -33,7 +33,7 @@
     </changeSet>
     
     <changeSet id="1.5.2" author="igor klimovich">
-        <addForeignKeyConstraint baseTableName="order"
+        <addForeignKeyConstraint baseTableName="orders"
                                  baseColumnNames="state_order_id"
                                  constraintName="fk_State_order"
                                  referencedTableName="state_order"

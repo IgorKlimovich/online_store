@@ -1,17 +1,16 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
 import org.academy.OnlineStoreDemo.form.UserForm;
-import org.academy.OnlineStoreDemo.model.Order;
-import org.academy.OnlineStoreDemo.model.Role;
-import org.academy.OnlineStoreDemo.model.State;
-import org.academy.OnlineStoreDemo.model.User;
-import org.academy.OnlineStoreDemo.repository.UserRepository;
+import org.academy.OnlineStoreDemo.model.entity.Order;
+import org.academy.OnlineStoreDemo.model.entity.Role;
+import org.academy.OnlineStoreDemo.model.entity.State;
+import org.academy.OnlineStoreDemo.model.entity.User;
+import org.academy.OnlineStoreDemo.model.repository.UserRepository;
 import org.academy.OnlineStoreDemo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,11 +22,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    private final ModelMapper modelMapper;
+
+    public UserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.modelMapper = modelMapper;
     }
 
+    @Override
     public User findByLogin(String login) {
         return userRepository.findByLogin(login);
     }
@@ -55,9 +58,22 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void update(UserForm userForm, User user){
+
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setEmail(userForm.getEmail());
+        user.setLogin(userForm.getLogin());
+        user.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
     public User findByEmail(String email) {
-        User user= userRepository.findByEmail(email);
-        if (user==null){
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             try {
                 throw new NullPointerException("user not found");
             } catch (NullPointerException e) {
@@ -68,36 +84,76 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User findByPhoneNumber(String phoneNumber){
+    @Override
+    public User findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
 
-    public List<User> findAll(){
+    @Override
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public User findById(Integer id){
-        Optional<User> candidate=userRepository.findById(id);
+    @Override
+    public User findById(Integer id) {
+        Optional<User> candidate = userRepository.findById(id);
         return candidate.orElseGet(User::new);
     }
 
-    public void toBan(Integer id){
-        User user =findById(id);
+    @Override
+    public void toBan(Integer id) {
+        User user = findById(id);
         State state = new State();
         state.setId(2);
         state.setName("BANNED");
         user.setState(state);
-        System.out.println(user.getState().getName());
         userRepository.save(user);
     }
 
-    public void unBan(Integer id){
-        User user =findById(id);
-        State state= new State();
+    @Override
+    public void unBan(Integer id) {
+        User user = findById(id);
+        State state = new State();
         state.setId(1);
         state.setName("ACTIVE");
         user.setState(state);
         userRepository.save(user);
     }
+
+    @Override
+    public void setDelete(String login) {
+        User user = findByLogin(login);
+        State state = new State();
+        state.setId(3);
+        state.setName("DELETED");
+        user.setState(state);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void setActive(String login) {
+        User user = findByLogin(login);
+        State state = new State();
+        state.setId(1);
+        state.setName("ACTIVE");
+        user.setState(state);
+        userRepository.save(user);
+    }
+
+    @Override
+    public Boolean existsUserByEmail(String email) {
+        return userRepository.existsUserByEmail(email);
+    }
+
+    @Override
+    public Boolean existsUserByLogin(String login) {
+        return userRepository.existsUserByLogin(login);
+    }
+
+    @Override
+    public Boolean existsUserByPhoneNumber(String phoneNumber) {
+        return userRepository.existsUserByPhoneNumber(phoneNumber);
+    }
+
 }
 

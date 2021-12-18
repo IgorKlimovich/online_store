@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Корзина</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/orders.css">
+</head>
+<body>
+
+<header th:insert="blocks/header::header"></header>
+
+<div th:if="${!orders.isEmpty()}">
+    <h2 class="order-tit">Список ваших заказов</h2>
+</div>
+<div th:if="${orders.isEmpty()}">
+    <h2 class="order-tit"> У вас пока нету заказов</h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        <table class="table ">
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td>
+                    <div class="prof-items">
+                        <div><h4>Номер заказ</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${order.id}"></h4></div>
+                    </div>
+                    <div class="prof-items">
+                        <div><h4>Дата создания</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${order.date}"></h4></div>
+                    </div>
+                    <div class="prof-items mb-ord">
+                        <div><h4>Стоимость товаров</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${order.fullPrice}"></h4></div>
+                    </div>
+                    <div>
+                        <div class="tab-td" style="display: flex">
+                            <form method="get" action="/orders/show_products">
+                                <input type="hidden" name="id" th:value="${order.id}">
+                                <button class="add-card upd-btn mt-btn" type="submit">Посмотреть
+                                </button>
+                            </form>
+                            <div class="state" th:if="${order.stateOrder.name.equals('NEW')}">
+                                <h3 class="state-text">Новый</h3>
+                            </div>
+                            <div class="state" th:if="${order.stateOrder.name.equals('PAID')}">
+                                <h3 class="state-text">Оплачено</h3>
+                            </div>
+                            <div class="state" th:if="${order.stateOrder.name.equals('DELIVERED')}">
+                                <h3 class="state-text">Выполнено</h3>
+                            </div>
+                        </div>
+                    </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>

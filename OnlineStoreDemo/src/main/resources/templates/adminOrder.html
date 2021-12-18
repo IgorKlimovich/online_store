@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+<!--    <link rel="stylesheet" type="text/css" href="/css/admin.css">-->
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/adminOrder.css">
+    <title id="title">Админ</title>
+</head>
+<body>
+
+<header th:insert="blocks/header::header"></header>
+
+<div class="tab">
+    <table class="table ">
+        <thead>
+        <tr>
+            <th scope="col"> Номер</th>
+            <th scope="col"> Дата заказа</th>
+            <th scope="col"> Полная стоимость</th>
+            <th scope="col"> Логин заказчика</th>
+            <th scope="col"> Статус заказа</th>
+            <th scope="col" th:if="${!products.isEmpty()}"> Товары</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <td><a class="td-ref" th:text="${order.id}"></a></td>
+            <td><a th:text="${order.date}"></a> </td>
+            <td><a th:text="${order.fullPrice}"></a></td>
+            <td><a th:text="${order.user.login}"></a></td>
+            <td><a th:text="${order.stateOrder.name}"></a></td>
+            <td th:if="${!products.isEmpty()}">
+                <ul class="ul-prod">
+                    <li>Название товара</li>
+                    <li class="li-price">Стоимость товара</li>
+                </ul>
+                <ul th:each="product : ${products}" class="ul-prod">
+                    <li th:text="${product.name}"></li>
+                    <li th:text="${product.price}" class="li-price-prod"></li>
+                </ul>
+            </td>
+            <td>
+                <form method="post" th:if="${order.getStateOrder().getName().equals('PAID')}"
+                      th:action="@{admin/order/deliver/{id}(id=${order.id})}">
+                    <button type="submit"
+                            class="btn btn-wid btn-col-1">Пометить как обработанный</button>
+                </form>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>

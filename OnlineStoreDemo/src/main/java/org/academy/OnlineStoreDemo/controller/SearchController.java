@@ -1,13 +1,16 @@
 package org.academy.OnlineStoreDemo.controller;
 
-import org.academy.OnlineStoreDemo.model.Product;
-import org.academy.OnlineStoreDemo.model.ProductCategory;
+import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
+import org.academy.OnlineStoreDemo.dto.ProductDto;
+import org.academy.OnlineStoreDemo.model.entity.Product;
+import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
 import org.academy.OnlineStoreDemo.service.ProductService;
 import org.academy.OnlineStoreDemo.service.UtilService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,49 +36,53 @@ public class SearchController {
                          @RequestParam("name") String productName,
                          @RequestParam("minPrice") String minPrice,
                          @RequestParam("maxPrice") String maxPrice, Model model) {
-        System.out.println(minPrice);
-        System.out.println(productCategoryName + productName + minPrice + maxPrice);
-        if (!utilService.isExistProductCategoryByName(productCategoryName) || productCategoryName == null) {
+
+        if (Boolean.TRUE.equals(!productCategoryService.existsProductCategoryByName(productCategoryName))
+                || productCategoryName == null) {
             model.addAttribute("noCategory", "такой категории нету");
-            List<Product> products = productService.findAll();
-            List<ProductCategory> productCategories = productCategoryService.findAll();
-            model.addAttribute("products", products);
-            model.addAttribute("productCategories", productCategories);
-            return "/shop";
-        }
-        if (!utilService.isExistProductByName(productName) || productName == null) {
-            model.addAttribute("noName", "такого названия нету");
-            List<Product> products = productService.findAll();
-            List<ProductCategory> productCategories = productCategoryService.findAll();
-            model.addAttribute("products", products);
-            model.addAttribute("productCategories", productCategories);
+            List<ProductDto> productsDto = productService.findAll();
+            List<ProductCategoryDto> productCategoriesDto = productCategoryService.findAll();
+            model.addAttribute("productsLastDto", productService.findLast());
+            model.addAttribute("productsDto", productsDto);
+            model.addAttribute("productCategoriesDto", productCategoriesDto);
             return "/shop";
         }
 
-        System.out.println(minPrice);
-        if (!minPrice.matches("[0-9]*") || minPrice.equals("")) {
-            model.addAttribute("noMinPrice", "введите только цифры");
-            List<Product> products = productService.findAll();
-            List<ProductCategory> productCategories = productCategoryService.findAll();
-            model.addAttribute("products", products);
-            model.addAttribute("productCategories", productCategories);
-            return "/shop";
-        }
-        if (!maxPrice.matches("[0-9]*") || maxPrice.equals("")) {
-            model.addAttribute("noMaxPrice", "введите только цифры");
-            List<Product> products = productService.findAll();
-            List<ProductCategory> productCategories = productCategoryService.findAll();
-            model.addAttribute("products", products);
-            model.addAttribute("productCategories", productCategories);
-            return "/shop";
-        }
-        List<Product> products = utilService.findBySearchParameters(productCategoryName,
+        List<ProductDto> productsDto = utilService.findBySearchParameters(productCategoryName,
                 productName, minPrice, maxPrice);
-        if (products.isEmpty()){
-            System.out.println("emptyuyyyyyyy");
+        if (productsDto.isEmpty()) {
             model.addAttribute("empty", "не найдено ни одного товара");
+            return "search";
         }
-        model.addAttribute("products", products);
+        model.addAttribute("productsDto", productsDto);
+        model.addAttribute("notEmpty", true);
+        return "search";
+    }
+
+    @GetMapping("/header")
+    public String searchHeader(@RequestParam ("searchHeader") String name, Model model){
+        List<ProductDto> productDtos=productService.findAllByName(name);
+        if (productDtos.isEmpty()) {
+            model.addAttribute("empty", "не найдено ни одного товара");
+            return "search";
+        }
+        model.addAttribute("products", productDtos);
+        model.addAttribute("notEmpty", true);
+        return "search";
+    }
+
+    @GetMapping("/searchCategory/{id}")
+    public String searchCategory(@PathVariable("id") Integer id,Model model){
+        ProductCategoryDto productCategoryDto=productCategoryService.findById(id);
+
+       List<ProductDto> productsDto = productCategoryDto.getProductsDto();
+
+        if (productsDto.isEmpty()) {
+            model.addAttribute("empty", "не найдено ни одного товара");
+            return "search";
+        }
+        model.addAttribute("productsDto", productsDto);
+        model.addAttribute("notEmpty", true);
         return "search";
     }
 }

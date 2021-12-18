@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/adminProductCategories.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Админ</title>
+</head>
+<body>
+<header th:insert="blocks/header::header"></header>
+
+
+<div class="table-users">
+    <form method="post" action="/admin/sortProductCategories">
+        <h1 class="tit-users"> Все категории</h1>
+        <div class="sort">
+            <h2 class="sort-tit"> Сортировать категории:</h2>
+            <tr th:each="productCategoryDto : ${productCategoriesDto}">
+                <td><input style="display: none" type="hidden" name="idsCategory"
+                           th:value="${productCategoryDto.id}"></td>
+
+            </tr>
+
+            <label for="parameter" class="label-users">Выберите параметр</label>
+
+            <select class="select-sort" name="parameterCategory" id="parameter">
+                <option value="name">Название</option>
+                <option value="amount">Колличество</option>
+                <!--                <option value="price">Цена</option>-->
+                <!--                <option value="description">Описание</option>-->
+                <!--                <option value="isExist">Наличие</option>-->
+            </select>
+            <button type="submit" class="btn-sort">Сортировать</button>
+        </div>
+    </form>
+</div>
+
+<div class="tab">
+    <table class="table ">
+        <thead>
+        <tr>
+            <th scope="col"> Название</th>
+            <th scope="col"> Колличество</th>
+            <!--            <th scope="col"> Цена</th>-->
+            <!--            <th scope="col"> Описание</th>-->
+            <!--            <th scope="col"> Наличие</th>-->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="productCategoryDto : ${productCategoriesDto}">
+            <td><a th:text="${productCategoryDto.name}"
+            th:href="@{/admin/product_category/{id}(id=${productCategoryDto.id})}"></a></td>
+            <td><a th:text="${productCategoryDto.amount}"></a></td>
+            <!--            <td><a th:text="${product.price}"></a></td>-->
+            <!--            <td><a th:text="${product.description}"></a></td>-->
+            <!--            <td><a th:text="${product.isExist}"></a></td>-->
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="openModalCategory" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Добавить категорию</h3>
+                <a href="#close" onclick="closeModal();"
+                   title="Close" id="close" class="close">×</a>
+            </div>
+            <div class="modal-body">
+
+                <div>
+
+                    <form method="post" action="/admin/saveCategory" >
+                        <div class="con-inp">
+                            <div class="mb-head">
+                                Введите название категории
+                            </div>
+                            <div class="d-inp">
+                                <input type="text" class="inp-mod" name="addCategory">
+                            </div>
+                        </div>
+
+
+                        <div th:if="${errorNameCategory}" class="err-mod"
+                             th:text="${errorNameCategory}">
+
+                        </div>
+                        <div class="cont">
+                            <div>
+                                <button class="modal-btn-yes" type="submit">Сохранить</button>
+                            </div>
+
+                            <div>
+                                <button type="button" class="modal-btn-no">
+                                    <a onclick="closeModalButton();" class="ref-close"
+                                       href="#close">Отмена</a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${error}">
+    <input type="hidden" id="flag" th:value="${error}">
+</div>
+
+<button>
+    <a href="#" onclick="openModal();">Добавить категорию</a>
+</button>
+
+
+<script type="text/javascript" src="/js/adminProductCategories.js"></script>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+<footer th:insert="blocks/footer::footer"></footer>
+</body>
+</html>

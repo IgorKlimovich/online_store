@@ -10,9 +10,14 @@
 
     <changeSet id="1.7.0" author="igor klimovich">
         <createTable tableName="order_product">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/></column>
             <column name="order_id" type="INT">
             </column>
             <column name="product_id" type="INT">
+            </column>
+            <column name="price_product" type="DECIMAL">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
@@ -21,7 +26,7 @@
         <addForeignKeyConstraint baseTableName="order_product"
                                  baseColumnNames="order_id"
                                  constraintName="fk_Order"
-                                 referencedTableName="order"
+                                 referencedTableName="orders"
                                  referencedColumnNames="id"/>
     </changeSet>
 

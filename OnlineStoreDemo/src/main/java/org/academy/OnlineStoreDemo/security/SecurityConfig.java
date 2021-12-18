@@ -12,15 +12,20 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final UserDetailsServiceImpl userDetailsService;
     private final PersistentTokenRepository jdbcTokenRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
     public SecurityConfig(PersistentTokenRepository jdbcTokenRepository,
-                           UserDetailsServiceImpl userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+                          UserDetailsServiceImpl userDetailsService,
+                          BCryptPasswordEncoder bCryptPasswordEncoder,
+                          AuthenticationFailureHandlerImpl authenticationFailureHandler) {
         this.jdbcTokenRepository = jdbcTokenRepository;
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
     @Override
@@ -31,16 +36,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/shop/**").permitAll()
                 .antMatchers("/demo/**").permitAll()
                 .antMatchers("/sign-up/**").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
+                .failureHandler(authenticationFailureHandler)
                 .usernameParameter("login")
                 .defaultSuccessUrl("/shop")
                 .and()
                 .rememberMe()
                 .rememberMeParameter("remember-me")
-                .tokenRepository(jdbcTokenRepository);
-
+                .tokenRepository(jdbcTokenRepository)
+                .and()
+                .logout()
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID" );
     }
 
     @Override

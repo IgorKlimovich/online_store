@@ -1,0 +1,126 @@
+tbody {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 104px;
+}
+tr{
+
+    margin-bottom: 80px;
+    border: 2px solid #969491;
+    height: 300px;
+    border-radius: 30px;
+    width: 600px;
+    margin-right: 90px;
+}
+
+
+.btn-look{
+    background-color: darkred;
+    padding: 10px 30px;
+    border: 1px solid #f6f6f6;
+    border-radius: 3px;
+}
+.btn-look:hover{
+    background-color: #6c0404;
+}
+
+.ref{
+    color: white;
+    text-decoration: none;
+}
+
+td{
+    width: inherit;
+    height: inherit;
+
+}
+.tab-td{
+    border-top: 2px solid #b2afaf;
+    display: flex;
+    align-items: center;
+    margin: -3px;
+
+}
+
+.bd-placeholder-img{
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+h2{
+    margin-left: 83px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+
+.user-prof{
+    width: 600px;
+    height: auto;
+    /*background-color: #e4e8ec;*/
+    border: 2px solid #b2afaf;
+    border-radius: 43px;
+}
+.prof-items{
+    display: flex;
+    margin-left: 40px;
+}
+.prof-data{
+    margin-left: auto;
+    margin-right: 40px;
+}
+
+body{
+    /*background-color: white;*/
+    /*background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613464638_24-p-fon-dlya-prezentatsii-delovoi-stil-27.jpg");*/
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+.text-prof{
+    font-size: 16px;
+    font-family: unset;
+    color: #706e6e;
+}
+
+.upd-btn{
+    margin-left: 40px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+}
+.add-card:hover {
+    background-color: #6c0404;
+    color: white;
+}
+
+.add-card{
+    color: white;
+    background-color: darkred;
+    padding: 6px 24px;
+    border-radius: 49px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.mb-ord{
+    margin-bottom: 10px;
+}
+
+.mt-btn{
+    margin-top: 20px;
+}
+
+.state{
+    margin: auto;
+    margin-bottom: -14px;
+}
+
+.state-text{
+    color: #081e2b;
+    font-family: cursive;
+}
+
+.order-tit{
+    margin-bottom: 30px;
+    margin-left: 100px;
+    font-size: 30px;
+    color: #000000;
+    font-weight: 500;
+}

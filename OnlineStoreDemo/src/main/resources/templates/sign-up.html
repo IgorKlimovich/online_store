@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="/css/sign-up.css" rel="stylesheet">
-    <link href="/css/footer.css" rel="stylesheet">
+    <link href="/css/blocks/footer.css" rel="stylesheet">
     <title>Sign-up</title>
 </head>
 <body class="bg-light">
@@ -12,34 +12,26 @@
     <main>
         <h4 class="h3 mb-3 fw-normal">Зарегистрируйтесь</h4>
         <form action="/sign-up" method="post" th:object="${userForm}">
-
             <div class="row">
                 <div class="col-sm-6">
                     <label for="firstName" id="labelName" class="form-label">Имя</label>
                     <input type="text" class="form-control" id="firstName" name="firstName"
-                           placeholder="Имя" onfocus="return signNameFocus();" onblur="return signNameBlur();"
-                    >
+                           placeholder="Имя" onfocus="return signNameFocus();" onblur="return signNameBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
-
                     </div>
                 </div>
-
                 <div class="col-sm-6">
                     <label for="lastName" id="labelLastName" class="form-label">Фамилия</label>
                     <input type="text" class="form-control" id="lastName" name="lastName"
                            placeholder="Фамилия" onfocus="return signLastNameFocus();"
-                           onblur="return signLastNameBlur();"
-                    >
+                           onblur="return signLastNameBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
-
                     </div>
                 </div>
-
                 <div class="col-12">
                     <label for="email" id="labelEmail" class="form-label">Email</label>
                     <input type="text" class="form-control" id="email" name="email"
-                           placeholder="Email" onfocus="return signEmailFocus();" onblur="return signEmailBlur();"
-                    >
+                           placeholder="Email" onfocus="return signEmailFocus();" onblur="return signEmailBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                     <div class="er-col" th:text="${existEmail}"></div>
                 </div>
@@ -47,32 +39,28 @@
                     <label for="phoneNumber" id="labelPhoneNumber" class="form-label"> Номер телефона</label>
                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
                            placeholder="Номер телефона" onfocus="return signPhoneNumberFocus();"
-                           onblur="return signPhoneNumberBlur();"
-                    >
+                           onblur="return signPhoneNumberBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
                     <div class="er-col" th:text="${existPhoneNumber}"></div>
                 </div>
                 <div class="col-12">
                     <label for="login" id="labelLogin" class="form-label"> Логин</label>
                     <input type="text" class="form-control" id="login" name="login"
-                           placeholder="Логин" onfocus="return signLoginFocus();" onblur="return signLoginBlur();"
-                    >
+                           placeholder="Логин" onfocus="return signLoginFocus();" onblur="return signLoginBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
                     <div class="er-col" th:text="${existLogin}"></div>
                 </div>
-
-                <div class="col-12">
+                <div class="col-12 pass">
                     <label for="password" id="labelPassword" class="form-label">Пароль</label>
                     <input type="text" class="form-control" id="password" name="password"
                            placeholder="Пароль" onfocus="return signPasswordFocus();"
-                           onblur="return signPasswordBlur();"
-                    >
+                           onblur="return signPasswordBlur();">
+                    <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
                     <div class="er-col "
                          th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
                     </div>
                 </div>
             </div>
-
             <button class="bts w-100 btn btn-lg my-btn-log" type="submit">Зарегистрироваться</button>
         </form>
         <form action="/login">

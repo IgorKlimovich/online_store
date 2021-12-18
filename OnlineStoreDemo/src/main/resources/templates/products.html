@@ -2,115 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Products</title>
+    <title id="title">Товары</title>
     <link href="/css/products.css" rel="stylesheet">
-    <link href="/css/header.css" rel="stylesheet">
-    <link href="/css/footer.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
 </head>
 <body>
-<header class="color-head nav  p-3" id="hd">
-    <div>
-        <div class="mg-tp justify-content-center ">
 
+<header th:insert="blocks/header::header"></header>
 
-            <ul class="nav col-12  justify-content-center ">
-                <li><a href="#" class="nav-link px-2 px mf text-secondary">My Shop</a></li>
-                <form class="col-12  mb-3 me-lg-3 ">
-                    <input type="search" class=" wdi" placeholder="Поиск товара..."
-                           aria-label="Search">
-                    <button type="button" class="btn my-btn sc">Найти</button>
-                </form>
+<h2>Выберите категорию</h2>
+<div class="container">
+    <div class="row">
 
-                <li><a href="/admin" class="nav-link fs mg px-2 add dd text-white"
-                       sec:authorize="hasAuthority('ADMIN')"      >Админ</a></li>
+        <table class="table ">
+            <thead>
+            <tr>
+                <!--                    <th scope="col"> Название</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productCategoryDto : ${productCategoriesDto}">
+                <td>
+                    <svg class="bd-placeholder-img card-img-top" width="100%"
+                         height="225" xmlns="http://www.w3.org/2000/svg" role="img"
+                         aria-label="Placeholder: Thumbnail"
+                         preserveAspectRatio="xMidYMid slice" focusable="false">
+                        <rect width="100%" height="100%" fill="#686565"></rect>
+<!--                        <title>Placeholder</title>-->
+                        <text x="10%" y="50%" fill="#eceeef" dy=".3em"
+                                                 th:text="${productCategoryDto.name}"></text>
 
-
-                <li><a href="/shop" class="nav-link fs mg px-2 text-white">Главная</a></li>
-                <li><a href="/products" class="nav-link fs px-2 text-secondary">Товары</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Корзина</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">Контакты</a></li>
-                <li><a href="#" class="nav-link fs px-2 text-white">О нас</a></li>
-
-                <div class="text-end" sec:authorize="!isAuthenticated()">
-                    <form th:method="get" th:action="@{/login}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/sign-up}">
-                        <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
-                    </form>
-                </div>
-                <div class="text-end" sec:authorize="isAuthenticated()">
-                    <form th:method="get" th:action="@{/logout}">
-                        <button type="submit" class="btn my-btn btn-outline-light me-2"
-                                onClick="return confirm('Вы действительно хотите выйти?');"
-                        >Выйти</button>
-                    </form>
-                    <form th:method="get" th:action="@{/}">
-                        <button type="submit" class="btn btn-warning">Удалить профиль</button>
-                    </form>
-                </div>
-            </ul>
-        </div>
-    </div>
-</header>
-
-
-
-<div>
-    <div>
-        <a>
-            <h3>text</h3>
-        </a>
-        <p></p>
-    </div>
-</div>
-
-
-
-<div>
-
-    <h2>Выберите категорию</h2>
-
-    <div class="ai">
-
-        <div class="tab">
-
-            <table class="table ">
-                <thead>
-                <tr>
-                    <th scope="col"> Название</th>
-<!--                    <th scope="col"> Категория</th>-->
-<!--                    <th scope="col"> Цена</th>-->
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="productCategory : ${productCategories}">
-                    <td >
-                        <a th:href="@{/products/list/{name}(name=${productCategory.name})}"
-                           th:text="${productCategory.name}"></a>
-                    </td>
-<!--                    <td th:text="${product.productCategory.name}">Мясо</td>-->
-<!--                    <td th:text="${product.price}">password</td>-->
-
-<!--                    <td>-->
-<!--                        <form th:method="get" th:action="@{/shop/{id}(id=${product.id})}">-->
-<!--                            <button type="submit" class="btn btn-wid1 btn-col-1 "> Детальнее</button>-->
-<!--                        </form>-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <form>-->
-<!--                            <button type="submit" class="btn btn-wid btn-col-1"> В корзину</button>-->
-<!--                        </form>-->
-<!--                    </td>-->
-                </tr>
-                </tbody>
-            </table>
-        </div>
+                    </svg>
+                    <div class="tab-td">
+                        <button class="btn-look">
+                            <a class="ref"
+                                    th:href="@{/search/searchCategory/{id}(id=${productCategoryDto.id})}"
+                               >Посмотреть</a>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
 </div>
 <footer th:insert="blocks/footer::footer"></footer>
-
-
+<script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>
