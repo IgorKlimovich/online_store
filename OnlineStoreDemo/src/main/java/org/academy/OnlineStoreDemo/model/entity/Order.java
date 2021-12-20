@@ -36,7 +36,6 @@ public class Order {
 
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    @ToString.Exclude
     private List<OrderProduct> orderProducts ;
 
     @Override

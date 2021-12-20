@@ -1,8 +1,11 @@
 package org.academy.OnlineStoreDemo.controller;
 
+<<<<<<< HEAD
 import org.academy.OnlineStoreDemo.dto.OrderDto;
 import org.academy.OnlineStoreDemo.dto.OrderProductDto;
 import org.academy.OnlineStoreDemo.dto.ProductDto;
+=======
+>>>>>>> origin/master
 import org.academy.OnlineStoreDemo.model.entity.Order;
 import org.academy.OnlineStoreDemo.model.entity.OrderProduct;
 import org.academy.OnlineStoreDemo.model.entity.Product;
@@ -29,25 +32,44 @@ public class AdminOrderController {
 
     @GetMapping("/{id}")
     public String getOrdersPage(@PathVariable("id") Integer id, Model model){
+<<<<<<< HEAD
         OrderDto orderDto=orderService.findById(id);
         List<OrderProductDto> orderProductList = orderDto.getOrderProductsDto();
         List<ProductDto> productListDto=orderProductList.stream().map(OrderProductDto::getProductDto).collect(Collectors.toList());
 
         model.addAttribute("orderDto", orderDto);
         model.addAttribute("productsDto",productListDto);
+=======
+        Order order=orderService.findById(id);
+        List<OrderProduct> orderProductList = order.getOrderProducts();
+        List<Product> productList=orderProductList.stream().map(OrderProduct::getProduct).collect(Collectors.toList());
+
+        model.addAttribute("order", order);
+        model.addAttribute("products",productList);
+>>>>>>> origin/master
         return "adminOrder";
     }
 
     @PostMapping("admin/order/deliver/{id}")
     public String deliverOrder(@PathVariable("id")Integer id, Model model){
 
+<<<<<<< HEAD
         OrderDto  orderDto=orderService.findById(id);
-       orderService.setDelivered(orderDto);
+        orderService.setDelivered(orderDto);
         List<OrderProductDto> orderProductListDto = orderDto.getOrderProductsDto();
         List<ProductDto> productListDto=orderProductListDto.stream().map(OrderProductDto::getProductDto).collect(Collectors.toList());
         OrderDto orderDtoAfterDeliver=orderService.findById(id);
         model.addAttribute("orderDto", orderDtoAfterDeliver);
         model.addAttribute("productsDto",productListDto);
+=======
+        Order order=orderService.findById(id);
+       orderService.setDelivered(order);
+        List<OrderProduct> orderProductList = order.getOrderProducts();
+        List<Product> productList=orderProductList.stream().map(OrderProduct::getProduct).collect(Collectors.toList());
+
+        model.addAttribute("order", order);
+        model.addAttribute("products",productList);
+>>>>>>> origin/master
         return "adminOrder";
     }
 }

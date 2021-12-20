@@ -50,6 +50,7 @@ public class ProfileController {
             return "/login";
         }
         UserDto userDto = userService.findByLogin(authentication.getName());
+        System.out.println(userDto.getCardsDto());
         List<CardDto> cardsDto = userDto.getCardsDto();
         UserForm userForm=modelMapper.map(userDto,UserForm.class);
         model.addAttribute("userForm",userForm);

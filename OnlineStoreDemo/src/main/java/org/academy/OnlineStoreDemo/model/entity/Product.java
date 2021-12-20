@@ -9,6 +9,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -19,39 +20,28 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name="name",nullable = false)
+    @Column(name = "name")
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name="price",nullable = false)
-    private Double price;
-
-    @Column(name="is_exist", nullable = false)
+    @Column(name = "is_exist")
     private Boolean isExist;
 
-    @Column(name = "amount")
+    @Column(name="price")
+    private Double price;
+
+    @Column(name="amount")
     private Integer amount;
 
-    @ManyToOne()
+    @ManyToOne
     private ProductCategory productCategory;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "product")
     @ToString.Exclude
     private List<OrderProduct> orderProducts;
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", isExist=" + isExist +
-                ", amount=" + amount +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

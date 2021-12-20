@@ -48,11 +48,19 @@
             </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
             <tr th:each="orderDto : ${ordersDto}">
                 <td><a th:text="${orderDto.id}" th:href="@{/admin/order/{id}(id=${orderDto.id})}"></a></td>
 <!--                <td><a th:text="${order.productCategory.name}"></a></td>-->
                 <td><a th:text="${orderDto.userDto.login}"></a></td>
                 <td><a th:text="${orderDto.stateOrderDto.name}"></a></td>
+=======
+            <tr th:each="order : ${orders}">
+                <td><a th:text="${order.id}" th:href="@{/admin/order/{id}(id=${order.id})}"></a></td>
+<!--                <td><a th:text="${order.productCategory.name}"></a></td>-->
+                <td><a th:text="${order.user.login}"></a></td>
+                <td><a th:text="${order.stateOrder.name}"></a></td>
+>>>>>>> origin/master
 <!--                <td><a th:text="${product.isExist}"></a></td>-->
 
             </tr>

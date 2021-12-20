@@ -18,12 +18,9 @@ public class OrderDto {
 
     private Integer id;
 
-
     private Date date;
 
-
     private Double fullPrice;
-
 
     private UserDto userDto;
 

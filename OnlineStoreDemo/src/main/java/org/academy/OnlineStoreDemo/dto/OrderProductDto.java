@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderProductDto {
 
-    Integer id;
+    private Integer id;
 
     private OrderDto orderDto;
 

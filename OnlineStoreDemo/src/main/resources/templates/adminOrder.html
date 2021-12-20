@@ -22,21 +22,35 @@
             <th scope="col"> Полная стоимость</th>
             <th scope="col"> Логин заказчика</th>
             <th scope="col"> Статус заказа</th>
+<<<<<<< HEAD
             <th scope="col" th:if="${!productsDto.isEmpty()}"> Товары</th>
+=======
+            <th scope="col" th:if="${!products.isEmpty()}"> Товары</th>
+>>>>>>> origin/master
         </tr>
         </thead>
         <tbody>
         <tr >
+<<<<<<< HEAD
             <td><a class="td-ref" th:text="${orderDto.id}"></a></td>
             <td><a th:text="${orderDto.date}"></a> </td>
             <td><a th:text="${orderDto.fullPrice}"></a></td>
             <td><a th:text="${orderDto.userDto.login}"></a></td>
             <td><a th:text="${orderDto.stateOrderDto.name}"></a></td>
             <td th:if="${!productsDto.isEmpty()}">
+=======
+            <td><a class="td-ref" th:text="${order.id}"></a></td>
+            <td><a th:text="${order.date}"></a> </td>
+            <td><a th:text="${order.fullPrice}"></a></td>
+            <td><a th:text="${order.user.login}"></a></td>
+            <td><a th:text="${order.stateOrder.name}"></a></td>
+            <td th:if="${!products.isEmpty()}">
+>>>>>>> origin/master
                 <ul class="ul-prod">
                     <li>Название товара</li>
                     <li class="li-price">Стоимость товара</li>
                 </ul>
+<<<<<<< HEAD
                 <ul th:each="productDto : ${productsDto}" class="ul-prod">
                     <li th:text="${productDto.name}"></li>
                     <li th:text="${productDto.price}" class="li-price-prod"></li>
@@ -45,6 +59,16 @@
             <td>
                 <form method="post" th:if="${orderDto.getStateOrderDto().getName().equals('PAID')}"
                       th:action="@{admin/order/deliver/{id}(id=${orderDto.id})}">
+=======
+                <ul th:each="product : ${products}" class="ul-prod">
+                    <li th:text="${product.name}"></li>
+                    <li th:text="${product.price}" class="li-price-prod"></li>
+                </ul>
+            </td>
+            <td>
+                <form method="post" th:if="${order.getStateOrder().getName().equals('PAID')}"
+                      th:action="@{admin/order/deliver/{id}(id=${order.id})}">
+>>>>>>> origin/master
                     <button type="submit"
                             class="btn btn-wid btn-col-1">Пометить как обработанный</button>
                 </form>

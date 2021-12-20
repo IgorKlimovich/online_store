@@ -33,7 +33,7 @@ public class SignUpController {
 
     @PostMapping
     public String signUp(@ModelAttribute("userForm") @Valid UserForm userForm, BindingResult bindingResult, Model model){
-        System.out.println(bindingResult.toString());
+
         if (bindingResult.hasErrors()){
             return SIGN_UP;
         }
