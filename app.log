@@ -1,0 +1,132 @@
+2021-12-18 08:48:35 [main] INFO  o.a.O.OnlineStoreDemoApplication - Starting OnlineStoreDemoApplication using Java 11 on LAPTOP-OQMGSRDA with PID 9816 (C:\Users\админ\Downloads\OnlineStoreDemo\OnlineStoreDemo\target\classes started by админ in C:\Users\админ\Downloads\OnlineStoreDemo)
+2021-12-18 08:48:35 [main] DEBUG o.a.O.OnlineStoreDemoApplication - Running with Spring Boot v2.6.1, Spring v5.3.13
+2021-12-18 08:48:35 [main] INFO  o.a.O.OnlineStoreDemoApplication - No active profile set, falling back to default profiles: default
+2021-12-18 08:48:46 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-12-18 08:48:46 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+2021-12-18 08:48:47 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-12-18 08:48:51 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2021-12-18 08:48:54 [main] INFO  liquibase.changelog - Reading from online_store.DATABASECHANGELOG
+2021-12-18 08:48:54 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2021-12-18 08:48:55 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-18 08:48:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.1.Final
+2021-12-18 08:48:56 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-12-18 08:48:56 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-12-18 08:49:00 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-18 08:49:08 [main] INFO  o.a.O.OnlineStoreDemoApplication - Started OnlineStoreDemoApplication in 39.532 seconds (JVM running for 42.777)
+2021-12-18 08:52:20 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-18 08:52:23 [http-nio-8080-exec-1] WARN  o.a.c.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [759] milliseconds.
+2021-12-18 08:52:24 [http-nio-8080-exec-1] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 08:52:24 [http-nio-8080-exec-1] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 08:54:30 [http-nio-8080-exec-1] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 08:54:30 [http-nio-8080-exec-1] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 08:54:43 [http-nio-8080-exec-10] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by id 19
+2021-12-18 08:55:09 [http-nio-8080-exec-1] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 08:55:09 [http-nio-8080-exec-1] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 10:34:37 [http-nio-8080-exec-8] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:34:38 [http-nio-8080-exec-8] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 10:35:38 [http-nio-8080-exec-10] INFO  o.a.O.service.impl.CardServiceImpl - in find by id: cardCard{id=34, name='erefew', number='3859049039049805', CVV='654', totalAmount=10.0} founded by id34
+2021-12-18 10:36:44 [http-nio-8080-exec-5] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:36:52 [http-nio-8080-exec-5] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=10} founded by id 4
+2021-12-18 10:37:05 [http-nio-8080-exec-2] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=3} founded by id 2
+2021-12-18 10:37:16 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 10:37:17 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=3} founded by id 2
+2021-12-18 10:37:22 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.OrderProductServiceImpl - in save product to order: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} saved to order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0}
+2021-12-18 10:37:24 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 10:37:53 [http-nio-8080-exec-7] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by id 19
+2021-12-18 10:38:06 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by id 19
+2021-12-18 10:38:24 [http-nio-8080-exec-8] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 10:38:36 [http-nio-8080-exec-4] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by id 19
+2021-12-18 10:38:42 [http-nio-8080-exec-7] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 10:39:01 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=14, date=2021-12-14 18:11:32.0, fullPrice=490.0} by id 14
+2021-12-18 10:39:24 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in find all orders: founded 20 orders
+2021-12-18 10:39:30 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=17, date=2021-12-15 13:45:25.0, fullPrice=490.0} by id 17
+2021-12-18 10:39:39 [http-nio-8080-exec-9] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=17, date=2021-12-15 13:45:25.0, fullPrice=490.0} by id 17
+2021-12-18 10:39:39 [http-nio-8080-exec-9] INFO  o.a.O.service.impl.OrderServiceImpl - in set delivered order: orderOrder{id=17, date=2021-12-15 13:45:25.0, fullPrice=490.0} state order updated to DELIVERED
+2021-12-18 10:39:59 [http-nio-8080-exec-4] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:40:29 [http-nio-8080-exec-9] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:40:39 [http-nio-8080-exec-9] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=1, name='horizont z55hd', description='                        ', price=1000.0, isExist=true, amount=4} founded by id 1
+2021-12-18 10:40:39 [http-nio-8080-exec-9] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:41:16 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:41:16 [http-nio-8080-exec-3] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 10:42:18 [http-nio-8080-exec-8] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:42:18 [http-nio-8080-exec-8] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 10:42:34 [http-nio-8080-exec-8] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:42:45 [http-nio-8080-exec-7] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=9} founded by id 4
+2021-12-18 10:42:54 [http-nio-8080-exec-9] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 10:43:06 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=9} founded by id 4
+2021-12-18 10:43:33 [http-nio-8080-exec-10] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:43:33 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 10:43:53 [http-nio-8080-exec-6] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 10:43:53 [http-nio-8080-exec-6] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:35:45 [main] INFO  o.a.O.OnlineStoreDemoApplication - Starting OnlineStoreDemoApplication using Java 11 on LAPTOP-OQMGSRDA with PID 12116 (C:\Users\админ\Downloads\OnlineStoreDemo\OnlineStoreDemo\target\classes started by админ in C:\Users\админ\Downloads\OnlineStoreDemo)
+2021-12-18 13:35:45 [main] DEBUG o.a.O.OnlineStoreDemoApplication - Running with Spring Boot v2.6.1, Spring v5.3.13
+2021-12-18 13:35:45 [main] INFO  o.a.O.OnlineStoreDemoApplication - No active profile set, falling back to default profiles: default
+2021-12-18 13:36:08 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2021-12-18 13:36:08 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.55]
+2021-12-18 13:36:09 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-12-18 13:36:11 [main] INFO  liquibase.lockservice - Successfully acquired change log lock
+2021-12-18 13:36:15 [main] INFO  liquibase.changelog - Reading from online_store.DATABASECHANGELOG
+2021-12-18 13:36:16 [main] INFO  liquibase.lockservice - Successfully released change log lock
+2021-12-18 13:36:16 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-18 13:36:17 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.1.Final
+2021-12-18 13:36:20 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-12-18 13:36:23 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-12-18 13:36:32 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-18 13:36:45 [main] INFO  o.a.O.OnlineStoreDemoApplication - Started OnlineStoreDemoApplication in 71.143 seconds (JVM running for 75.469)
+2021-12-18 13:38:28 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-18 13:38:33 [http-nio-8080-exec-1] WARN  o.a.c.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [1,628] milliseconds.
+2021-12-18 13:38:34 [http-nio-8080-exec-1] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:38:34 [http-nio-8080-exec-1] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:38:56 [http-nio-8080-exec-9] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:38:56 [http-nio-8080-exec-9] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:39:07 [http-nio-8080-exec-3] INFO  o.a.O.service.impl.OrderServiceImpl - in find all orders: founded 20 orders
+2021-12-18 13:39:13 [http-nio-8080-exec-6] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=20, date=2021-12-17 12:11:18.0, fullPrice=3340.0} by id 20
+2021-12-18 13:39:19 [http-nio-8080-exec-6] INFO  o.a.O.service.impl.OrderServiceImpl - in find all orders: founded 20 orders
+2021-12-18 13:39:24 [http-nio-8080-exec-1] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=16, date=2021-12-15 13:44:51.0, fullPrice=490.0} by id 16
+2021-12-18 13:39:34 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in find all orders: founded 20 orders
+2021-12-18 13:39:42 [http-nio-8080-exec-5] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:39:42 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:40:14 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:40:14 [http-nio-8080-exec-3] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:40:19 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:40:27 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=9} founded by id 4
+2021-12-18 13:40:33 [http-nio-8080-exec-1] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 13:40:36 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:40:36 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 13:40:36 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.OrderProductServiceImpl - in save product to order: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=1} saved to order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=5780.0}
+2021-12-18 13:40:36 [http-nio-8080-exec-5] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=1} founded by id 2
+2021-12-18 13:40:53 [http-nio-8080-exec-8] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=5780.0} by id 19
+2021-12-18 13:40:57 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=1} founded by id 2
+2021-12-18 13:40:57 [http-nio-8080-exec-10] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=5780.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:40:57 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.OrderProductServiceImpl - in remove product from order: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} removed from order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0}
+2021-12-18 13:40:57 [http-nio-8080-exec-10] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:40:57 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.OrderProductServiceImpl - in find OrderProducts by id: founded 2 by id19
+2021-12-18 13:41:00 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by id 19
+2021-12-18 13:41:04 [http-nio-8080-exec-1] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:41:32 [http-nio-8080-exec-2] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 13:41:32 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:41:32 [http-nio-8080-exec-2] INFO  o.a.O.s.impl.OrderProductServiceImpl - in remove product from order: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=3} removed from order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0}
+2021-12-18 13:41:32 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:41:32 [http-nio-8080-exec-2] INFO  o.a.O.s.impl.OrderProductServiceImpl - in find OrderProducts by id: founded 1 by id19
+2021-12-18 13:42:15 [http-nio-8080-exec-2] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by id 19
+2021-12-18 13:42:17 [http-nio-8080-exec-5] INFO  o.a.O.service.impl.OrderServiceImpl - in find by id order: foundedOrder{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by id 19
+2021-12-18 13:43:15 [http-nio-8080-exec-9] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:43:30 [http-nio-8080-exec-6] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:43:32 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=10} founded by id 4
+2021-12-18 13:43:41 [http-nio-8080-exec-8] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=10} founded by id 4
+2021-12-18 13:43:44 [http-nio-8080-exec-7] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=3} founded by id 2
+2021-12-18 13:43:58 [http-nio-8080-exec-10] INFO  o.a.O.service.impl.OrderServiceImpl - in create order if not exist: return order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=1000.0} by user User{id=16, firstName='Игорь', lastName='Климович', login='2', password='$2a$10$398d5vAjEAt9HTshq1SrcuNxt4mecXtKb0HtT/R/Q5dgcBkZhgRB2', email='garic.87@mail.ru', phoneNumber='80297890200'}
+2021-12-18 13:43:58 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=3} founded by id 2
+2021-12-18 13:43:59 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.OrderProductServiceImpl - in save product to order: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} saved to order Order{id=19, date=2021-12-17 01:41:13.0, fullPrice=3390.0}
+2021-12-18 13:43:59 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 13:44:02 [http-nio-8080-exec-4] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:44:32 [http-nio-8080-exec-3] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 13:44:32 [http-nio-8080-exec-3] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order
+2021-12-18 13:44:33 [http-nio-8080-exec-9] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 15:33:58 [http-nio-8080-exec-5] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 15:34:05 [http-nio-8080-exec-5] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=11, name='ноутбуки', amount=0} founded by id 11
+2021-12-18 15:34:06 [http-nio-8080-exec-7] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 15:34:08 [http-nio-8080-exec-7] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find by id product category : product category ProductCategory{id=4, name='телефоны', amount=9} founded by id 4
+2021-12-18 15:34:23 [http-nio-8080-exec-7] INFO  o.a.O.s.impl.ProductServiceImpl - in find product by id: product Product{id=2, name='apple iphone14', description='                        ', price=2390.0, isExist=true, amount=2} founded by id 2
+2021-12-18 15:35:01 [http-nio-8080-exec-10] INFO  o.a.O.s.i.ProductCategoryServiceImpl - in find all product categories: founded 5 product categories
+2021-12-18 15:35:01 [http-nio-8080-exec-10] INFO  o.a.O.s.impl.ProductServiceImpl - in find last product: founded last 5 products in reverse order

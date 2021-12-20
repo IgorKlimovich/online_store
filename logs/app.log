@@ -1,0 +1,18 @@
+2021-12-13 23:38:14,340 INFO org.academy.OnlineStoreDemo.OnlineStoreDemoApplication [main] Starting OnlineStoreDemoApplication using Java 11 on LAPTOP-OQMGSRDA with PID 3208 (C:\Users\админ\Downloads\OnlineStoreDemo\OnlineStoreDemo\target\classes started by админ in C:\Users\админ\Downloads\OnlineStoreDemo)
+2021-12-13 23:38:14,424 DEBUG org.academy.OnlineStoreDemo.OnlineStoreDemoApplication [main] Running with Spring Boot v2.6.1, Spring v5.3.13
+2021-12-13 23:38:14,425 INFO org.academy.OnlineStoreDemo.OnlineStoreDemoApplication [main] No active profile set, falling back to default profiles: default
+2021-12-13 23:38:28,870 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2021-12-13 23:38:28,872 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.55]
+2021-12-13 23:38:29,574 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2021-12-13 23:38:34,476 INFO liquibase.lockservice [main] Successfully acquired change log lock
+2021-12-13 23:38:39,652 INFO liquibase.changelog [main] Reading from online_store.DATABASECHANGELOG
+2021-12-13 23:38:40,018 INFO liquibase.lockservice [main] Successfully released change log lock
+2021-12-13 23:38:40,424 INFO org.hibernate.jpa.internal.util.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-13 23:38:41,262 INFO org.hibernate.Version [main] HHH000412: Hibernate ORM core version 5.6.1.Final
+2021-12-13 23:38:43,213 INFO org.hibernate.annotations.common.Version [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-12-13 23:38:44,459 INFO org.hibernate.dialect.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2021-12-13 23:39:04,278 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-13 23:39:16,309 INFO org.academy.OnlineStoreDemo.OnlineStoreDemoApplication [main] Started OnlineStoreDemoApplication in 65.737 seconds (JVM running for 72.044)
+2021-12-13 23:40:05,952 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-13 23:40:10,091 WARN org.apache.catalina.util.SessionIdGeneratorBase [http-nio-8080-exec-1] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [695] milliseconds.
+2021-12-13 23:40:10,285 INFO org.academy.OnlineStoreDemo.controller.ProfileController [http-nio-8080-exec-1] trtgrlllllllllllllllllllllllll
