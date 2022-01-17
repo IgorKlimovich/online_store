@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Ошибка</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+</head>
+<body>
+<header th:insert="blocks/header::header"></header>
+<h1 th:text="#{somethingWentWrong}"></h1>
+
+<div>
+    <h2 th:if="${notFound}" th:text="#{pageNotFound}"></h2>
+    <h2 th:if="${forbidden}" th:text="#{forbidden}"></h2>
+    <h2 th:if="${errorServer}" th:text="#{errorServer}"></h2>
+</div>
+<footer th:insert="blocks/footer::footer"></footer>
+
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
