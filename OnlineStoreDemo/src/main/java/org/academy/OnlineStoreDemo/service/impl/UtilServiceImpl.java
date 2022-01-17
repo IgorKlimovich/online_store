@@ -1,5 +1,6 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
 import org.academy.OnlineStoreDemo.dto.ProductDto;
 import org.academy.OnlineStoreDemo.dto.UserDto;
@@ -12,13 +13,21 @@ import org.academy.OnlineStoreDemo.model.repository.UserRepository;
 import org.academy.OnlineStoreDemo.service.UtilService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class UtilServiceImpl implements UtilService {
 
@@ -41,9 +50,7 @@ public class UtilServiceImpl implements UtilService {
                                                 String productName, String minPrice, String maxPrice) {
 
         ProductCategory productCategory = productCategoryRepository.findByName(productCategoryName);
-
         List<Product> products = productCategory.getProducts();
-
         List<Product> filteredProductsByName = products.stream()
                 .filter(product -> product.getName().equals(productName)).collect(Collectors.toList());
         if (minPrice.equals("")) {
@@ -57,44 +64,48 @@ public class UtilServiceImpl implements UtilService {
         if (Boolean.TRUE.equals(!productRepository.existsProductByName(productName)) || productName == null) {
             List<Product> productList= products.stream().filter(item -> item.getPrice() > min && item.getPrice() < max)
                     .collect(Collectors.toList());
-
-            List<ProductDto> productDtos =new ArrayList<>();
+            List<ProductDto> productsDto =new ArrayList<>();
             for (Product product : productList) {
                 ProductDto map = modelMapper.map(product, ProductDto.class);
-                productDtos.add(map);
+                productsDto.add(map);
             }
-            return productDtos;
-
+            log.info("find product by search parameters: founded {}",productList.size());
+            return productsDto;
         }
 
         List<Product> productList=filteredProductsByName.stream().filter(item ->
                 item.getPrice() > min && item.getPrice() < max
         ).collect(Collectors.toList());
-        List<ProductDto> productDtos =new ArrayList<>();
+        List<ProductDto> productsDto =new ArrayList<>();
         for (Product product : productList) {
             ProductDto map = modelMapper.map(product, ProductDto.class);
-            productDtos.add(map);
+            productsDto.add(map);
         }
-        return productDtos;
+        log.info("in find product by search parameters:founded {}",productList.size());
+        return productsDto;
     }
 
     @Override
-    public List<UserDto> sortUsersByParameters(List<UserDto> users, String parameter) {
+    public List<UserDto> sortUsersByParameters(List<UserDto> usersDto, String parameter) {
 
         if (parameter.equals("login")) {
-            return users.stream().sorted(Comparator.comparing(UserDto::getLogin)).collect(Collectors.toList());
+            log.info("in sort users by parameters: sorted {} users by parameter {}",usersDto.size(),parameter);
+            return usersDto.stream().sorted(Comparator.comparing(UserDto::getLogin)).collect(Collectors.toList());
         }
         if (parameter.equals("email")) {
-            return users.stream().sorted(Comparator.comparing(UserDto::getEmail)).collect(Collectors.toList());
+            log.info("in sort users by parameters: sorted {} users by parameter {}",usersDto.size(),parameter);
+            return usersDto.stream().sorted(Comparator.comparing(UserDto::getEmail)).collect(Collectors.toList());
         }
         if (parameter.equals("phoneNumber")) {
-            return users.stream().sorted(Comparator.comparing(UserDto::getPhoneNumber)).collect(Collectors.toList());
+            return usersDto.stream().sorted(Comparator.comparing(UserDto::getPhoneNumber)).collect(Collectors.toList());
         }
         if (parameter.equals("firstName")) {
-            return users.stream().sorted(Comparator.comparing(UserDto::getFirstName)).collect(Collectors.toList());
+            log.info("in sort users by parameters: sorted {} users by parameter {}",usersDto.size(),parameter);
+            return usersDto.stream().sorted(Comparator.comparing(UserDto::getFirstName)).collect(Collectors.toList());
         }
         if (parameter.equals("lastName")) {
-            return users.stream().sorted(Comparator.comparing(UserDto::getLastName)).collect(Collectors.toList());
+            log.info("in sort users by parameters: sorted {} users by parameter {}",usersDto.size(),parameter);
+            return usersDto.stream().sorted(Comparator.comparing(UserDto::getLastName)).collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
@@ -102,35 +113,55 @@ public class UtilServiceImpl implements UtilService {
     @Override
     public UserDto findUserByParameters(String parameter, String name) {
         if (parameter.equals("login")) {
-            User user= userRepository.findByLogin(name);
+            User user= userRepository.findByLogin(name.trim());
+            if (user==null){
+                log.warn("in find user by parameters: user not found by parameter {} name {}",parameter,name );
+                return null;
+            }
+            log.info("in find user by parameters: user {} found by parameter {} name {}",user,parameter,name );
            return modelMapper.map(user,UserDto.class);
         }
         if (parameter.equals("phoneNumber")) {
-           User user= userRepository.findByPhoneNumber(name);
+           User user= userRepository.findByPhoneNumber(name.trim());
+            if (user==null){
+                log.warn("in find user by parameters: user not found by parameter {} name {}",parameter,name );
+                return null;
+            }
+            log.info("in find user by parameters: user {} found by parameter {} name{}",user,parameter,name );
            return modelMapper.map(user,UserDto.class);
         }
         if (parameter.equals("email")) {
-            User user = userRepository.findByEmail(name);
+            User user = userRepository.findByEmail(name.trim());
+            if (user==null){
+                log.warn("in find user by parameters: user not found by parameter {} name{}",parameter,name );
+                return null;
+            }
+            log.info("in find user by parameters: user {} found by parameter {} name{}",user,parameter,name );
             return modelMapper.map(user, UserDto.class);
         }
-        return null;
+        return new UserDto();
     }
 
     @Override
     public List<ProductDto> sortProductByParameters(List<ProductDto> productsDto, String parameter) {
         if (parameter.equals("name")) {
+            log.info("in sort users by parameters: sorted {} products by parameter {}",productsDto.size(),parameter);
             return productsDto.stream().sorted(Comparator.comparing(ProductDto::getName)).collect(Collectors.toList());
         }
         if (parameter.equals("category")) {
+            log.info("in sort users by parameters: sorted {} products by parameter {}",productsDto.size(),parameter);
             return productsDto.stream().sorted(Comparator.comparing(prod -> prod.getProductCategoryDto().getName())).collect(Collectors.toList());
         }
         if (parameter.equals("price")) {
+            log.info("in sort users by parameters: sorted {} products by parameter {}",productsDto.size(),parameter);
             return productsDto.stream().sorted(Comparator.comparing(ProductDto::getPrice)).collect(Collectors.toList());
         }
         if (parameter.equals("description")) {
+            log.info("in sort users by parameters: sorted {} products by parameter {}",productsDto.size(),parameter);
             return productsDto.stream().sorted(Comparator.comparing(ProductDto::getDescription)).collect(Collectors.toList());
         }
         if (parameter.equals("isExist")) {
+            log.info("in sort users by parameters: sorted {} products by parameter {}",productsDto.size(),parameter);
             return productsDto.stream().sorted(Comparator.comparing(ProductDto::getIsExist)).collect(Collectors.toList());
         }
         return new ArrayList<>();
@@ -140,19 +171,41 @@ public class UtilServiceImpl implements UtilService {
     public List<ProductCategoryDto> sortProductCategoriesByParameters(
             List<ProductCategoryDto> productCategoriesDto, String parameter) {
         if (parameter.equals("name")) {
-            return productCategoriesDto
+            List<ProductCategoryDto> sortedProductCategoriesDto=productCategoriesDto
                     .stream()
                     .sorted(Comparator.comparing(ProductCategoryDto::getName))
                     .collect(Collectors.toList());
+            log.info("in sort product categories by parameters: sorted {} productCategories by parameter {}",
+                    sortedProductCategoriesDto.size(),parameter);
+            return sortedProductCategoriesDto;
         }
         if (parameter.equals("amount")) {
-            return productCategoriesDto
+            List<ProductCategoryDto> sortedProductCategoriesDto=productCategoriesDto
                     .stream()
                     .sorted(Comparator.comparing(ProductCategoryDto::getAmount))
                     .collect(Collectors.toList());
+            log.info("in sort product categories by parameters: sorted {} productCategories by parameter {}",
+                    sortedProductCategoriesDto.size(),parameter);
+            return sortedProductCategoriesDto;
         }
         return new ArrayList<>();
 
+    }
+
+    @Override
+    public void savePhotoWithPath(String uploadDir, String fileName, MultipartFile multipartFile) {
+        Path uploadPath = Paths.get(uploadDir);
+//        if (!Files.exists(uploadPath)) {
+            try {
+                Files.createDirectories(uploadPath);
+                Path filePath = uploadPath.resolve(fileName);
+                InputStream inputStream = multipartFile.getInputStream();
+                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                log.error("in save photo with path: directories not created");
+            }
+//        }
+        log.info("in save photo with path name: file and path saved");
     }
 
 

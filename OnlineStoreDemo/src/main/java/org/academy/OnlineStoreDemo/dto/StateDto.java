@@ -16,4 +16,12 @@ public class StateDto {
     private String name;
 
     private List<UserDto> usersDto;
+
+    @Override
+    public String toString() {
+        return "StateDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

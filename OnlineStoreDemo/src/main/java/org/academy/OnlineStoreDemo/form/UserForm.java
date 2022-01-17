@@ -3,11 +3,15 @@ package org.academy.OnlineStoreDemo.form;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.academy.OnlineStoreDemo.model.entity.Order;
+import org.academy.OnlineStoreDemo.model.entity.Role;
+import org.academy.OnlineStoreDemo.model.entity.State;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,28 +20,43 @@ public class UserForm {
 
     private Integer id;
 
-    @NotEmpty(message = "имя не может быть пустое")
-    @Size(max = 100, message = "имя не может содержать более 100 символов")
+    @NotEmpty(message = "{nameCanNotBeEmpty}")
+    @Size(max = 100, message = "{theNameCanNotContainMoreThan100Characters}")
     private String firstName;
 
-    @NotEmpty(message = "фамилия не может быть пустой")
-    @Size(max=100, message = "фамилия не может содержать более 100 символов")
+    @NotEmpty(message = "{lastNameCanNotBeEmpty}")
+    @Size(max=100, message = "{theLastNameCanNotContainMoreThan100Characters}")
     private String lastName;
 
-    @NotEmpty(message = "логин не может быть пустым ")
-    @Size(max=100, message = "фамилия не может содержать более 100 символов")
+    @NotEmpty(message = "{theLoginCanNotBeEmpty}")
+    @Size(max=100, message = "{theLoginCanNotContainMoreThan100Characters}")
     private String login;
 
-    @NotEmpty(message = "пароль не может быть пустым")
-    @Size(max=100, message = "пароль не может содержать более 100 символов")
+    @NotEmpty(message = "{thePasswordCanNotBeEmpty}")
+    @Size(max=100, message = "{thePasswordCanNotContainMoreThan100Characters}")
     private String password;
 
-    @NotEmpty (message = "email не может быть пустым")
-    @Email(message = "email должен содержать символы @ и .")
-    @Size(max=100, message = "email не может содержать более 100 символов")
+    @NotEmpty (message = "{theEmailCanNotBeEmpty}")
+    @Email(message = "{emailMustContainAndSymbols}")
+    @Size(max=100, message = "{theEmailCanNotContainMoreThan100Characters}")
     private String email;
 
     @Pattern(regexp = "[^a-zA-Z]{10,15}",
-            message = "номер не может содержать буквы и должен содержать от 10 до 15 цифр")
+            message = "{theCumberCanNotContainLettersAndMustContainBetween10And15Digits}")
     private String phoneNumber;
+
+    private String namePhoto;
+
+    private Role role;
+
+    private State state;
+
+    private List<Order> orders;
+
+    public String getPhotosImagePath() {
+        if (namePhoto == null || id == null) return null;
+
+        return "/user-photos/" + id + "/" + namePhoto;
+    }
+
 }

@@ -12,6 +12,8 @@ public interface UserService {
 
     void update(UserForm userForm, UserDto userDto);
 
+    void update(UserDto userDto);
+
     UserDto findByLogin(String login);
 
     User findByEmail(String email);
@@ -35,4 +37,6 @@ public interface UserService {
     Boolean existsUserByLogin(String login);
 
     Boolean existsUserByPhoneNumber(String phoneNumber);
+
+    void savePhoto(String fileName, UserDto userDto );
 }

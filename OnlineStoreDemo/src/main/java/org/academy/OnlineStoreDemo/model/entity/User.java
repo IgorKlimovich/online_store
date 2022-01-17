@@ -38,6 +38,9 @@ public class User {
     @Column(name = "phone_number",nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(name = "name_photo")
+    private String namePhoto;
+
     @ManyToOne
     private Role role;
 
@@ -72,6 +75,8 @@ public class User {
         User user = (User) o;
         return id != null && Objects.equals(id, user.id);
     }
+
+
 
     @Override
     public int hashCode() {

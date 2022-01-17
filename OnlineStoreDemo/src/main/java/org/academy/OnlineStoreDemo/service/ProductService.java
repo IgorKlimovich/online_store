@@ -23,4 +23,11 @@ public interface ProductService {
     void delete(ProductDto productDto);
 
     List<ProductDto> findLast();
+
+    ProductDto findByPhotoName(String photoName);
+
+    void addPhoto(ProductDto productDto);
+
+    void deletePhoto(ProductDto productDto);
+
 }

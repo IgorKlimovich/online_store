@@ -1,9 +1,8 @@
 package org.academy.OnlineStoreDemo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
 import org.academy.OnlineStoreDemo.dto.ProductDto;
-import org.academy.OnlineStoreDemo.model.entity.Product;
-import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
 import org.academy.OnlineStoreDemo.service.ProductService;
 import org.academy.OnlineStoreDemo.service.UserService;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/shop")
 public class ShopController {
@@ -34,25 +34,31 @@ public class ShopController {
         this.productCategoryService = productCategoryService;
         this.userService = userService;
         this.persistentTokenRepository = persistentTokenRepository;
+
     }
 
     @GetMapping
-    public String getShopPage(Model model) {
+    public String getShopPage(Model model, Principal principal) {
         List<ProductDto> productsDto = productService.findAll();
         List<ProductCategoryDto> productCategoriesDto = productCategoryService.findAll();
         List<ProductDto> lastListDto=productService.findLast();
         model.addAttribute("productsLastDto", lastListDto);
         model.addAttribute("productCategoriesDto", productCategoriesDto);
         model.addAttribute("productsDto", productsDto);
-
-
+        if (principal!=null){
+            model.addAttribute("userProf" , userService.findByLogin(principal.getName()));}
+        log.info("in get shop page: founded {} products, {} product categories, {}last product",
+                productsDto.size(),productCategoriesDto.size(),lastListDto.size());
         return "shop";
     }
 
     @GetMapping("/{id}")
-    public String getOne(@PathVariable Integer id, Model model) {
+    public String getOne(@PathVariable Integer id, Model model, Principal principal) {
         ProductDto productDto = productService.findById(id);
         model.addAttribute("productDto", productDto);
+        if (principal!=null){
+            model.addAttribute("userProf" , userService.findByLogin(principal.getName()));}
+        log.info("in get one: show product {}", productDto);
         return "product";
     }
 
@@ -63,13 +69,14 @@ public class ShopController {
         userService.setDelete(login);
         new SecurityContextLogoutHandler().logout(httpServletRequest,httpServletResponse,authentication);
         persistentTokenRepository.removeUserTokens(login);
+        log.info("in delete profile: user set deleted by login{}, user logout and redirected to shop page",login);
         return "redirect:/shop";
     }
 
     @PostMapping("/restore")
     public String restore(@RequestParam("login") String login){
-
         userService.setActive(login);
+        log.info("in restore:user by login {} set active", login);
         return "redirect:/login";
     }
 }

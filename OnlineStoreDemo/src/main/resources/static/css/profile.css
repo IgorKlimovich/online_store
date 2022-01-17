@@ -1,69 +1,14 @@
-.er-col {
-    color: darkred;
-}
-
 
 .modal-dialog-update-profile {
     max-width: 600px;
     margin-top: 108px;
 }
 
-.ml-first-name{
-    margin-left: 179px;
-}
-
-.ml-email{
-    margin-left: 166px;
-}
-
-.ml-phone{
-    margin-left: 81px;
-}
-
-.ml-login{
-    margin-left: 161px;
-}
-
-.ml-password{
-    margin-left: 151px;
-}
-.ml-btn{
+.ml-btn {
     margin-left: 60px;
 }
-.mb{
-    margin-bottom: 15px;
-}
 
-.ml-err-name{
-    margin-left: 349px;
-}
-.ml-err-lname{
-    margin-left: 310px;
-}
-.ml-err-email{
-    margin-left: 333px;
-}
-.ml-err-phone{
-
-}
-.ml-err-login{
-    margin-left: 331px;
-}
-
-.ml-err-pass{
-    margin-left: 320px;
-}
-.err-exist-email{
-    margin-left: 336px;
-    margin-bottom: 15px;
-}
-
-.err-exist-login{
-    margin-left: 336px;
-    margin-bottom: 15px;
-}
-.btn-choose-card{
-
+.btn-choose-card {
     border: none;
     margin-left: 106px;
     color: #5b5e5d;
@@ -73,7 +18,7 @@
     background-color: transparent;
 }
 
-.btn-del{
+.btn-del {
     margin-left: 3px;
     color: darkred;
     padding: 0;
@@ -84,63 +29,18 @@
     cursor: pointer;
 }
 
-.pref{
+.pref {
     color: #5b5e5d;
     font-weight: 200;
     margin-top: 8px;
     margin-bottom: 8px;
 }
 
-.inp-add-name{
-    margin-left: 126px;
-}
-.inp-add-num{
-    margin-left: 149px;
-}
-.inp-add-cvv{
-    margin-left: 166px;
-}
-.ml-err-add-name{
-    margin-bottom: 15px;
-    margin-left: 240px;
-}
-
-.ml-err-add-num{
-    margin-bottom: 15px;
-    margin-left: 230px;
-}
-
-.ml-err-add-cvv{
-    margin-bottom: 15px;
-    margin-left: 243px;
-}
-
-.inp-upd-name{
-    margin-left: 74px;
-}
-.inp-upd-num{
-    margin-left: 94px;
-}
-.inp-upd-cvv{
-    margin-left: 111px;
-}
-.er-upd-name{
-    margin-left: 238px;
-    margin-bottom: 15px;
-}
-.er-upd-num{
-    margin-left: 227px;
-    margin-bottom: 15px;
-}
-.er-upd-cvv{
-    margin-left: 242px;
-    margin-bottom: 15px;
-}
-
-.pass{
+.pass {
     position: relative;
 }
-.password-control{
+
+.password-control {
     margin-right: 23px;
     margin-top: -4px;
     position: absolute;
@@ -151,53 +51,47 @@
     height: 20px;
     background: url(https://snipp.ru/demo/495/view.svg) 0 0 no-repeat;
 }
+
 .password-control.view {
     background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
 }
 
-.er-upd-card{
-    margin-left: 286px;
-}
-
-.er-add-card{
-    margin-left: 279px;
-}
-.user{
+.user {
     text-align: -webkit-center;
     margin-top: 100px;
 }
 
-.user-prof{
+.user-prof {
     width: 600px;
     height: auto;
     /*background-color: #e4e8ec;*/
     border: 2px solid #b2afaf;
     border-radius: 43px;
 }
-body{
-    /*background-color: white;*/
-    /*background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613464638_24-p-fon-dlya-prezentatsii-delovoi-stil-27.jpg");*/
-    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+
+body {
+    background-color: white;
+    /*background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");*/
 }
 
-.prof-items{
+.prof-items {
     display: flex;
     margin-left: 40px;
 }
-.prof-data{
+
+.prof-data {
     margin-left: auto;
     margin-right: 40px;
 }
 
-
-.det{
+.det {
     text-align: left;
     margin-left: 23px;
     margin-top: 12px;
     margin-bottom: 26px;
 }
 
-.btn-choose-card{
+.btn-choose-card {
     padding: 0;
     background-color: transparent;
     border: none;
@@ -206,7 +100,8 @@ body{
     font-size: 16px;
     font-family: unset;
 }
-.add-card{
+
+.add-card {
     color: white;
     background-color: darkred;
     padding: 6px 24px;
@@ -219,21 +114,56 @@ body{
     display: flex;
     margin-top: 8px;
 }
-.text-prof{
+
+.text-prof {
     font-size: 16px;
     font-family: unset;
     color: #706e6e;
 }
-.sum{
+
+.sum {
     font-size: 16px;
     font-weight: 700;
 }
-.upd-btn{
+
+.upd-btn {
     margin-left: 40px;
     margin-bottom: 20px;
     margin-top: -5px;
 }
+
 .add-card:hover {
     background-color: #6c0404;
     color: white;
+}
+
+.us-pr-col {
+    background-color: white;
+}
+
+.body-back {
+    background: url('https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg');
+}
+
+.pr-w {
+    width: 800px;
+}
+
+.us-tit {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.add-photo-prof {
+    margin-top: 20px;
+    margin-left: 18px;
+}
+
+.del-photo-prof {
+    margin-left: 17px;
+    margin-top: 20px;
+}
+
+.add-card-div {
+    margin-top: 15px;
 }
