@@ -35,6 +35,9 @@ public class Product {
     @Column(name="amount")
     private Integer amount;
 
+    @Column(name = "name_photo")
+    private String namePhoto;
+
     @ManyToOne
     private ProductCategory productCategory;
 

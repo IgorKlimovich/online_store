@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,7 +39,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public ProductCategoryDto findByName(String name) {
         ProductCategory productCategory = productCategoryRepository.findByName(name);
         if (productCategory==null){
-            log.warn("in find product category by name: product category not found by name {}",name);
+            log.error("in find product category by name: product category not found by name {}",name);
             return null;
         }
         log.info("in find product category by name: product category {} founded by name {}", productCategory, name);
@@ -85,19 +84,21 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         try {
             productCategory = productCategoryRepository.findById(id).orElseThrow(Exception::new);
         } catch (Exception e) {
-            log.warn("in find by id product category : product category not found by id {}", id);
+            log.error("in find by id product category : product category not found by id {}", id);
+            return null;
         }
         log.info("in find by id product category : product category {} founded by id {}", productCategory, id);
         return modelMapper.map(productCategory, ProductCategoryDto.class);
 
     }
 
+    @Override
     public void update(ProductCategoryDto productCategoryDto) {
         ProductCategoryDto forUpdateProductCategoryDto = findById(productCategoryDto.getId());
         forUpdateProductCategoryDto.setName(productCategoryDto.getName());
-        ProductCategory productCategoryforUpdate=modelMapper.map(forUpdateProductCategoryDto,ProductCategory.class);
-        productCategoryRepository.save(productCategoryforUpdate);
-        log.info("in update product category: product category {} updated", productCategoryforUpdate);
+        ProductCategory productCategoryForUpdate=modelMapper.map(forUpdateProductCategoryDto,ProductCategory.class);
+        productCategoryRepository.save(productCategoryForUpdate);
+        log.info("in update product category: product category {} updated", productCategoryForUpdate);
     }
 
     @Override

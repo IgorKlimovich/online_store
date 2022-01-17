@@ -3,8 +3,8 @@ package org.academy.OnlineStoreDemo.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.dto.CardDto;
 import org.academy.OnlineStoreDemo.dto.OrderDto;
-import org.academy.OnlineStoreDemo.dto.ProductDto;
 import org.academy.OnlineStoreDemo.dto.UserDto;
+import org.academy.OnlineStoreDemo.mail.EmailService;
 import org.academy.OnlineStoreDemo.model.entity.*;
 import org.academy.OnlineStoreDemo.model.repository.*;
 import org.academy.OnlineStoreDemo.service.OrderService;
@@ -22,15 +22,17 @@ public class OrderServiceImpl implements OrderService {
     private final ShopCountRepository shopCountRepository;
     private final CardRepository cardRepository;
     private final ModelMapper modelMapper;
+    private final EmailService emailService;
 
 
     public OrderServiceImpl(OrderRepository orderRepository,
                             ShopCountRepository shopCountRepository,
-                            CardRepository cardRepository, ModelMapper modelMapper) {
+                            CardRepository cardRepository, ModelMapper modelMapper, EmailService emailService) {
         this.orderRepository = orderRepository;
         this.shopCountRepository = shopCountRepository;
         this.cardRepository = cardRepository;
         this.modelMapper = modelMapper;
+        this.emailService = emailService;
     }
 
     @Override
@@ -39,7 +41,6 @@ public class OrderServiceImpl implements OrderService {
         if (user.getOrders()
                 .stream()
                 .noneMatch(item -> item.getStateOrder().getName().equals("NEW"))) {
-
             Order order = new Order();
             List<Order> orders = user.getOrders();
             order.setDate(new Date());
@@ -63,7 +64,7 @@ public class OrderServiceImpl implements OrderService {
                     .findFirst()
                     .orElseThrow(Exception::new);
         } catch (Exception e) {
-            log.warn("in create order if not exist: order by state order name 'NEW' not found");
+            log.error("in create order if not exist: order by state order name 'NEW' not found");
         }
         log.info("in create order if not exist: return order {} by user {}",oldOrder,user);
         return modelMapper.map(oldOrder,OrderDto.class);
@@ -92,7 +93,7 @@ public class OrderServiceImpl implements OrderService {
             cardRepository.save(userCard);
             log.info("in pay order: order {} payed by card {} for user {}",order, card , user);
         } catch (Exception e) {
-            log.warn("in pay order: card not found by number {} for user {}",card.getNumber(), user);
+            log.error("in pay order: card not found by number {} for user {}",card.getNumber(), user);
         }
     }
 
@@ -116,6 +117,8 @@ public class OrderServiceImpl implements OrderService {
         Order order = modelMapper.map(orderDto, Order.class);
         order.setStateOrder(stateOrder);
         orderRepository.save(order);
+        UserDto userDto =orderDto.getUserDto();
+        emailService.sendDeliverMessage(userDto.getEmail(),userDto.getFirstName());
         log.info("in set delivered order: order{} state order updated to DELIVERED",order);
     }
 
@@ -127,7 +130,8 @@ public class OrderServiceImpl implements OrderService {
             order = orderRepository.findById(id).orElseThrow(Exception::new);
 
         } catch (Exception e) {
-            log.warn("in find by id order: order by id {} not found",id);
+            log.error("in find by id order: order by id {} not found",id);
+            return null;
         }
         OrderDto orderDto = modelMapper.map(order,OrderDto.class);
         log.info("in find by id order: founded{} by id {}",order,id);

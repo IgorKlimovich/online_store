@@ -3,7 +3,7 @@ package org.academy.OnlineStoreDemo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.academy.OnlineStoreDemo.model.entity.OrderProduct;
+
 
 import java.util.List;
 
@@ -24,9 +24,18 @@ public class ProductDto {
 
     private Integer amount;
 
+    private String namePhoto;
+
     private ProductCategoryDto productCategoryDto;
 
     private List<OrderProductDto> orderProductsDto;
+
+    public String getPhotosImagePath() {
+        if (namePhoto == null || id == null) return null;
+        return "/product-photos/" + id + "/" + namePhoto;
+    }
+
+
     @Override
     public String toString() {
         return "ProductDto{" +
@@ -36,6 +45,7 @@ public class ProductDto {
                 ", isExist=" + isExist +
                 ", price=" + price +
                 ", amount=" + amount +
+                ", namePhoto=" + namePhoto +
                 '}';
     }
 }

@@ -1,64 +1,80 @@
 tbody {
-  display: flex;
+    display: flex;
     flex-wrap: wrap;
     margin-left: 80px;
 }
-tr{
+
+tr {
     margin-right: 40px;
     margin-bottom: 30px;
 }
 
-
-.btn-look{
+.btn-look {
     background-color: darkred;
-    padding: 10px 30px;
+    padding: 7px 19px;
     border: 1px solid #f6f6f6;
-    border-radius: 3px;
+    border-radius: 56px;
+    margin-left: 15px;
+    margin-bottom: 15px;
 }
-.btn-look:hover{
+
+.btn-look:hover {
     background-color: #6c0404;
 }
 
-.ref{
+.ref {
     color: white;
     text-decoration: none;
 }
 
-td{
-    /*border: 3px solid rgb(11, 2, 2);*/
-    /*border-radius: 0.25rem;*/
-
+td {
+    border: 3px solid rgb(230 228 228);
+    border-radius: 18px;
+    max-width: 298px;
+    background-color: white;
 }
-.tab-td{
+
+.tab-td {
     margin-top: -4px;
-
 }
 
-.bd-placeholder-img{
+.bd-placeholder-img {
     border-radius: 3px;
     font-size: 18px;
+    width: 298px;
+    height: 207px;
 }
 
-h2{
+h2 {
     margin-left: 83px;
     margin-bottom: 20px;
     margin-top: 50px;
 }
 
+.tit-cat {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    text-align: center;
+}
 
+.search-js {
+    display: flex;
+    align-items: baseline;
+    margin-left: 230px;
+    margin-bottom: -23px;
+    margin-top: 20px;
+}
 
+body {
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.input-js {
+    margin-left: 40px;
+    padding: 7px 20px;
+    border: 2px solid #d4d4d4;
+    border-radius: 3px;
+}

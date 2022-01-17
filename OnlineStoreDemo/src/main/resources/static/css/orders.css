@@ -3,8 +3,9 @@ tbody {
     flex-wrap: wrap;
     margin-left: 104px;
 }
-tr{
 
+tr {
+    background-color: white;
     margin-bottom: 80px;
     border: 2px solid #969491;
     height: 300px;
@@ -13,84 +14,84 @@ tr{
     margin-right: 90px;
 }
 
-
-.btn-look{
+.btn-look {
     background-color: darkred;
     padding: 10px 30px;
     border: 1px solid #f6f6f6;
     border-radius: 3px;
 }
-.btn-look:hover{
+
+.btn-look:hover {
     background-color: #6c0404;
 }
 
-.ref{
+.ref {
     color: white;
     text-decoration: none;
 }
 
-td{
+td {
     width: inherit;
     height: inherit;
-
 }
-.tab-td{
+
+.tab-td {
     border-top: 2px solid #b2afaf;
     display: flex;
     align-items: center;
     margin: -3px;
-
 }
 
-.bd-placeholder-img{
+.bd-placeholder-img {
     border-radius: 3px;
     font-size: 18px;
 }
 
-h2{
+h2 {
     margin-left: 83px;
     margin-bottom: 20px;
     margin-top: 50px;
 }
 
-.user-prof{
+.user-prof {
     width: 600px;
     height: auto;
-    /*background-color: #e4e8ec;*/
     border: 2px solid #b2afaf;
     border-radius: 43px;
 }
-.prof-items{
+
+.prof-items {
     display: flex;
     margin-left: 40px;
 }
-.prof-data{
+
+.prof-data {
     margin-left: auto;
     margin-right: 40px;
 }
 
-body{
-    /*background-color: white;*/
-    /*background: url("https://catherineasquithgallery.com/uploads/posts/2021-02/1613464638_24-p-fon-dlya-prezentatsii-delovoi-stil-27.jpg");*/
-    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+body {
+    background: white url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
 }
-.text-prof{
+
+.text-prof {
     font-size: 16px;
     font-family: unset;
     color: #706e6e;
 }
 
-.upd-btn{
+.upd-btn {
     margin-left: 40px;
     margin-bottom: 0px;
     margin-top: 15px;
 }
+
 .add-card:hover {
     background-color: #6c0404;
     color: white;
 }
 
-.add-card{
+.add-card {
     color: white;
     background-color: darkred;
     padding: 6px 24px;
@@ -99,25 +100,24 @@ body{
     cursor: pointer;
 }
 
-.mb-ord{
+.mb-ord {
     margin-bottom: 10px;
 }
 
-.mt-btn{
+.mt-btn {
     margin-top: 20px;
 }
 
-.state{
-    margin: auto;
-    margin-bottom: -14px;
+.state {
+    margin: auto auto -14px;
 }
 
-.state-text{
+.state-text {
     color: #081e2b;
     font-family: cursive;
 }
 
-.order-tit{
+.order-tit {
     margin-bottom: 30px;
     margin-left: 100px;
     font-size: 30px;

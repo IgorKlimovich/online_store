@@ -1,5 +1,4 @@
 
-
 .modal {
     position: fixed;
     /* фиксированное положение */
@@ -26,7 +25,6 @@
     pointer-events: auto;
     overflow-y: auto;
 }
-
 
 .modal-dialog {
     position: relative;
@@ -167,18 +165,23 @@
 .cont {
     display: flex;
     margin-top: 20px;
-    margin-left: 132px;
+    /*margin-left: 132px;*/
+    place-content: end;
+    margin-right: 20px;
 }
+
 hr{
     height: 2px;
     border: none;
     background-color: #d0cccc;
 }
+
 .err-mod{
     /*margin-top: 10px;*/
     color: darkred;
     margin-bottom: 20px;
 }
+
 .dis{
     display: flex;
     margin-bottom: 5px;
@@ -192,11 +195,12 @@ hr{
     padding-left: 60px;
     padding-bottom: 8px;
     padding-top: 8px;
-
-    margin-left: 20px;
+    margin-inline-start: auto;
+    margin-right: 20px;
     border: 1px solid grey;
     border-radius: 3px;
 }
+
 textarea:focus{
     outline: 0;
     outline-offset: 0;
@@ -209,26 +213,13 @@ INPUT:focus {
     border: 5px solid rgba(234, 155, 154, 0.8);
 }
 
-.ml1{
-    margin-left: 100px;
-}
-
-.ml2{
-    margin-left: 133px;
-}
-.ml3{
-    margin-left: 74px;
-}
-.ml4{
-    margin-left: 77px;
-}
-
-.ml5{
-    margin-left: 78px;
-    padding-left: 144px;
-    padding-bottom: 20px;
-}
-
 .btn-error-add{
     margin-left: 190px;
+}
+
+.mb {
+    margin-bottom: 15px;
+    text-align: end;
+    margin-right: 20px;
+    color: darkred;
 }

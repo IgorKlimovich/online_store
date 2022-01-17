@@ -1,0 +1,36 @@
+body {
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+
+.product {
+    width: 700px;
+    height: auto;
+    border: 2px solid #b2afaf;
+    border-radius: 43px;
+    background-color: white;
+}
+
+.desc {
+    margin: 0;
+}
+
+.to-ord {
+    margin-left: -612px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.det-prod {
+    text-align: left;
+    margin-left: 23px;
+    margin-top: 12px;
+}
+
+.tit-pr {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.img-mb {
+    margin-bottom: 50px;
+}

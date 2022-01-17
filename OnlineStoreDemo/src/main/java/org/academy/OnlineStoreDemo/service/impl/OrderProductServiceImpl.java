@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -41,6 +42,7 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public void save(OrderProduct orderProduct) {
         orderProductRepository.save(orderProduct);
+        log.info("in save order product: order product {} saved", orderProduct);
     }
 
     @Override
@@ -49,13 +51,11 @@ public class OrderProductServiceImpl implements OrderProductService {
         Product product = modelMapper.map(productDto, Product.class);
         Order order = modelMapper.map(orderDto, Order.class);
         try {
-
             List<OrderProduct> orderProducts = order.getOrderProducts();
             OrderProduct orderProduct = orderProducts
                     .stream()
                     .filter(item -> item.getProduct().getId().equals(product.getId()))
                     .findFirst().orElseThrow(Exception::new);
-
             product.setAmount(product.getAmount() + 1);
             product.setIsExist(product.getAmount() > 0);
             ProductCategory productCategory = productCategoryRepository.getById(product.getProductCategory().getId());
@@ -67,10 +67,9 @@ public class OrderProductServiceImpl implements OrderProductService {
             orderProductRepository.delete(orderProduct);
             log.info("in remove product from order: product {} removed from order {}", product, order);
         } catch (Exception e) {
-            log.warn("in remove product from order: product not found by id {}", product.getId());
+            log.warn("in remove product from order: product category not found by id {}",
+                    product.getProductCategory().getId());
         }
-
-
     }
 
     @Override
@@ -78,7 +77,6 @@ public class OrderProductServiceImpl implements OrderProductService {
     public void saveProductToOrder(OrderDto orderDto, ProductDto productDto) {
         Product product = modelMapper.map(productDto, Product.class);
         Order order = modelMapper.map(orderDto, Order.class);
-
         order.setFullPrice(order.getFullPrice() + product.getPrice());
         orderRepository.save(order);
         product.setAmount(product.getAmount() - 1);
@@ -98,6 +96,10 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public List<OrderProductDto> findByOrderId(Integer id) {
         List<OrderProduct> orderProducts = orderProductRepository.findAllByOrderId(id);
+        if (orderProducts.isEmpty()){
+            log.warn("in find OrderProducts by id: orderProducts not found by id {}",id);
+            return Collections.emptyList();
+        }
         List<OrderProductDto> orderProductsDto = new ArrayList<>();
         for (OrderProduct orderProduct : orderProducts) {
             OrderProductDto map = modelMapper.map(orderProduct, OrderProductDto.class);

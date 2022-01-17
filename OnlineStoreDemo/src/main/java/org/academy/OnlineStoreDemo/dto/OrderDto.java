@@ -28,4 +28,14 @@ public class OrderDto {
 
     private List<OrderProductDto> orderProductsDto ;
 
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "id=" + id +
+                ", date=" + date +
+                ", fullPrice=" + fullPrice +
+                ", userDto name=" + userDto.getFirstName() +
+                ", stateOrderDto name=" + stateOrderDto.getName() +
+                '}';
+    }
 }
