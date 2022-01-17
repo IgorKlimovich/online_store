@@ -20,7 +20,7 @@
 }
 
 body {
-    /*background-color: #DCDFEA;*/
+    /*background-color:white;*/
     font-size: 16px;
     font-weight: normal;
     font-family: 'Roboto', sans-serif;
@@ -40,7 +40,7 @@ body {
 }
 
 .px-2 {
-    margin-left: 20px;
+    margin-left: 18px;
 }
 
 .mf {
@@ -80,6 +80,10 @@ body {
 .wdi {
     padding: 0.5rem 5rem 0.375rem;
 }
+.sign-up{
+    margin-left: 34px;
+    margin-top: 3px;
+}
 
 .fs {
     font-size: 18px;
@@ -88,7 +92,7 @@ body {
 }
 
 .mg {
-    margin-left: 40px;
+    margin-left: 36px;
 }
 
 .text-end {
@@ -101,9 +105,9 @@ body {
     border-color: #f8f9fa;
 }
 
-.me-2 {
-    margin-left: 60px
-}
+/*.me-2 {*/
+/*    margin-left: 60px*/
+/*}*/
 
 .btn-warning {
     color: #f8f9fa;
@@ -134,156 +138,6 @@ body {
     border-color: white;
 }
 
-/*.modal {*/
-/*    position: fixed;*/
-/*    !* фиксированное положение *!*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*    background: rgba(0, 0, 0, 0.5);*/
-/*    !* цвет фона *!*/
-/*    z-index: 1050;*/
-/*    opacity: 0;*/
-/*    !* по умолчанию модальное окно прозрачно *!*/
-/*    -webkit-transition: opacity 400ms ease-in;*/
-/*    -moz-transition: opacity 400ms ease-in;*/
-/*    transition: opacity 400ms ease-in;*/
-/*    !* анимация перехода *!*/
-/*    pointer-events: none;*/
-/*    !* элемент невидим для событий мыши *!*/
-/*}*/
-
-
-/*!* при отображении модального окно *!*/
-/*.modal:target {*/
-/*    opacity: 1;*/
-/*    pointer-events: auto;*/
-/*    overflow-y: auto;*/
-/*}*/
-
-
-/*.modal-dialog {*/
-/*    position: relative;*/
-/*    width: auto;*/
-/*    margin: 10px;*/
-/*}*/
-
-/*@media (min-width: 576px) {*/
-/*    .modal-dialog {*/
-/*        max-width: 500px;*/
-/*        margin: 160px auto; !* для отображения модального окна по центру *!*/
-/*    }*/
-/*}*/
-
-/*!* свойства для блока, содержащего контент модального окна *!*/
-/*.modal-content {*/
-/*    padding-bottom: 20px;*/
-/*    position: relative;*/
-/*    display: -webkit-box;*/
-/*    display: -webkit-flex;*/
-/*    display: -ms-flexbox;*/
-/*    display: flex;*/
-/*    -webkit-box-orient: vertical;*/
-/*    -webkit-box-direction: normal;*/
-/*    -webkit-flex-direction: column;*/
-/*    -ms-flex-direction: column;*/
-/*    flex-direction: column;*/
-/*    background-color: #fff;*/
-/*    -webkit-background-clip: padding-box;*/
-/*    background-clip: padding-box;*/
-/*    border: 1px solid rgba(0, 0, 0, .2);*/
-/*    border-radius: .3rem;*/
-/*    outline: 0;*/
-/*}*/
-
-/*@media (min-width: 768px) {*/
-/*    .modal-content {*/
-/*        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);*/
-/*        box-shadow: 0 5px 15px rgba(0, 0, 0, .5);*/
-/*    }*/
-/*}*/
-
-/*!* свойства для заголовка модального окна *!*/
-/*.modal-header {*/
-/*    display: -webkit-box;*/
-/*    display: -webkit-flex;*/
-/*    display: -ms-flexbox;*/
-/*    display: flex;*/
-/*    -webkit-box-align: center;*/
-/*    -webkit-align-items: center;*/
-/*    -ms-flex-align: center;*/
-/*    align-items: center;*/
-/*    -webkit-box-pack: justify;*/
-/*    -webkit-justify-content: space-between;*/
-/*    -ms-flex-pack: justify;*/
-/*    justify-content: space-between;*/
-/*    padding: 15px;*/
-/*    border-bottom: 1px solid #eceeef;*/
-/*}*/
-
-/*.modal-title {*/
-/*    margin-top: 0;*/
-/*    margin-bottom: 0;*/
-/*    line-height: 1.5;*/
-/*    font-size: 1.25rem;*/
-/*    font-weight: 500;*/
-/*}*/
-
-/*!* свойства для кнопки "Закрыть" *!*/
-/*.close {*/
-/*    float: right;*/
-/*    font-family: sans-serif;*/
-/*    font-size: 24px;*/
-/*    font-weight: 700;*/
-/*    line-height: 1;*/
-/*    color: #000;*/
-/*    text-shadow: 0 1px 0 #fff;*/
-/*    opacity: .5;*/
-/*    text-decoration: none;*/
-/*}*/
-
-/*!* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении *!*/
-/*.close:focus,*/
-/*.close:hover {*/
-/*    color: #000;*/
-/*    text-decoration: none;*/
-/*    cursor: pointer;*/
-/*    opacity: .75;*/
-/*}*/
-
-/*!* свойства для кнопки "Закрыть" *!*/
-/*.close1 {*/
-/*    float: right;*/
-/*    font-family: sans-serif;*/
-/*    font-size: 24px;*/
-/*    font-weight: 700;*/
-/*    line-height: 1;*/
-/*    color: #000;*/
-/*    text-shadow: 0 1px 0 #fff;*/
-/*    opacity: .5;*/
-/*    text-decoration: none;*/
-/*}*/
-
-/*!* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении *!*/
-/*.close1:focus,*/
-/*.close1:hover {*/
-/*    color: #000;*/
-/*    text-decoration: none;*/
-/*    cursor: pointer;*/
-/*    opacity: .75;*/
-/*}*/
-
-/*!* свойства для блока, содержащего основное содержимое окна *!*/
-/*.modal-body {*/
-/*    position: relative;*/
-/*    -webkit-box-flex: 1;*/
-/*    -webkit-flex: 1 1 auto;*/
-/*    -ms-flex: 1 1 auto;*/
-/*    flex: 1 1 auto;*/
-/*    padding: 15px;*/
-/*    overflow: auto;*/
-/*}*/
 
 
 .prof-img{
@@ -291,7 +145,7 @@ body {
 }
 
 .prof{
-    margin-left: 106px;
+    margin-left: 105px;
     margin-top: -8px;
 }
 .dropdown-toggle::after{
@@ -322,13 +176,12 @@ body {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 0.25rem;
-    margin: 44px -47px 26px -78px;
+    margin: 49px -47px 26px -113px;
 }
 
 .dropdown-toggle{
     text-decoration: none;
 }
-
 
 .show{
     display: block;
@@ -376,4 +229,79 @@ body {
 
 .hc:hover{
     color:#828080 ;
+}
+
+.dropbtn {
+    padding: 5px;
+    cursor: pointer;
+}
+.dropbtn1 {
+    padding: 5px;
+    cursor: pointer;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    display: inline-block;
+    margin-left: 55px;
+    margin-top: 6px;
+    position: inherit;
+    margin-right: 20px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 55px;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 0.25rem;
+    margin-top: 15px;
+    margin-left: -7px;
+    padding-left: 5px;
+}
+
+.dropbtn
+{
+    background: url('http://icons.iconarchive.com/icons/custom-icon-design/flag-3/16/Russia-Flag-icon.png') no-repeat left center;
+    padding-left: 25px;
+    width: 40px;
+}
+
+.dropbtn1
+{
+    background: url('https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/flag-usa-icon.png') no-repeat left center;
+    padding-left: 25px;
+    width: 40px;
+}
+
+.dropdown-content a:first-child {
+    background: url('http://icons.iconarchive.com/icons/custom-icon-design/flag-3/16/Russia-Flag-icon.png') no-repeat left center;
+}
+
+.dropdown-content a:last-child {
+    background: url('https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/flag-usa-icon.png') no-repeat left center;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 2px 0 2px 25px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #cacaca;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.choose-lang{
+    color: white;
+    text-decoration: none;
 }

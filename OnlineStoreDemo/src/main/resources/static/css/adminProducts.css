@@ -3,30 +3,17 @@
     text-align: center;
 }
 
-.content {
-    background-color: #c0c3c6;
-    padding-top: 50px;
-    border-radius: 8px
-}
-
 .label-users {
-    margin-left: 120px;
+    margin-left: 16px;
     margin-right: 30px;
     font-size: 22px;
     font-weight: 600;
 }
 
-.tab {
-    margin-top: 50px;
-}
-
 .sort {
     display: flex;
     align-items: baseline;
-}
-
-.sort-tit {
-    margin-left: 200px;
+    place-content: center;
 }
 
 .select-sort {
@@ -44,11 +31,15 @@ select:focus {
 .btn-sort {
     padding: 8px 15px;
     border-radius: 3px;
-    border: 1px solid #f6f3f3;
+    border: 1px solid transparent;
+    color: white;
+    background-color: darkred;
+    cursor: pointer;
 }
 
 .btn-sort:hover {
-    background-color: #eceaea;
+    background-color: #6c0404;
+    color: white;
 }
 
 option:hover {
@@ -60,209 +51,11 @@ td {
     padding: 20px 20px 20px 24px;
 }
 
-.table {
-    width: 100%;
-}
-
-
-
-
-
-
-
-
-.modal {
-    position: fixed;
-    /* фиксированное положение */
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    /* цвет фона */
-    z-index: 1050;
-    opacity: 0;
-    /* по умолчанию модальное окно прозрачно */
-    -webkit-transition: opacity 400ms ease-in;
-    -moz-transition: opacity 400ms ease-in;
-    transition: opacity 400ms ease-in;
-    /* анимация перехода */
-    pointer-events: none;
-    /* элемент невидим для событий мыши */
-}
-
-/* при отображении модального окно */
-.modal:target {
-    opacity: 1;
-    pointer-events: auto;
-    overflow-y: auto;
-}
-
-
-.modal-dialog {
-    position: relative;
-    width: auto;
-    margin: 10px;
-}
-
-@media (min-width: 576px) {
-    .modal-dialog {
-        max-width: 500px;
-        margin: 160px auto; /* для отображения модального окна по центру */
-    }
-}
-
-/* свойства для блока, содержащего контент модального окна */
-.modal-content {
-    padding-bottom: 20px;
-    position: relative;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    background-color: #fff;
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, .2);
-    border-radius: .3rem;
-    outline: 0;
-}
-
-@media (min-width: 768px) {
-    .modal-content {
-        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-    }
-}
-
-/* свойства для заголовка модального окна */
-.modal-header {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #eceeef;
-}
-
-.modal-title {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 1.5;
-    font-size: 1.25rem;
-    font-weight: 500;
-}
-
-/* свойства для кнопки "Закрыть" */
-.close {
-    float: right;
-    font-family: sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
-    opacity: .5;
-    text-decoration: none;
-}
-
-/* свойства для кнопки "Закрыть" при нахождении её в фокусе или наведении */
-.close:focus,
-.close:hover {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-    opacity: .75;
-}
-
-/* свойства для блока, содержащего основное содержимое окна */
-.modal-body {
-    position: relative;
-    -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 15px;
-    overflow: auto;
-}
-
 .mb-head {
     margin-top: 10px;
 }
 
-.modal-btn-yes {
-    color: white;
-    background-color: darkred;
-    padding: 10px 60px;
-    border-radius: 3px;
-    border: 1px solid transparent;
-}
-
-.modal-btn-no {
-    color: white;
-    background-color: #9a9073;
-    padding: 10px 60px;
-    border-radius: 3px;
-    border: 1px solid transparent;
-}
-
-.modal-btn-yes:hover {
-    background-color: #6c0404;
-    color: white;
-}
-
-.modal-btn-no:hover {
-    background-color: #706954;
-    color: white;
-}
-
-.cont {
-    display: flex;
-    margin-top: 20px;
-    margin-left: 90px;
-}
-hr{
-    height: 2px;
-    border: none;
-    background-color: #d0cccc;
-}
-.err-mod{
-    /*margin-top: 10px;*/
-    color: darkred;
-    margin-bottom: 20px;
-}
-.dis{
-    display: flex;
-    margin-bottom: 5px;
-}
-.ref-close{
-    text-decoration: none;
-    color: white;
-}
-
-.inp-mod{
-    padding-left: 60px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-
-    margin-left: 20px;
-    border: 1px solid grey;
-    border-radius: 3px;
-}
-textarea:focus{
+textarea:focus {
     outline: 0;
     outline-offset: 0;
     border: 5px solid rgba(234, 155, 154, 0.8);
@@ -274,45 +67,35 @@ INPUT:focus {
     border: 5px solid rgba(234, 155, 154, 0.8);
 }
 
-.ml1{
-    margin-left: 97px;
-}
-
-.ml2{
-    margin-left: 133px;
-}
-.ml3{
-    margin-left: 71px;
-}
-.ml4{
-    margin-left: 77px;
-}
-
-.ml5{
-    margin-left: 75px;
+.ml15 {
+    margin-left: 100px;
     padding-left: 144px;
     padding-bottom: 20px;
 }
 
-table{
+table {
     width: 100%;
     border-collapse: collapse;
 }
 
-tr{
+tr {
     border-bottom: 3px solid #d4d3d3;
 }
-.tab{
+
+.tab {
     margin-left: 100px;
     margin-right: 100px;
+    margin-top: 50px;
 }
-.name-prod{
+
+.name-prod {
     text-decoration: none;
     color: black;
     font-size: 19px;
     font-weight: 600;
 }
-.add-card{
+
+.add-card {
     color: white;
     background-color: darkred;
     padding: 6px 24px;
@@ -322,20 +105,70 @@ tr{
     margin-left: 100px;
     margin-top: 20px;
 }
-.add-pr{
+
+.add-pr {
     text-decoration: none;
     color: white;
 }
 
-.add-card:hover{
+.add-card:hover {
     background-color: #6c0404;
 }
 
-body{
-    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+body {
+    /*background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");*/
+    background-color: white;
 }
-th{
+
+th {
     padding-left: 14px;
     padding-bottom: 26px;
     text-align: justify;
+}
+
+input[type="file" i] {
+    margin-bottom: 10px;
+    margin-right: -6px;
+    margin-inline-start: auto;
+}
+
+
+.input-js {
+    margin-left: 40px;
+    padding: 7px 20px;
+    border: 2px solid #d4d4d4;
+    border-radius: 3px;
+}
+
+.search-js {
+    display: flex;
+    align-items: baseline;
+    place-content: center;
+    margin-bottom: 24px;
+}
+
+h4 {
+    font-weight: 100;
+}
+
+.td-width {
+    width: 545px;
+}
+
+hr {
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.det-search {
+    margin: 29px 100px 20px;
+}
+
+.det-sort {
+    margin: 50px 100px 20px;
+}
+
+summary {
+    font-size: 19px;
+    font-weight: 600;
 }

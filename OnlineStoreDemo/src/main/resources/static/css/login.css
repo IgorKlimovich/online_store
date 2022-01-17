@@ -156,7 +156,6 @@ body {
 
 .rem {
     font-size: 17px;
-
 }
 
 .modal {
@@ -234,6 +233,9 @@ body {
     justify-content: space-between;
     padding: 15px;
     border-bottom: 1px solid #eceeef;
+    background-color: #e5e7ea;
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
 }
 
 .modal-title {
@@ -310,7 +312,9 @@ body {
 .cont {
     display: flex;
     margin-top: 20px;
-    margin-left: 180px;
+    /* margin-left: 180px; */
+    place-content: end;
+    margin-right: 14px;
 }
 .pass{
     position: relative;

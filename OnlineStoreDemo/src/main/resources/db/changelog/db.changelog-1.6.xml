@@ -25,6 +25,9 @@
             </column>
             <column name="amount" type="INT" defaultValue="0">
             </column>
+            <column name="name_photo" type="VARCHAR(512)" >
+                <constraints nullable="true"/>
+            </column>
             <column name="product_category_id" type="INT">
             </column>
         </createTable>

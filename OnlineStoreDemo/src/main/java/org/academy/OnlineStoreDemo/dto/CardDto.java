@@ -16,22 +16,22 @@ public class CardDto {
 
     private Integer id;
 
-    @NotEmpty(message = "название не может быть пустым")
+    @NotEmpty(message = "{cardNameCanNotBeEmpty}")
     private String name;
 
-    @NotEmpty(message = "номер не может быть пустым")
+    @NotEmpty(message = "{cardNumberCanNotBeEmpty}")
     @Pattern(regexp = "[0-9]{16}",
-            message = "номер должен содержать 16 цифр")
+            message = "{numberMustContainDigits}")
     private String number;
 
     @Pattern(regexp = "[0-9]{3}",
-            message = "CVV должен содержать 3 цифры")
-    @NotEmpty(message = "CVV не может быть пустым")
+            message = "{cvvMustContainDigits}")
+    @NotEmpty(message = "{cvvCanNotBeEmpty}")
     private String cvv;
 
     private Double totalAmount;
 
-    private User user;
+    private UserDto userDto;
 
     @Override
     public String toString() {

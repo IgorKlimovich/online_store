@@ -27,12 +27,11 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public void save(CardDto cardDto, UserDto userDto) {
+        cardDto.setUserDto(userDto);
+        cardDto.setTotalAmount(1500.0+Math.random()*1500.0);
         Card card =modelMapper.map(cardDto,Card.class);
-        User user =modelMapper.map(userDto, User.class);
-        card.setUser(user);
-        card.setTotalAmount(1500.0);
         cardRepository.save(card);
-        log.info("in save card: card {} successfully saved for user{}", card, user);
+        log.info("in save card: card {} successfully saved for user{}", card, card.getUser());
     }
 
     @Override
@@ -41,29 +40,27 @@ public class CardServiceImpl implements CardService {
         try {
             card = cardRepository.findById(cardId).orElseThrow(Exception::new);
         } catch (Exception e) {
-            log.warn("in find by id: card by id{} not found",cardId);
+            log.error("in find by id: card by id{} not found",cardId);
+            return null;
         }
         CardDto cardDto=modelMapper.map(card, CardDto.class);
-
         log.info("in find by id: card{} founded by id{}", card,cardId);
         return cardDto;
 
     }
 
     @Override
-    public void remove(CardDto cardDto) {
-        Card card = modelMapper.map(cardDto, Card.class);
-        cardRepository.delete(card);
-        log.info("in remove card: card{} successfully removed",card);
+    public void remove(Integer cardId) {
+        cardRepository.deleteById(cardId);
+        log.info("in remove card: card with id {} successfully removed",cardId);
     }
 
     @Override
     public void update(CardDto cardDto) {
-        Card card = modelMapper.map(cardDto, Card.class);
-        Card cardFromDb=cardRepository.getById(card.getId());
-        cardFromDb.setName(card.getName());
-        cardFromDb.setCvv(card.getCvv());
-        cardFromDb.setNumber(card.getNumber());
+        Card cardFromDb=cardRepository.getById(cardDto.getId());
+        cardFromDb.setName(cardDto.getName());
+        cardFromDb.setCvv(cardDto.getCvv());
+        cardFromDb.setNumber(cardDto.getNumber());
         cardRepository.save(cardFromDb);
         log.info("in update card: card updated to card{}", cardFromDb);
     }
@@ -77,6 +74,7 @@ public class CardServiceImpl implements CardService {
             CardDto map = modelMapper.map(card, CardDto.class);
             cardsDto.add(map);
         }
+        log.info("in find all cards by user: founded {} cards by user {}", cards.size(), user);
        return cardsDto;
     }
 }

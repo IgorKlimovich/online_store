@@ -1,12 +1,49 @@
-.ul-prod{
+.ul-prod {
     display: flex;
     list-style: none;
+    margin: 0 0 -4px -25px;
 }
 
-.li-price{
+.li-price {
     margin-left: 20px;
 }
 
-.li-price-prod{
-    margin: auto;
+.li-price-prod {
+    margin: auto 40px auto auto;
+    font-size: 16px;
+    font-family: unset;
+    color: #706e6e;
+}
+
+.ord {
+    width: 700px;
+    height: auto;
+    border: 2px solid #b2afaf;
+    border-radius: 43px;
+    background-color: white;
+}
+
+.det-prod {
+    text-align: left;
+    margin-left: 23px;
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+body {
+    background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+
+.ord-btn {
+    margin-left: -490px;
+    margin-bottom: 25px;
+}
+
+.ul-ord {
+    margin-top: 10px;
+}
+
+.tit-ord {
+    display: -webkit-inline-box;
+    margin-top: 50px;
 }
