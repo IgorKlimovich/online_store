@@ -7,6 +7,7 @@
     font-size: 48px;
     font-weight: 500;
 }
+
 strong{
     font-style: italic;
     font-size: 48px;
@@ -17,18 +18,15 @@ strong{
 }
 
 .img1{
-
     margin-left: 150px;
 }
-
 
 body{
     background-color: white;
 }
+
 .img2{
-
     margin-top: 100px;
-
 }
 
 .title1{
@@ -37,6 +35,7 @@ body{
     text-align: center;
     font-weight: 600;
 }
+
 .feature{
     display: flex;
     margin-top: 150px;
@@ -59,11 +58,13 @@ body{
 .feature-icon{
     margin-right: 30px;
 }
+
 .contact{
     display: flex;
     margin-top: 150px;
     margin-bottom: 150px;
 }
+
 .contact-item{
     margin-left: 80px;
 }
@@ -73,6 +74,7 @@ body{
     align-items: center;
     margin-bottom: 50px;;
 }
+
 .cont-btn{
     margin-left: 96px;
 }
@@ -84,7 +86,6 @@ body{
 }
 
 .btn-vac{
-
     background-color: darkred;
     color: white;
     padding: 15px 70px;
@@ -106,9 +107,17 @@ body{
     color: white;
     text-decoration: none;
 }
+
 .btn-vac:hover{
     background-color: #6c0404;
     color: white;
 }
 
+.my-shop{
+    display: flex;
+    margin-bottom: -31px;
+}
 
+.ml-tit{
+    margin-left: 13px;
+}
