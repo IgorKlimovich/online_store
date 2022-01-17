@@ -2,84 +2,68 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-<!--    <link rel="stylesheet" type="text/css" href="/css/admin.css">-->
     <link rel="stylesheet" href="/css/blocks/header.css">
     <link rel="stylesheet" href="/css/blocks/footer.css">
     <link rel="stylesheet" href="/css/blocks/modal.css">
     <link rel="stylesheet" href="/css/adminOrder.css">
+    <link rel="stylesheet" href="/css/profile.css">
     <title id="title">Админ</title>
 </head>
 <body>
 
 <header th:insert="blocks/header::header"></header>
 
-<div class="tab">
-    <table class="table ">
-        <thead>
-        <tr>
-            <th scope="col"> Номер</th>
-            <th scope="col"> Дата заказа</th>
-            <th scope="col"> Полная стоимость</th>
-            <th scope="col"> Логин заказчика</th>
-            <th scope="col"> Статус заказа</th>
-<<<<<<< HEAD
-            <th scope="col" th:if="${!productsDto.isEmpty()}"> Товары</th>
-=======
-            <th scope="col" th:if="${!products.isEmpty()}"> Товары</th>
->>>>>>> origin/master
-        </tr>
-        </thead>
-        <tbody>
-        <tr >
-<<<<<<< HEAD
-            <td><a class="td-ref" th:text="${orderDto.id}"></a></td>
-            <td><a th:text="${orderDto.date}"></a> </td>
-            <td><a th:text="${orderDto.fullPrice}"></a></td>
-            <td><a th:text="${orderDto.userDto.login}"></a></td>
-            <td><a th:text="${orderDto.stateOrderDto.name}"></a></td>
-            <td th:if="${!productsDto.isEmpty()}">
-=======
-            <td><a class="td-ref" th:text="${order.id}"></a></td>
-            <td><a th:text="${order.date}"></a> </td>
-            <td><a th:text="${order.fullPrice}"></a></td>
-            <td><a th:text="${order.user.login}"></a></td>
-            <td><a th:text="${order.stateOrder.name}"></a></td>
-            <td th:if="${!products.isEmpty()}">
->>>>>>> origin/master
-                <ul class="ul-prod">
-                    <li>Название товара</li>
-                    <li class="li-price">Стоимость товара</li>
-                </ul>
-<<<<<<< HEAD
-                <ul th:each="productDto : ${productsDto}" class="ul-prod">
-                    <li th:text="${productDto.name}"></li>
-                    <li th:text="${productDto.price}" class="li-price-prod"></li>
-                </ul>
-            </td>
-            <td>
-                <form method="post" th:if="${orderDto.getStateOrderDto().getName().equals('PAID')}"
-                      th:action="@{admin/order/deliver/{id}(id=${orderDto.id})}">
-=======
-                <ul th:each="product : ${products}" class="ul-prod">
-                    <li th:text="${product.name}"></li>
-                    <li th:text="${product.price}" class="li-price-prod"></li>
-                </ul>
-            </td>
-            <td>
-                <form method="post" th:if="${order.getStateOrder().getName().equals('PAID')}"
-                      th:action="@{admin/order/deliver/{id}(id=${order.id})}">
->>>>>>> origin/master
-                    <button type="submit"
-                            class="btn btn-wid btn-col-1">Пометить как обработанный</button>
-                </form>
-            </td>
+<div class="user">
+    <div class="ord pr-w">
+        <div class="tit-ord">
+            <h1 th:text="#{orderNum}">Заказ №</h1>
+            <h1 class="tit-pr" th:text="${orderDto.id}"></h1>
+        </div>
+        <div>
+            <img class="img-mb" src="https://www.seoclerk.com/pics/want47317-1GVggJ1485634644.png"
+                 width="450" height="450"/>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{orderNumber}">Номер заказа</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.id}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{dateOfCreation}">Дата заказа</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.date}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{fullPrice}">Полная стоимость</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.fullPrice}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{customerLogin}">Логин заказчика</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.userDto.login}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{orderState}">Статус заказа</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.stateOrderDto.name}"></h4></div>
+        </div>
 
-        </tr>
-        </tbody>
-    </table>
+        <hr th:if="${!productsDto.isEmpty()}">
+        <div th:if="${!productsDto.isEmpty()}">
+            <details class="det-prod">
+                <summary class="sum" th:text="#{products}">Товары</summary>
+                <div class="ul-ord">
+                    <ul th:each="productDto : ${productsDto}" class="ul-prod">
+                        <li ><h4 th:text="${productDto.name}"></h4></li>
+                        <li  class="li-price-prod"><h4 th:text="${productDto.price}"></h4></li>
+                    </ul>
+                </div>
+            </details>
+        </div>
+        <form method="post" th:if="${orderDto.getStateOrderDto().getName().equals('PAID')}"
+              th:action="@{admin/order/deliver/{id}(id=${orderDto.id})}">
+            <button type="submit"
+                    class="add-card ord-btn" th:text="#{markAsProcessed}">Пометить как обработанный
+            </button>
+        </form>
+    </div>
 </div>
-
-
 
 <footer th:insert="blocks/footer::footer"></footer>
 <script type="text/javascript" src="/js/blocks/header.js"></script>

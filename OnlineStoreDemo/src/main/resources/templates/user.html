@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title id="title">Пользователь</title>
-    <link href="/css/blocks/header.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
     <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/user.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
 
 <header th:insert="blocks/header::header"></header>
 
-<div class="tab">
-    <table class="table ">
-        <thead>
-        <tr>
-            <th scope="col"> Имя</th>
-            <th scope="col"> Фамилия</th>
-            <th scope="col"> email</th>
-            <th scope="col"> логин</th>
-            <th scope="col"> номер</th>
-            <th scope="col"> роль</th>
-            <th scope="col"> статус</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><a th:text="${userDto.firstName}"></a></td>
-            <td><a th:text="${userDto.lastName}"></a></td>
-            <td><a th:text="${userDto.email}"></a></td>
-            <td><a th:text="${userDto.login}"></a></td>
-            <td><a th:text="${userDto.phoneNumber}"></a></td>
-            <td><a th:text="${userDto.roleDto.name}"></a></td>
-            <td><a th:text="${userDto.stateDto.name}"></a></td>
-            <td th:if="${userDto.stateDto.name.equals('ACTIVE')}">
-                <form th:method="post" th:action="@{/admin/user/{id}/ban(id=${userDto.id})}">
-                    <button type="submit" class="btn btn-wid btn-col-1">Заблокировать</button>
-                </form>
-            </td>
-            <td th:if="${userDto.stateDto.name.equals('BANNED')}">
-                <form th:method="post" th:action="@{/admin/user/{id}/unban(id=${userDto.id})}">
-                    <button type="submit" class="btn btn-wid btn-col-1">Разблокировать</button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="user">
+    <div class="product pr-w">
+        <div><h1 class="tit-pr" th:text="${userDto.firstName}"></h1></div>
+        <td th:if="${userDto.namePhoto==null}">
+            <img src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg" width="450" height="450"
+                 class="img-mb"></td>
+        <td th:if="${userDto.namePhoto!=null}">
+            <img class="img-mb" th:src="@{${userDto.photosImagePath}}" width="450" height="450"/></td>
+        <div class="prof-items">
+            <div><h4 th:text="#{firstName}">Имя</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.firstName}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{lastName}">Фамилия</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.lastName}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{email}">Email</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.email}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{phoneNumber}">Номер телефона</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.phoneNumber}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{role}">Роль</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.roleDto.name}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{state}">Статус</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userDto.stateDto.name}"></h4></div>
+        </div>
+        <hr>
+        <form th:method="post" th:action="@{/admin/user/{id}/ban(id=${userDto.id})}"
+              th:if="${userDto.stateDto.name.equals('ACTIVE')}">
+            <button type="submit" class="button add-card to-ord" th:text="#{ban}">Заблокировать</button>
+        </form>
+        <form th:method="post" th:action="@{/admin/user/{id}/unban(id=${userDto.id})}"
+              th:if="${userDto.stateDto.name.equals('BANNED')}">
+            <button type="submit" class="button add-card to-ord" th:text="#{unban}">Разблокировать</button>
+        </form>
+    </div>
 </div>
+
+<footer th:insert="blocks/footer::footer"></footer>
 <script type="text/javascript" src="/js/blocks/header.js"></script>
 </body>
 </html>

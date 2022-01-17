@@ -10,50 +10,51 @@
 
 <div class="container">
     <main>
-        <h4 class="h3 mb-3 fw-normal">Зарегистрируйтесь</h4>
+        <h4 class="h3 mb-3 fw-normal" th:text="#{willSignUp}">Зарегистрируйтесь</h4>
         <form action="/sign-up" method="post" th:object="${userForm}">
             <div class="row">
                 <div class="col-sm-6">
-                    <label for="firstName" id="labelName" class="form-label">Имя</label>
+                    <label for="firstName" id="labelName" class="form-label" th:text="#{firstName}">Имя</label>
                     <input type="text" class="form-control" id="firstName" name="firstName"
-                           placeholder="Имя" onfocus="return signNameFocus();" onblur="return signNameBlur();">
+                           th:placeholder="#{firstName}" onfocus="return signNameFocus();" onblur="return signNameBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <label for="lastName" id="labelLastName" class="form-label">Фамилия</label>
+                    <label for="lastName" id="labelLastName" class="form-label" th:text="#{lastName}">Фамилия</label>
                     <input type="text" class="form-control" id="lastName" name="lastName"
-                           placeholder="Фамилия" onfocus="return signLastNameFocus();"
+                           th:placeholder="#{lastName}" onfocus="return signLastNameFocus();"
                            onblur="return signLastNameBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
                     </div>
                 </div>
                 <div class="col-12">
-                    <label for="email" id="labelEmail" class="form-label">Email</label>
+                    <label for="email" id="labelEmail" class="form-label" th:text="#{email}">Email</label>
                     <input type="text" class="form-control" id="email" name="email"
-                           placeholder="Email" onfocus="return signEmailFocus();" onblur="return signEmailBlur();">
+                           th:placeholder="#{email}" onfocus="return signEmailFocus();" onblur="return signEmailBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                    <div class="er-col" th:text="${existEmail}"></div>
+                    <div class="er-col" th:if="${existEmail}" th:text="#{thisEmailAlreadyExists}"></div>
                 </div>
                 <div class="col-12">
-                    <label for="phoneNumber" id="labelPhoneNumber" class="form-label"> Номер телефона</label>
+                    <label for="phoneNumber" id="labelPhoneNumber" class="form-label" th:text="#{phoneNumber}">
+                        Номер телефона</label>
                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                           placeholder="Номер телефона" onfocus="return signPhoneNumberFocus();"
+                           th:placeholder="#{phoneNumber}" onfocus="return signPhoneNumberFocus();"
                            onblur="return signPhoneNumberBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
-                    <div class="er-col" th:text="${existPhoneNumber}"></div>
+                    <div class="er-col" th:if="${existPhoneNumber}" th:text="#{thisPhoneNumberAlreadyExists}"></div>
                 </div>
                 <div class="col-12">
-                    <label for="login" id="labelLogin" class="form-label"> Логин</label>
+                    <label for="login" id="labelLogin" class="form-label" th:text="#{login}"> Логин</label>
                     <input type="text" class="form-control" id="login" name="login"
-                           placeholder="Логин" onfocus="return signLoginFocus();" onblur="return signLoginBlur();">
+                           th:placeholder="#{login}" onfocus="return signLoginFocus();" onblur="return signLoginBlur();">
                     <div class="er-col" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-                    <div class="er-col" th:text="${existLogin}"></div>
+                    <div class="er-col" th:if="${existLogin}" th:text="#{thisLoginAlreadyExists}"></div>
                 </div>
                 <div class="col-12 pass">
-                    <label for="password" id="labelPassword" class="form-label">Пароль</label>
+                    <label for="password" id="labelPassword" class="form-label" th:text="#{password}">Пароль</label>
                     <input type="text" class="form-control" id="password" name="password"
-                           placeholder="Пароль" onfocus="return signPasswordFocus();"
+                           th:placeholder="#{password}" onfocus="return signPasswordFocus();"
                            onblur="return signPasswordBlur();">
                     <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
                     <div class="er-col "
@@ -61,13 +62,19 @@
                     </div>
                 </div>
             </div>
-            <button class="bts w-100 btn btn-lg my-btn-log" type="submit">Зарегистрироваться</button>
+            <button class="bts w-100 btn btn-lg my-btn-log" type="submit" th:text="#{signUp}">
+                Зарегистрироваться</button>
         </form>
         <form action="/login">
             <button class="col-log w-100 btn btn-lg btn-reg"
-                    type="submit">Войти
+                    type="submit" th:text="#{signIn}">Войти
             </button>
         </form>
+        <div>
+            <button class="col-log w-100 btn btn-lg btn-reg"
+                    type="button"> <a href="/shop" th:text="#{toShop}"></a>
+            </button>
+        </div>
     </main>
 </div>
 

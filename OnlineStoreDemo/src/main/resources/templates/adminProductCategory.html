@@ -5,48 +5,109 @@
     <title id="title">Админ</title>
     <link rel="stylesheet" href="/css/blocks/header.css">
     <link rel="stylesheet" href="/css/blocks/footer.css">
-    <link rel="stylesheet" type="text/css" href="/css/adminProductCategory.css">
+    <link rel="stylesheet" href="/css/adminProductCategory.css">
     <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
 <header th:insert="blocks/header::header"></header>
 
-<div class="tab">
-    <table class="table ">
-        <thead>
-        <tr>
-            <th scope="col"> Название</th>
-            <th scope="col"> Колличество товаров</th>
-<!--            <th scope="col"> Цена</th>-->
-        </tr>
-        </thead>
-        <tbody>
-        <tr >
-            <td><a class="td-ref" th:text="${productCategoryDto.name}"></a></td>
 
-            <td th:text="${productCategoryDto.amount}"></td>
-            <td>
-                <form>
-                    <button type="button" class="btn btn-wid btn-col-1" onclick="return openMod();">Изменить</button>
-                </form>
-            </td>
-            <td>
-                <form>
-                    <button type="button" class="btn btn-wid btn-col-1" onclick="return openModalDel();">Удалить</button>
-                </form>
-            </td>
+<div class="user">
+    <div class="ord pr-w">
+        <div class="tit-ord">
+            <h1 th:text="${productCategoryDto.name}">Название категории</h1>
 
-        </tr>
-        </tbody>
-    </table>
+        </div>
+        <div>
+            <img class="img-mb" src="https://diamedica.by/uploads/no-image.jpg"
+                 width="450" height="450"/>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{categoryName}">Название категории</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productCategoryDto.name}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{countProduct}">Колличество товаров</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productCategoryDto.amount}"></h4></div>
+        </div>
+
+
+        <hr >
+        <div style="display: flex">
+            <div>
+                <form>
+                    <button type="button" onclick="return openMod();"
+                            th:text="#{change}" class="add-card ord-btn" >Изменить
+                    </button>
+                </form>
+            </div>
+            <div>
+                <form th:if="${productCategoryDto.getAmount()<=0}">
+                    <button type="button" class="del-cat" onclick="return openModalDel();"
+                            th:text="#{delete}">Удалить
+                    </button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="tab">-->
+<!--    <table class="table ">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col" th:text="#{title}"> Название</th>-->
+<!--            <th scope="col" th:text="#{amountOfProducts}"> Колличество товаров</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--            <td><a class="td-ref" th:text="${productCategoryDto.name}"></a></td>-->
+<!--            <td th:text="${productCategoryDto.amount}"></td>-->
+<!--            <td>-->
+<!--                <form>-->
+<!--                    <button type="button" class="btn btn-wid btn-col-1" onclick="return openMod();"-->
+<!--                            th:text="#{change}">Изменить-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <form>-->
+<!--                    <button type="button" class="btn btn-wid btn-col-1" onclick="return openModalDel();"-->
+<!--                            th:text="#{delete}">Удалить-->
+<!--                    </button>-->
+<!--                </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
 
 <div id="openModalCat" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Изменить категорию</h3>
+                <h3 class="modal-title" th:text="#{changeCategory}">Изменить категорию</h3>
                 <a href="#close" onclick="closeModal();"
                    title="Close" id="close" class="close">×</a>
             </div>
@@ -54,23 +115,29 @@
                 <div>
                     <form method="post" action="/admin/product_category/update" th:object="${productCategoryDto}">
                         <div class="dis">
-                            <label for="name" class="lab-upd">Введите новое название</label>
+                            <label for="name" class="lab-upd" th:text="#{enterANewTitle}">Введите новое название</label>
                             <input type="text" id="name" name="name" class="inp-mod ml1 ml-up"
-                            th:placeholder="${productCategoryDto.name}" th:field="${productCategoryDto.name}">
+                                   th:placeholder="${productCategoryDto.name}" th:field="${productCategoryDto.name}">
                             <input type="hidden" th:field="${productCategoryDto.id}">
                         </div>
-                        <div th:if="${errorCategoryName}" class="err-mod"
-                             th:text="${errorCategoryName}">
+                        <div th:if="${moreNumber}" class="mb"
+                             th:text="#{theNumberOfCharactersCanNotBeMore}">
+                        </div>
+                        <div th:if="${emptyCategoryName}" class="mb"
+                             th:text="#{categoryNameCanNotBeEmpty}">
+                        </div>
+                        <div th:if="${existCategory}" class="mb"
+                             th:text="#{categoryAlreadyExist}">
                         </div>
                         <div class="cont">
                             <div>
-                                <button class="modal-btn-yes" type="submit">Сохранить</button>
+                                <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
                             </div>
 
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalButton();" class="ref-close"
-                                       href="#close">Отмена</a></button>
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
                             </div>
                         </div>
                     </form>
@@ -79,38 +146,32 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
 
 <div id="openModalDel" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Удалить категорию</h3>
+                <h3 class="modal-title" th:text="#{deleteCategory}">Удалить категорию</h3>
                 <a href="#close" onclick="closeModalDel();"
                    title="Close" id="closeDel" class="close">×</a>
             </div>
             <div class="modal-body">
                 <div>
-                    <div class="mb-head">
+                    <div class="mb-head" th:text="#{areYouSureYouWantToDeleteTheCategory}">
                         Вы действительно хотите удалить категорию?
                     </div>
-                    <form th:method="post" th:action="@{/admin/product_category/delete}" th:object="${productCategoryDto}">
+                    <form th:method="post" th:action="@{/admin/product_category/delete}"
+                          th:object="${productCategoryDto}">
                         <input type="hidden" th:field="${productCategoryDto.id}">
                         <input type="hidden" th:field="${productCategoryDto.name}">
                         <div class="cont">
                             <div>
-                                <button class="modal-btn-yes" type="submit">Удалить</button>
+                                <button class="modal-btn-yes" type="submit" th:text="#{delete}">Удалить</button>
                             </div>
-
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalDelButton();" class="ref-close"
-                                       href="#close">Отмена</a></button>
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
                             </div>
                         </div>
                     </form>
@@ -120,62 +181,36 @@
     </div>
 </div>
 
-
-
-<div id="openModalDelError" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Ошибка удаления</h3>
-                <a href="#close" onclick="closeModalDelError();"
-                   title="Close" id="closeDelError" class="close">×</a>
-            </div>
-            <div class="modal-body">
-                <div>
-                    <div class="mb-head">
-                        В этой категории находятся товары. Чтобы удалить категорию необходимо сначала удалить товары.
-                    </div>
-                    <form th:method="post" th:action="@{/admin/product_category/delete}" class="del-err"
-                          th:object="${productCategoryDto}">
-<!--                        <input type="hidden" th:field="${productCategory.id}">-->
-<!--                        <input type="hidden" th:field="${productCategory.name}">-->
-<!--                        <div class="cont">-->
-                            <div>
-                                <button class="modal-btn-yes err-btn" type="button">
-                                    <a onclick="closeModalDelErrorButton();" class="ref-close"
-                                       href="#close">Хорошо</a></button>
-                            </div>
-
-<!--                            <div>-->
-<!--                                <button type="button" class="modal-btn-no">-->
-<!--                                    Отмена</a></button>-->
-<!--                            </div>-->
-
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
+<!--<div id="openModalDelError" class="modal">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h3 class="modal-title" th:text="#{deleteError}">Ошибка удаления</h3>-->
+<!--                <a href="#close" onclick="closeModalDelError();"-->
+<!--                   title="Close" id="closeDelError" class="close">×</a>-->
+<!--            </div>-->
+<!--            <div class="modal-body">-->
+<!--                <div>-->
+<!--                    <div class="mb-head" th:text="#{containsProduct}">-->
+<!--                        В этой категории находятся товары. Чтобы удалить категорию необходимо сначала удалить товары.-->
+<!--                    </div>-->
+<!--                    <form th:method="post" th:action="@{/admin/product_category/delete}" class="del-err"-->
+<!--                          th:object="${productCategoryDto}">-->
+<!--                        <div>-->
+<!--                            <button class="modal-btn-yes err-btn" type="button">-->
+<!--                                <a onclick="closeModalDelErrorButton();" class="ref-close"-->
+<!--                                   href="#close" th:text="#{ok}">Хорошо</a></button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <div th:if="${error}">
     <input type="hidden" id="flag" th:value="${error}">
 </div>
-
-<!--<div th:if="${errorDel}">-->
-<!--    <input type="hidden" id="flag-del" th:value="${errorDel}">-->
-<!--</div>-->
-
-
 
 <footer th:insert="blocks/footer::footer"></footer>
 <script type="text/javascript" src="/js/blocks/header.js"></script>

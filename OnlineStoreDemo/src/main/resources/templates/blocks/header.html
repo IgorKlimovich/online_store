@@ -1,75 +1,86 @@
-<div th:fragment="header">
+<div th:fragment="header" class="header">
     <header class="color-head nav  p-3" id="hd">
         <div>
             <div class="mg-tp justify-content-center ">
                 <ul class="nav col-12  justify-content-center ">
                     <li><a href="#" class="nav-link px-2 px mf text-secondary ">My Shop</a></li>
                     <form class="col-12  mb-3 me-lg-3 " action="/search/header">
-                        <input type="text" class=" wdi" placeholder="Поиск товара..."
+                        <input type="text" class=" wdi" th:placeholder="#{searchProduct}"
                                name="searchHeader">
-                        <button type="submit" class="btn my-btn  sc search-btn">Найти</button>
+                        <button type="submit" class="btn my-btn sc search-btn" th:text="#{search}">Найти</button>
                     </form>
                     <li class="mt"><a href="/admin" id="a1"
-                           class="nav-link fs mg px-2 add dd text-white hc"
-                           sec:authorize="hasAuthority('ADMIN')">Админ</a></li>
-                    <li class="mt"><a href="/shop" id="a2"
-                           class="nav-link fs mg px-2 text-white mt hc">Главная</a></li>
-                    <li class="mt"><a href="/products" id="a3"  class="nav-link fs px-2 text-white hc">Товары</a></li>
-                    <li class="mt"><a href="/orders" id="a4"  class="nav-link fs px-2 text-white hc">Корзина</a></li>
-                    <li class="mt"><a href="/contacts" id="a5"  class="nav-link fs px-2 text-white hc">Контакты</a></li>
-                    <li class="mt"><a href="/about" id="a6" class="nav-link fs px-2 text-white hc">О нас</a></li>
-                    <div class="text-end" sec:authorize="!isAuthenticated()">
+                                      class="nav-link fs mg px-2 add dd text-white hc" th:text="#{admin}"
+                                      sec:authorize="hasAuthority('ADMIN')">Админ</a></li>
+                    <li class="mt"><a href="/shop" id="a2" th:text="#{main}"
+                                      class="nav-link fs mg px-2 text-white mt hc">Главная</a></li>
+                    <li class="mt"><a href="/products" id="a3" th:text="#{products}"
+                                      class="nav-link fs px-2 text-white hc">Товары</a></li>
+                    <li class="mt"><a href="/orders" id="a4" th:text="#{orders}"
+                                      class="nav-link fs px-2 text-white hc">Корзина</a></li>
+                    <li class="mt"><a href="/contacts" id="a5" th:text="#{contacts}"
+                                      class="nav-link fs px-2 text-white hc">Контакты</a></li>
+                    <li class="mt"><a href="/about" id="a6" th:text="#{about}"
+                                      class="nav-link fs px-2 text-white hc">О нас</a></li>
+                    <div class="text-end sign-up" sec:authorize="!isAuthenticated()">
                         <form th:method="get" th:action="@{/login}">
-                            <button type="submit" class="btn my-btn btn-outline-light me-2">Войти</button>
+                            <button type="submit" class="btn my-btn btn-outline-light me-2"
+                                    th:text="#{signIn}">Войти
+                            </button>
                         </form>
                         <form th:method="get" th:action="@{/sign-up}">
-                            <button type="submit" class="btn btn-warning">Зарегистрироваться</button>
+                            <button type="submit" class="btn btn-warning"
+                                    th:text="#{signUp}">Зарегистрироваться
+                            </button>
                         </form>
                     </div>
                     <div class="text-end " sec:authorize="isAuthenticated()">
                         <div class="prof">
                             <a href="#" class="dropdown-toggle" onclick="openListProfile()">
-                                <img src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg" width="45"
+                                <img th:if="${userProf.namePhoto==null}"
+                                     src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg"
+                                     width="45"
                                      class="prof-img">
+                                <img th:if="${userProf.namePhoto!=null}"
+                                     th:src="@{${userProf.photosImagePath}}" width="50" height="50"
+                                     class="prof-img"/>
                             </a>
 
                         </div>
                         <div id="list-profile">
                             <ul id="list" class="dropdown-menu ">
                                 <li class="color-item">
-                                    <a href="/profile" class="list-item">Мой профиль</a>
+                                    <a href="/profile" class="list-item" th:text="#{myProfile}">Мой профиль</a>
                                 </li>
-                                <li class="color-item" >
-                                    <a href="/orders" class="list-item" >Мои покупки</a>
-                                </li>
-                                <li class="color-item" >
-                                    <a href="#" onclick="openModalSignOuts();"
-                                       class="list-item">Выйти </a>
-                                </li >
                                 <li class="color-item">
-                                    <a href="#" class="list-item"
+                                    <a href="/orders" class="list-item" th:text="#{myShopping}">Мои покупки</a>
+                                </li>
+                                <li class="color-item">
+                                    <a href="#" onclick="openModalSignOuts();" th:text="#{logout}"
+                                       class="list-item">Выйти </a>
+                                </li>
+                                <li class="color-item">
+                                    <a href="#" class="list-item" th:text="#{deleteProfile}"
                                        onclick="openModelDeleteProfile();">Удалить профиль</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <div class="dropdown">
+                        <div class="dropbtn" th:if="${#locale.getCountry().equals('RU')}">
+                            <a id="dropbtn0" class="choose-lang" href="#" >RU</a></div>
 
+                        <div class="dropbtn " th:if="${#locale.getDisplayName().equals('русский')}">
+                            <a id="dropbtn" class="choose-lang" href="#">RU</a></div>
 
+                        <div class="dropbtn1 " th:if="${#locale.getDisplayName().equals('английский')}">
+                            <a id="dropbtn1" class="choose-lang" href="#">EN</a></div>
 
-<!--                    <div class="text-end" sec:authorize="isAuthenticated()">-->
-<!--                        <form th:method="get" th:action="@{/logout}">-->
-<!--                            <button type="submit" class="btn my-btn btn-outline-light me-2"-->
-<!--                                    onClick="return confirm('Вы действительно хотите выйти?');"-->
-<!--                            >Выйти-->
-<!--                            </button>-->
-<!--                        </form>-->
-<!--                        <form th:method="post" th:action="@{/shop/delete}">-->
-<!--                            <button type="submit" class="btn btn-warning"-->
-<!--                                    onclick="return confirm('Вы действительно хотите удалить профиль?')"-->
-<!--                            >Удалить профиль-->
-<!--                            </button>-->
-<!--                        </form>-->
-<!--                    </div>-->
+                        <div class="dropdown-content" id="dropdown-content">
+                            <a href="/shop?lang=ru" class="col-lang">RU</a>
+                            <a href="/shop?lang=en" class="col-lang">EN</a>
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -79,25 +90,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Выйти</h3>
+                    <h3 class="modal-title" th:text="#{logout}">Выйти</h3>
                     <a href="#close" onclick="closeModalSignOut();"
                        title="Close" id="sign-out" class="close">×</a>
                 </div>
                 <div class="modal-body">
                     <div>
-                        <div class="mb-head">
+                        <div class="mb-head" th:text="#{sureLogout}">
                             Вы действительно хотите выйти?
                         </div>
                         <div class="cont">
                             <form method="post" th:action="@{/logout}">
                                 <div class="del-prof-btn">
-                                    <button class="modal-btn-yes" type="submit">Да</button>
+                                    <button class="modal-btn-yes" type="submit" th:text="#{yes}">Да</button>
                                 </div>
                             </form>
 
                             <div>
                                 <button type="button" class="modal-btn-no">
-                                    <a onclick="closeModalSignOutButton();" class="ref-close"
+                                    <a onclick="closeModalSignOutButton();" class="ref-close" th:text="#{cancel}"
                                        href="#close">Отмена</a></button>
                             </div>
                         </div>
@@ -107,41 +118,30 @@
         </div>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
     <div id="openModalDeleteProfile" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Удаление профиля</h3>
+                    <h3 class="modal-title" th:text="#{deleteProfile}">Удаление профиля</h3>
                     <a href="#close" onclick="closeModalDeleteProfile();"
                        title="Close" id="closeDel" class="close">×</a>
                 </div>
                 <div class="modal-body">
                     <div>
-                        <div class="mb-head">
+                        <div class="mb-head" th:text="#{sureDeleting}">
                             Вы действительно хотите удалить профиль?
                         </div>
                         <div class="cont">
                             <form method="post" th:action="@{/shop/delete}">
                                 <div class="del-prof-btn">
-                                    <button class="modal-btn-yes" type="submit">Да</button>
+                                    <button class="modal-btn-yes" type="submit" th:text="#{yes}">Да</button>
                                 </div>
                             </form>
 
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalDeleteProfileButton();" class="ref-close"
-                                       href="#close">Отмена</a></button>
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
                             </div>
                         </div>
                     </div>

@@ -12,34 +12,30 @@
 
 <header th:insert="blocks/header::header"></header>
 
-<h2>Выберите категорию</h2>
+<div class="search-js">
+    <div>
+        <h2 th:text="#{searchOnThePageEnterTheCategoryName}">Поиск на странице, введите название категории:</h2>
+    </div>
+    <div>
+        <input type="text" id="myInput" onkeyup="search()" th:placeholder="#{search.}"
+               class="input-js" th:title="#{enterCategory}">
+    </div>
+</div>
+
+<h2 th:text="#{chooseCategory}">Выберите категорию</h2>
 <div class="container">
     <div class="row">
-
-        <table class="table ">
-            <thead>
-            <tr>
-                <!--                    <th scope="col"> Название</th>-->
-            </tr>
-            </thead>
+        <table class="table" id="myTable">
             <tbody>
-            <tr th:each="productCategoryDto : ${productCategoriesDto}">
+            <tr id="myMenu" th:each="productCategoryDto : ${productCategoriesDto}">
                 <td>
-                    <svg class="bd-placeholder-img card-img-top" width="100%"
-                         height="225" xmlns="http://www.w3.org/2000/svg" role="img"
-                         aria-label="Placeholder: Thumbnail"
-                         preserveAspectRatio="xMidYMid slice" focusable="false">
-                        <rect width="100%" height="100%" fill="#686565"></rect>
-<!--                        <title>Placeholder</title>-->
-                        <text x="10%" y="50%" fill="#eceeef" dy=".3em"
-                                                 th:text="${productCategoryDto.name}"></text>
-
-                    </svg>
+                    <h3 class="tit-cat" th:text="${productCategoryDto.name}"></h3>
+                    <img class="bd-placeholder-img card-img-top" src="https://diamedica.by/uploads/no-image.jpg"
+                         width="100" height="100">
                     <div class="tab-td">
                         <button class="btn-look">
-                            <a class="ref"
-                                    th:href="@{/search/searchCategory/{id}(id=${productCategoryDto.id})}"
-                               >Посмотреть</a>
+                            <a class="ref" th:href="@{/search/searchCategory/{id}(id=${productCategoryDto.id})}"
+                               th:text="#{look}">Посмотреть</a>
                         </button>
                     </div>
                 </td>
@@ -47,9 +43,9 @@
             </tbody>
         </table>
     </div>
-
 </div>
 <footer th:insert="blocks/footer::footer"></footer>
 <script type="text/javascript" src="/js/blocks/header.js"></script>
+<script type="text/javascript" src="/js/products.js"></script>
 </body>
 </html>

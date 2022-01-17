@@ -11,73 +11,56 @@
 <body>
 
 <header th:insert="blocks/header::header"></header>
-<div class="title-ord">Моя корзина:</div>
+<div class="title-ord" th:text="#{myOrder}">Моя корзина:</div>
 <div class="container-ord">
     <div class="table-ord">
-
         <table class="table ">
             <thead>
             <tr>
-
             </tr>
             </thead>
-
-
             <tbody>
-            <!--            <hr>-->
             <tr th:each="productDto : ${productsDto}">
                 <td><h3 th:text="${productDto.name}"></h3>
                 </td>
-                <!--                <td th:text="${product.productCategory.name}"></td>-->
-
+                <td><img th:src="@{${productDto.photosImagePath}}" width="150" height="100"/></td>
                 <td>
                     <form th:method="post" th:action="@{/orders/remove}">
                         <input type="hidden" name="id" th:value="${productDto.id}">
                         <div>
-                            <button class="del-ord" type="submit"
-                                    th:if="${orderDto.stateOrderDto.name.equals('NEW')}">
-                                Удалить
+                            <button class="del-ord" type="submit" th:if="${orderDto.stateOrderDto.name.equals('NEW')}"
+                                    th:text="#{delete}">Удалить
                             </button>
-                            <h2 class="success" type="submit"
-                                    th:if="${orderDto.stateOrderDto.name.equals('PAID')}">
-                                Оплачено
+                            <h2 class="success" type="submit" th:if="${orderDto.stateOrderDto.name.equals('PAID')}"
+                                th:text="#{paid}">Оплачено
                             </h2>
-                            <h2 class="success" type="submit"
-                                th:if="${orderDto.stateOrderDto.name.equals('DELIVERED')}">
-                                Выполнено
+                            <h2 class="success" type="submit" th:if="${orderDto.stateOrderDto.name.equals('DELIVERED')}"
+                                th:text="#{delivered}">Выполнено
                             </h2>
                         </div>
-
                     </form>
                 </td>
                 <td class="price" th:text="${productDto.price}"></td>
-
             </tr>
-
             </tbody>
-
         </table>
     </div>
     <div class="order">
         <div class="order-main">
             <div class="order-head">
-                <h2 class="h2-order">Ваш заказ</h2>
+                <h2 class="h2-order" th:text="#{yourOrder}">Ваш заказ</h2>
             </div>
             <div class="order-cont">
                 <div>
-                    <h3 class="order-cost"> Стоимость товаров:</h3>
-
-                        <tr th:each="productDto : ${productsDto}">
-                            <td><h3 class="order-price" th:text="${productDto.price}"></h3></td>
-                        </tr>
-
-
-
+                    <h3 class="order-cost" th:text="#{costOfProducts}"> Стоимость товаров:</h3>
+                    <tr th:each="productDto : ${productsDto}">
+                        <td><h3 class="order-price" th:text="${productDto.price}"></h3></td>
+                    </tr>
                 </div>
                 <hr>
                 <div class="order-full">
                     <div>
-                        <h3 class="full-price">Итого:</h3>
+                        <h3 class="full-price" th:text="#{total}">Итого:</h3>
                     </div>
                     <div>
                         <h3 th:text="${orderDto.fullPrice}"></h3>
@@ -87,51 +70,45 @@
                     <form method="post" th:action="@{/orders/pay}" th:object="${orderDto}">
                         <input type="hidden" th:field="${orderDto.id}">
                         <input type="hidden" th:field="${orderDto.fullPrice}">
-                        <button class="btn-order" type="submit">Оформить заказ</button>
+                        <button class="btn-order" type="submit" th:text="#{payOfTheOrder}">Оформить заказ</button>
                     </form>
-
-
                 </div>
                 <div class="order-btn" th:if="${orderDto.stateOrderDto.name.equals('PAID')}">
-                    <h3 class="success">Оплачено</h3>
+                    <h3 class="success" th:text="#{paid}">Оплачено</h3>
                 </div>
                 <div class="order-btn" th:if="${orderDto.stateOrderDto.name.equals('DELIVERED')}">
-                    <h3 class="success">Ваш заказ успешно выполнен</h3>
+                    <h3 class="success" th:text="#{yourOrderHasBeenSuccessfullyCompleted}">
+                        Ваш заказ успешно выполнен</h3>
                 </div>
             </div>
-
         </div>
-
     </div>
 </div>
-
 
 <div id="openModalErrorPay" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Не найдено ни одной карты</h3>
+                <h3 class="modal-title" th:text="#{noCardsFound}">Не найдено ни одной карты</h3>
                 <a href="#" onclick="closeModalErrorPay();"
                    title="Close" id="closeDel" class="close">×</a>
             </div>
             <div class="modal-body">
                 <div>
-                    <div class="mb-head">
+                    <div class="mb-head" th:text="#{wantToAddACard}">
                         Хотите добавить карту?
                     </div>
                     <form>
                         <div class="cont">
                             <div class="btns">
                                 <button class="modal-btn" type="button"
-                                        onclick="closeModalErrorPay();openModalAddCard();"
-                                >Да
+                                        onclick="closeModalErrorPay();openModalAddCard();" th:text="#{yes}">Да
                                 </button>
                             </div>
-
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalErrorPayButton();" class="ref-close"
-                                       href="#">Нет</a></button>
+                                       href="#" th:text="#{no}">Нет</a></button>
                             </div>
                         </div>
                     </form>
@@ -141,12 +118,11 @@
     </div>
 </div>
 
-
 <div id="openModalAddCard" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Добавить карту</h3>
+                <h3 class="modal-title" th:text="#{addCard}">Добавить карту</h3>
                 <a href="#" onclick="closeModalAddCard();"
                    title="Close" id="closeAdd" class="close">×</a>
             </div>
@@ -155,39 +131,31 @@
                     <div>
                         <form method="post" th:action="@{/orders/save_card}" th:object="${cardDto}">
                             <div class="dis">
-                                <label for="name">Введите название</label>
-                                <input type="text" id="name" name="name" class="inp-mod ml1">
+                                <label for="name" th:text="#{enterTitle}">Введите название</label>
+                                <input type="text" id="name" name="name" class="inp-mod">
                             </div>
-                            <div class="er-col er-name"  th:if="${#fields.hasErrors('name')}"
+                            <div class="er-col er-name" th:if="${#fields.hasErrors('name')}"
                                  th:errors="*{name}"></div>
-
                             <div class="dis">
-                                <label for="number">Введите номер</label>
-                                <input type="number" id="number" name="number" class="inp-mod ml2">
-
+                                <label for="number" th:text="#{enterNumber}">Введите номер</label>
+                                <input type="number" id="number" name="number" class="inp-mod">
                             </div>
                             <div class="er-col er-number" th:if="${#fields.hasErrors('number')}"
                                  th:errors="*{number}"></div>
-                            <!--                            <div th:if="${errorPrice}" class="err-mod"-->
-                            <!--                                 th:text="${errorPrice}">-->
-                            <!--                            </div>-->
-
                             <div class="dis">
-                                <label for="CVV">Введите CVV</label>
-                                <input type="number" id="CVV" name="cvv" class="inp-mod ml3">
-
+                                <label for="CVV" th:text="#{enterCvv}">Введите CVV</label>
+                                <input type="number" id="CVV" name="cvv" class="inp-mod">
                             </div>
                             <div class="er-col er-cvv" th:if="${#fields.hasErrors('cvv')}"
                                  th:errors="*{cvv}"></div>
                             <div class="cont">
                                 <div>
-                                    <button class="modal-btn" type="submit">Сохранить</button>
+                                    <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
                                 </div>
-
                                 <div>
                                     <button type="button" class="modal-btn-no">
                                         <a onclick="closeModalAddCardButton();" class="ref-close"
-                                           href="#">Отмена</a></button>
+                                           href="#" th:text="#{cancel}">Отмена</a></button>
                                 </div>
                             </div>
                         </form>
@@ -198,12 +166,11 @@
     </div>
 </div>
 
-
 <div id="openModalChooseCard" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Выберите карту</h3>
+                <h3 class="modal-title" th:text="#{chooseCard}">Выберите карту</h3>
                 <a href="#" onclick="closeModalChooseCard();"
                    title="Close" id="chooseCard" class="close">×</a>
             </div>
@@ -212,35 +179,29 @@
                     <div>
                         <form method="post" th:action="@{/orders/pay_order}" th:object="${cardDto}">
                             <div class="form-group1">
-                                <label for="card"> Введите номер</label>
+                                <label for="card" th:text="#{enterNumber}"> Введите номер</label>
                                 <input autocomplete="off" list="cards" id="card" type="number"
                                        name="number" class="inp-mod  inp-choose">
-
-
                                 <datalist id="cards">
                                     <option th:each="cardDto : ${cardsDto}"
                                             th:text="${cardDto.number}"
                                             th:value="${cardDto.number}"
-
                                     ></option>
                                 </datalist>
-                                <div th:if="${errorName}" class="err-mod err-choose"
-                                     th:text="${errorName}">
+                                <div th:if="${noCard}" class="err-mod err-choose"
+                                     th:text="#{noSuchCardFound}">
                                 </div>
                             </div>
-                            <div class="btns-choose">
+                            <div class="cont">
                                 <div>
-                                    <button class="modal-btn" type="submit">Оплатить</button>
+                                    <button class="modal-btn-yes" type="submit" th:text="#{pay}">Оплатить</button>
                                 </div>
-
                                 <div>
                                     <button type="button" class="modal-btn-no">
                                         <a onclick="closeModalChooseCardButton();" class="ref-close"
-                                           href="#">Отмена</a></button>
+                                           href="#" th:text="#{cancel}">Отмена</a></button>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>
@@ -253,23 +214,23 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Ошибка платежа</h3>
+                <h3 class="modal-title" th:text="#{errorPay}">Ошибка платежа</h3>
                 <a href="#" onclick="closeModalErrorNoMoney();"
                    title="Close" id="noMoney" class="close">×</a>
             </div>
             <div class="modal-body">
                 <div>
-                    <h3>Операция не выполнена</h3>
+                    <h3 th:text="#{operationFailed}">Операция не выполнена</h3>
                 </div>
                 <div>
-                    <button class="modal-btn no-money-btn" type="submit" onclick="closeModalErrorNoMoneyButton();">
-                        Хорошо</button>
+                    <button class="modal-btn no-money-btn" type="submit" onclick="closeModalErrorNoMoneyButton();"
+                            th:text="#{ok}">Хорошо
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <div th:if="${error}">
     <input type="hidden" id="flag" th:value="${error}">

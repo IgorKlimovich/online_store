@@ -4,67 +4,96 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/blocks/header.css">
     <link rel="stylesheet" href="/css/blocks/footer.css">
-    <link rel="stylesheet" type="text/css" href="/css/adminProduct.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/adminProduct.css">
+    <link rel="stylesheet" href="/css/profile.css">
     <title id="title">Админ</title>
 </head>
 <body>
 <header th:insert="blocks/header::header"></header>
 
+<div class="user">
+    <div class="product pr-w">
+        <div><h1 class="tit-pr" th:text="${productDto.name}"></h1></div>
+        <td th:if="${productDto.namePhoto==null}">
+            <img class="img-mb" src="https://diamedica.by/uploads/no-image.jpg"
+                 width="450" height="450"/></td>
+        <td th:if="${productDto.namePhoto!=null}">
+            <img class="img-mb" th:src="@{${productDto.photosImagePath}}"
+                 width="450" height="450"/></td>
+        <div class="prof-items">
+            <div><h4 th:text="#{title}">Название</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productDto.name}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{category}">Категория</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productDto.productCategoryDto.name}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{price}">Цена</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productDto.price}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{amount}">Колличество</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${productDto.amount}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{availability}">Наличие</h4></div>
+            <div class="prof-data">
+                <h4 class="text-prof" th:if="${productDto.isExist}">+</h4>
+                <h4 class="text-prof" th:if="${!productDto.isExist}">-</h4>
+            </div>
+        </div>
 
+        <hr>
+        <div>
+            <details class="det-prod">
+                <summary class="sum" th:text="#{description}">Описание</summary>
+                <div class="modal-body">
+                    <h4 class="desc" th:text="${productDto.description}"></h4>
+                </div>
+            </details>
+        </div>
+        <button class="button add-card to-ord ml-b" type="button" onclick="return openModalUpdateProduct();"
+                th:text="#{change}">Изменить
+        </button>
+        <div>
+            <details class="det">
+                <summary class="sum" th:text="#{photo}">Фото</summary>
+                <div th:if="${productDto.namePhoto==null}" class="add-photo-prod">
+                    <form method="post" action="/admin/product/add_photo" enctype="multipart/form-data">
+                        <div>
+                            <div>
+                                <label for="file-add">Выберите фото
+                                    <input type="file" id="file-add" name="file">
+                                </label>
+                                <input type="hidden" name="id" th:value="${productDto.id}">
+                            </div>
+                            <div class="btn-add-photo">
+                                <button class="add-card" type="submit" multiple="true" th:text="#{add}">Добавить
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div th:if="${productDto.namePhoto!=null}">
 
-<div class="tab">
-    <table class="table ">
-        <thead>
-        <tr>
-            <th scope="col"> Название</th>
-            <th scope="col"> Категория</th>
-            <th scope="col"> Цена</th>
-            <th scope="col"> Колличество</th>
-            <th scope="col"> Описание</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr >
-            <td><a class="td-ref" th:text="${productDto.name}"></a></td>
-            <td><a th:text="${productDto.productCategoryDto.name}"></a> </td>
-            <td><a th:text="${productDto.price}"></a></td>
-            <td><a th:text="${productDto.amount}"></a></td>
-            <td><a th:text="${productDto.description}"></a></td>
-            <td>
-                <form>
-                    <button type="button" onclick="return openModalUpdateProduct();"
-                            class="btn btn-wid btn-col-1">Изменить</button>
-                </form>
-            </td>
-            <td>
-                <form  >
-                    <button type="button" onclick="return openModalDeleteProduct();"
-                            class="btn btn-wid btn-col-1">Удалить</button>
-                </form>
-            </td>
-<!--            <td>-->
-<!--                <form action="/shop" th:object="${product}">-->
-<!--                    <input type="hidden" th:field="${product.id}">-->
-<!--                    <button type="submit" class="btn btn-wid btn-col-1" onclick="return openModalDel();">-->
-<!--                        Добавить в лучшие предложения</button>-->
-<!--                </form>-->
-<!--            </td>-->
-        </tr>
-        </tbody>
-    </table>
+                    <form method="post" action="/admin/product/delete_photo">
+                        <input type="hidden" name="id" th:value="${productDto.id}">
+                        <button class="add-card del-photo" type="submit" multiple="true" th:text="#{delete}">Удалить
+                        </button>
+                    </form>
+                </div>
+            </details>
+        </div>
+    </div>
 </div>
-
-
-
-
-
-
 
 <div id="openModalUpdateProduct" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Изменить товар</h3>
+                <h3 class="modal-title" th:text="#{changeProduct}">Изменить товар</h3>
                 <a href="#close" onclick="closeModalUpdateProduct();"
                    title="Close" id="close" class="close">×</a>
             </div>
@@ -73,38 +102,37 @@
                     <form method="post" action="/admin/product/update" th:object="${productDto}">
                         <div class="dis">
                             <input type="hidden" th:field="${productDto.id}">
-                            <label for="name">Введите новое название</label>
-                            <input type="text" id="name" name="name" class="inp-mod ml1"
-                           th:field="${productDto.name}">
+                            <label for="name" th:text="#{enterANewTitle}">Введите новое название</label>
+                            <input type="text" id="name" name="name" class="inp-mod"
+                                   th:field="${productDto.name}">
                         </div>
-                        <div th:if="${errorName}" class="err-mod"
-                             th:text="${errorName}">
-                        </div>
-
-                        <div class="dis">
-                            <label for="price">Введите новую цену</label>
-                            <input type="number" id="price" name="price" class="inp-mod ml2"
-                                   th:field="${productDto.price}"  >
-                        </div>
-                        <div th:if="${errorPrice}" class="err-mod"
-                             th:text="${errorPrice}">
+                        <div th:if="${emptyProductName}" class="mb"
+                             th:text="#{productNameCanNotBeEmpty}">
                         </div>
 
                         <div class="dis">
-                            <label for="amount">Введите новое колличество</label>
-                            <input type="number" id="amount" name="amount" class="inp-mod ml3"
-                                   th:field="${productDto.amount}"     >
+                            <label for="price" th:text="#{enterANewPrice}">Введите новую цену</label>
+                            <input type="number" step="any" min="0.01" id="price" name="price" class="inp-mod"
+                                   th:field="${productDto.price}">
                         </div>
-                        <div th:if="${errorAmount}" class="err-mod"
-                             th:text="${errorAmount}">
+                        <div th:if="${emptyPriceProduct}" class="mb"
+                             th:text="#{productPriceCanNotBeEmpty}">
                         </div>
 
                         <div class="dis">
-                            <label for="category"> Выберите новую категорию</label>
+                            <label for="amount" th:text="#{enterANewAmount}">Введите новое колличество</label>
+                            <input type="number" id="amount" name="amount" step="any" min="0" class="inp-mod"
+                                   th:field="${productDto.amount}">
+                        </div>
+                        <div th:if="${emptyAmountProduct}" class="mb"
+                             th:text="#{amountProductCanNotBeEmpty}">
+                        </div>
+                        <div class="dis">
+                            <label for="category" th:text="#{chooseANewCategory}"> Выберите новую категорию</label>
                             <input type="hidden" th:field="${productDto.productCategoryDto.id}">
-                            <input autocomplete="off" list="category" type="text" class="inp-mod ml4"
+                            <input autocomplete="off" list="category" type="text" class="inp-mod"
                                    th:field="${productDto.productCategoryDto.name}"
-                                   id="input" name="category"  th:placeholder="${productDto.productCategoryDto.name}">
+                                   id="input" name="category" th:placeholder="${productDto.productCategoryDto.name}">
                             <datalist id="category">
                                 <option th:each="productCategoryDto : ${productCategoriesDto}"
                                         th:text="${productCategoryDto.name}"
@@ -112,26 +140,24 @@
                                 </option>
                             </datalist>
                         </div>
-                        <div th:if="${errorCategory}" class="err-mod"
-                             th:text="${errorCategory}">
+                        <div th:if="${categoryNotExist}" class="mb"
+                             th:text="#{noSuchCategoryFound}">
                         </div>
                         <div class="dis">
-                            <label for="description">Новое описание</label>
-                            <textarea id="description" name="description" class="inp-mod ml5"
+                            <label for="description" th:text="#{newDescription}">Новое описание</label>
+                            <textarea id="description" name="description" class="inp-mod"
                                       th:field="${productDto.description}"
-                                      th:placeholder="${productDto.description}" >
+                                      th:placeholder="${productDto.description}">
                         </textarea>
                         </div>
-
                         <div class="cont">
                             <div>
-                                <button class="modal-btn-yes" type="submit">Сохранить</button>
+                                <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
                             </div>
-
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalUpdateProductButton();" class="ref-close"
-                                       href="#close">Отмена</a></button>
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
                             </div>
                         </div>
                     </form>
@@ -140,44 +166,31 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 <div id="openModalDelProduct" class="modal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Удалить товар</h3>
+                <h3 class="modal-title" th:text="#{deleteProduct}">Удалить товар</h3>
                 <a href="#close" onclick="closeModalDelProduct();"
                    title="Close" id="closeDel" class="close">×</a>
             </div>
             <div class="modal-body">
                 <div>
-                    <div class="mb-head">
+                    <div class="mb-head" th:text="#{areYouSureYouWantToDeleteTheItem}">
                         Вы действительно хотите удалить товар?
                     </div>
                     <form th:method="post" th:action="@{/admin/product/delete}" th:object="${productDto}">
                         <input type="hidden" th:field="${productDto.id}">
                         <input type="hidden" th:field="${productDto.amount}">
-
                         <div class="cont">
                             <div>
-                                <button class="modal-btn-yes" type="submit">Удалить</button>
+                                <button class="modal-btn-yes" type="submit" th:text="#{delete}">Удалить</button>
                             </div>
-
                             <div>
                                 <button type="button" class="modal-btn-no">
                                     <a onclick="closeModalDelProductButton();" class="ref-close"
-                                       href="#close">Отмена</a></button>
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
                             </div>
                         </div>
                     </form>
@@ -187,28 +200,9 @@
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div th:if="${error}">
     <input type="hidden" id="flag" th:value="${error}">
 </div>
-
-
-
-
-
 
 <footer th:insert="blocks/footer::footer"></footer>
 <script type="text/javascript" src="/js/adminProduct.js"></script>

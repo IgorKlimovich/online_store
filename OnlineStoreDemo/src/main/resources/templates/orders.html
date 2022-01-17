@@ -13,10 +13,10 @@
 <header th:insert="blocks/header::header"></header>
 
 <div th:if="${!ordersDto.isEmpty()}">
-    <h2 class="order-tit">Список ваших заказов</h2>
+    <h2 class="order-tit" th:text="#{listOfYourOrders}">Список ваших заказов</h2>
 </div>
 <div th:if="${ordersDto.isEmpty()}">
-    <h2 class="order-tit"> У вас пока нету заказов</h2>
+    <h2 class="order-tit" th:text="#{youHaveNoOrdersYet}"> У вас пока нету заказов</h2>
 </div>
 
 <div class="container">
@@ -26,32 +26,32 @@
             <tr th:each="orderDto : ${ordersDto}">
                 <td>
                     <div class="prof-items">
-                        <div><h4>Номер заказ</h4></div>
+                        <div><h4 th:text="#{orderNumber}">Номер заказ</h4></div>
                         <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.id}"></h4></div>
                     </div>
                     <div class="prof-items">
-                        <div><h4>Дата создания</h4></div>
+                        <div><h4 th:text="#{dateOfCreation}">Дата создания</h4></div>
                         <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.date}"></h4></div>
                     </div>
                     <div class="prof-items mb-ord">
-                        <div><h4>Стоимость товаров</h4></div>
+                        <div><h4 th:text="#{costOfProducts}">Стоимость товаров</h4></div>
                         <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.fullPrice}"></h4></div>
                     </div>
                     <div>
                         <div class="tab-td" style="display: flex">
                             <form method="get" action="/orders/show_products">
                                 <input type="hidden" name="id" th:value="${orderDto.id}">
-                                <button class="add-card upd-btn mt-btn" type="submit">Посмотреть
+                                <button class="add-card upd-btn mt-btn" type="submit" th:text="#{look}">Посмотреть
                                 </button>
                             </form>
                             <div class="state" th:if="${orderDto.stateOrderDto.name.equals('NEW')}">
-                                <h3 class="state-text">Новый</h3>
+                                <h3 class="state-text" th:text="#{new}">Новый</h3>
                             </div>
                             <div class="state" th:if="${orderDto.stateOrderDto.name.equals('PAID')}">
-                                <h3 class="state-text">Оплачено</h3>
+                                <h3 class="state-text" th:text="#{paid}">Оплачено</h3>
                             </div>
                             <div class="state" th:if="${orderDto.stateOrderDto.name.equals('DELIVERED')}">
-                                <h3 class="state-text">Выполнено</h3>
+                                <h3 class="state-text" th:text="#{delivered}">Выполнено</h3>
                             </div>
                         </div>
                     </div>

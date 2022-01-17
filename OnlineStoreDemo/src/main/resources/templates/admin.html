@@ -12,108 +12,95 @@
 
 <header th:insert="blocks/header::header"></header>
 
-
 <div class="container">
     <div class="us">
         <div class="find-user">
             <form method="get" class="form-us" action="/admin/search">
-                <h2 class="tit-us"> Найти пользователя</h2>
-                <label class="label-us" for="parameter">Выберите параметр</label>
+                <h2 class="tit-us" th:text="#{findUser}"> Найти пользователя</h2>
+                <label class="label-us" for="parameter" th:text="#{chooseParameter}">Выберите параметр</label>
                 <select class="select-us" name="parameter" id="parameter"> Найти пользователя по:
-                    <option value="all">Показать всех</option>
-                    <option value="login">Логин</option>
-                    <option value="email">email</option>
-                    <option value="phoneNumber">Номер телефона</option>
+                    <option value="all" th:text="#{showAl}">Показать всех</option>
+                    <option value="login" th:text="#{login}">Логин</option>
+                    <option value="email" th:text="#{email}">email</option>
+                    <option value="phoneNumber" th:text="#{phoneNumber}">Номер телефона</option>
                 </select>
                 <input class="input-us" type="text" name="name">
                 <div class="end">
                     <div class="btn-mr">
-                        <button class="find-btn" type="submit"> Найти</button>
+                        <button class="find-btn" type="submit" th:text="#{find}"> Найти</button>
                     </div>
                     <div>
-                        <h3 class="error-us" th:text="${error}"></h3>
+                        <h3 class="error-us" th:if="${userNotFound}" th:text="#{userNotFound}"></h3>
                     </div>
                 </div>
-
             </form>
-
         </div>
         <div class="find-order">
             <form method="get" class="form-us" action="/admin/searchOrders">
-                <h2 class="tit-us"> Найти заказы</h2>
-                <label class="label-us" for="parameter">Выберите параметр</label>
-                <select class="select-us" name="parameterOrder" id="parameterOrder"> Найти заказы по:
-                    <option value="all">Показать все</option>
-                    <option value="new">Все новые</option>
-                    <option value="paid">Все оплаченные</option>
-                    <option value="delivered">Все обработанные</option>
-                    <!--                    <option value="phoneNumber">Зака</option>-->
+                <h2 class="tit-us" th:text="#{findOrders}"> Найти заказы</h2>
+                <label class="label-us" for="parameter" th:text="#{chooseParameter}">Выберите параметр</label>
+                <select class="select-us" name="parameterOrder" id="parameterOrder">
+                    <option value="all" th:text="#{showAl}">Показать все</option>
+                    <option value="new" th:text="#{allNew}">Все новые</option>
+                    <option value="paid" th:text="#{allPaid}">Все оплаченные</option>
+                    <option value="delivered" th:text="#{allDelivered}">Все обработанные</option>
                 </select>
                 <input class="input-us" type="text" name="name">
                 <div class="end">
                     <div class="btn-mr">
-                        <button class="find-btn" type="submit"> Найти</button>
+                        <button class="find-btn" type="submit" th:text="#{find}"> Найти</button>
                     </div>
                     <div>
                         <h3 class="error-us"></h3>
                     </div>
                 </div>
-
-
             </form>
-
         </div>
     </div>
     <div class="prod">
         <div class="find-prod">
             <form class="form-prod" action="/admin/searchProducts">
-                <h2 class="tit-prod">Найти товар</h2>
-                <label class="label-us" for="parameterProd">Выберите параметр</label>
-                <select class="select-us" name="parameterProd" id="parameterProd"> Найти товар по:
-                    <option value="allProd">Показать все</option>
-
-                    <option value="category" class="aa">Категория</option>
-
-                    <option value="nameProd">Название</option>
-
+                <h2 class="tit-prod" th:text="#{findProduct}">Найти товар</h2>
+                <label class="label-us" for="parameterProd" th:text="#{chooseParameter}">Выберите параметр</label>
+                <select class="select-us" name="parameterProd" id="parameterProd">
+                    <option value="allProd" th:text="#{showAl}">Показать все</option>
+                    <option value="category" class="aa" th:text="#{category}">Категория</option>
+                    <option value="nameProd" th:text="#{title}">Название</option>
                 </select>
                 <input class="input-us" type="text" name="nameProd">
                 <div class="end">
                     <div class="btn-mr">
-                        <button class="find-btn" type="submit"> Найти</button>
+                        <button class="find-btn" type="submit" th:text="#{find}"> Найти</button>
                     </div>
                     <div>
-                        <h3 class="error-us" th:text="${errorProduct}"></h3>
+                        <h3 class="error-us" th:if="${categoryNotFound}" th:text="#{categoryNotFound}"></h3>
+                        <h3 class="error-us" th:if="${emptyCategory}" th:text="#{emptyCategory}"></h3>
+                        <h3 class="error-us" th:if="${productNotFound}" th:text="#{productNotFound}"></h3>
                     </div>
                 </div>
-
             </form>
-
         </div>
         <div class="find-cat">
             <form class="form-prod" action="/admin/searchProductCategories">
-                <h2 class="tit-prod">Найти категорию</h2>
-                <label class="label-us" for="parameterProductCategory">Выберите параметр</label>
+                <h2 class="tit-prod" th:text="#{findCategory}">Найти категорию</h2>
+                <label class="label-us" for="parameterProductCategory" th:text="#{chooseParameter}"
+                >Выберите параметр</label>
                 <select class="select-us" name="parameterProductCategory"
                         id="parameterProductCategory"> Найти категорию по:
-                    <option value="allCategories">Показать все</option>
-                    <option value="categoryName" class="aa">Название</option>
-
+                    <option value="allCategories" th:text="#{showAl}">Показать все</option>
+                    <option value="categoryName" class="aa" th:text="#{title}">Название</option>
                 </select>
                 <input class="input-us" type="text" name="nameProdCat">
                 <div class="end">
                     <div class="btn-mr">
-                        <button class="find-btn" type="submit"> Найти</button>
+                        <button class="find-btn" type="submit" th:text="#{find}"> Найти</button>
                     </div>
                     <div>
-                        <h3 class="error-us" th:text="${errorCategory}"></h3>
+                        <h3 class="error-us" th:if="${noCategory}" th:text="#{noSuchCategoryFound}"></h3>
                     </div>
                 </div>
-
             </form>
-
         </div>
-
     </div>
 </div>
 <footer th:insert="blocks/footer::footer"></footer>

@@ -1,11 +1,11 @@
 <div th: fragment="footer">
     <footer class="my-4">
-        <ul class="nav-1 justify-content-center border-bottom pb-3 mb-3">
-            <li><a href="/shop" class="nav-link pxy-2 text-muted">Главная</a></li>
-            <li><a href="/products" class="nav-link pxy-2 text-muted">Товары</a></li>
-            <li><a href="#" class="nav-link pxy-2 text-muted">Корзина</a></li>
-            <li><a href="#" class="nav-link pxy-2 text-muted">Контакты</a></li>
-            <li><a href="/about" class="nav-link pxy-2 text-muted">О нас</a></li>
+        <ul class="nav-1 justify-content-center border-bottom pb-3 mb-3 ">
+            <li><a href="/shop" class="nav-link pxy-2 text-muted" th:text="#{main}">Главная</a></li>
+            <li><a href="/products" class="nav-link pxy-2 text-muted" th:text="#{products}">Товары</a></li>
+            <li><a href="/orders" class="nav-link pxy-2 text-muted" th:text="#{orders}">Корзина</a></li>
+            <li><a href="/contacts" class="nav-link pxy-2 text-muted" th:text="#{contacts}">Контакты</a></li>
+            <li><a href="/about" class="nav-link pxy-2 text-muted" th:text="#{about}">О нас</a></li>
         </ul>
         <p class="text-center text-muted">© 2021 My Shop Company, Inc</p>
     </footer>

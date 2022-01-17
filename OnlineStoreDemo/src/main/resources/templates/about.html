@@ -6,22 +6,26 @@
     <link rel="stylesheet" href="/css/blocks/footer.css">
     <link rel="stylesheet" href="/css/blocks/modal.css">
     <link rel="stylesheet" href="/css/about.css">
-    <title id="title"  >Про нас</title>
+    <title id="title">Про нас</title>
 </head>
 <body>
 <header th:insert="blocks/header::header"></header>
-
-
 
 
 <div>
     <div class="container">
         <div class="tit">
             <div>
-                <h1 class="title">
-                    <strong>MyShop</strong> - крупная <br>
-                    сеть магазинов бытовой <br> техники и электроники</h1>
+                <div>
+                    <div class="my-shop">
+                        <div><h1 class="title"><strong>My Shop -</strong></h1></div>
+                        <div><h1 th:text="#{big}" class="title ml-tit"></h1></div>
+                    </div>
+                </div>
+                <div><h1 th:text="#{aChainOfStoresOfHousehold}" class="title"></h1></div>
+                <div><h1 th:text="#{appliancesAndElectronics}" class="title"></h1></div>
             </div>
+
             <div class="img1">
                 <img src="https://avatars.mds.yandex.net/get-mpic/4944925/img_id8795490292869756874.jpeg/orig"
                      width="500">
@@ -31,7 +35,7 @@
     <div class="img2">
         <img src="https://pbs.twimg.com/profile_banners/1198117702776344586/1574754067/1500x500">
     </div>
-    <div class="title1">Наши предложения</div>
+    <div class="title1" th:text="#{ourSuggestions}">Наши предложения</div>
     <div class="feature">
         <div>
             <ul>
@@ -40,28 +44,36 @@
                         <img src="https://avatars.mds.yandex.net/i?id=cb33ba74e9d69d2bee24a4feaa2b6c84-5102997-images-thumbs&n=13"
                              width="50" height="50">
                     </div>
-                    Мобильный маркетплейс с поддержкой веб‑версии
+                    <div th:text="#{mobileMarketplaceWithWebVersionSupport}">
+                        Мобильный маркетплейс с поддержкой веб‑версии
+                    </div>
                 </li>
                 <li class="feature-item">
                     <div class="feature-icon">
                         <img src="https://www.vippng.com/png/detail/104-1046604_shopping-cart-icon-shopping-cart-svg.png"
                              width="50" height="50">
                     </div>
-                    Общение между продавцами, покупателями и блогерами
+                    <div th:text="#{communicationBetweenSellersBuyersAndBloggers}">
+                        Общение между продавцами, покупателями и блогерами
+                    </div>
                 </li>
                 <li class="feature-item">
                     <div class="feature-icon">
                         <img src="http://cdn.onlinewebfonts.com/svg/img_384101.png"
                              width="50" height="50">
                     </div>
-                    Персонализация товаров, скидок и предложений
+                    <div th:text="#{personalizationOfProductsDiscountsAndOffers}">
+                        Персонализация товаров, скидок и предложений
+                    </div>
                 </li>
                 <li class="feature-item">
                     <div class="feature-icon">
                         <img src="https://avatars.mds.yandex.net/i?id=a3f6eceb4c4521259a9cd06633a6f429-5239820-images-thumbs&n=13"
                              width="50" height="50">
                     </div>
-                    Качественная и надежная логистика
+                    <div th:text="#{high-qualityAndReliableLogistics}">
+                        Качественная и надежная логистика
+                    </div>
                 </li>
             </ul>
         </div>
@@ -70,15 +82,22 @@
                  width="500">
         </div>
     </div>
-    <div class="title1">Наши вакансии</div>
+    <div class="title1" th:text="#{ourVacancies}">Наши вакансии</div>
     <div class="contact">
         <div class="contact-item">
             <div class="cont-vac">
-                <div class="cont-text">
-                    Узнать как связаться<br> с нами вы можете<br> в разделе контакты
+                <div>
+                    <div class="cont-text" th:text="#{findOutHowToContact}">
+                    </div>
+                    <br>
+                    <div class="cont-text" th:text="#{withUsYouCan}">
+                    </div>
+                    <br>
+                    <div class="cont-text" th:text="#{inTheSectionContacts}">
+                    </div>
                 </div>
                 <div class="cont-btn">
-                    <button class="btn-vac"><a href="#" class="ref-cont">Контакты</a></button>
+                    <button class="btn-vac"><a href="contacts" class="ref-cont" th:text="#{contacts}">Контакты</a></button>
                 </div>
             </div>
             <div>
