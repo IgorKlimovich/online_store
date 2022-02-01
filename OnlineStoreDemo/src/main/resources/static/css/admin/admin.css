@@ -58,7 +58,7 @@ body {
     margin-bottom: 10px;
     color: #212529;
     background-color: #fff;
-    border: 1px solid #eae5e5;
+    border: 1px solid #9ca0a4;
 }
 
 .btn-us {
@@ -87,7 +87,7 @@ INPUT:focus {
 .error-us {
     color: darkred;
     text-align: center;
-   margin: 0;
+    margin: 0;
 }
 
 select:focus {
@@ -120,6 +120,7 @@ option:focus{
 }
 
 .find-user{
+    background-color: white;
     margin-left: 99px;
     border: 2px solid #b2afaf;
     margin-top: 100px;
@@ -128,12 +129,14 @@ option:focus{
 }
 
 .find-order{
+    background-color: white;
     border: 2px solid #b2afaf;
     margin: 100px 50px 200px 99px;
     border-radius: 43px;
 }
 
 .find-prod{
+    background-color: white;
     margin-left: 50px;
     border: 2px solid #b2afaf;
     margin-top: 100px;
@@ -142,6 +145,7 @@ option:focus{
 }
 
 .find-cat{
+    background-color: white;
     border: 2px solid #b2afaf;
     margin: 100px 100px 200px 50px;
     border-radius: 43px;
