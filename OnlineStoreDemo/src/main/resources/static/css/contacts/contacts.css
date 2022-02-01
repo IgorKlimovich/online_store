@@ -1,0 +1,86 @@
+.phone {
+    display: flex;
+    align-items: center;
+}
+
+.phone-cont {
+    display: flex;
+}
+
+.one-numb {
+    display: flex;
+    align-items: center;
+}
+
+.contacts {
+    margin-left: 80px;
+}
+
+.sales {
+    margin-left: 40px;
+    margin-bottom: -30px;
+}
+
+.one-number {
+    margin-left: 10px;
+}
+
+.single-num {
+    margin-left: 10px;
+}
+
+.calls {
+    font-size: 9px;
+    margin-top: -35px;
+    margin-left: 40px;
+}
+
+.number {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.phone-cont-mar {
+    margin-bottom: -30px;
+}
+
+.from {
+    margin-top: -10px;
+}
+
+.email {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.email-marg {
+    margin-left: 10px;
+    margin-bottom: 0px;
+}
+
+.email-div {
+    margin-left: 30px;
+    margin-top: -16px;
+}
+
+.emails{
+    display: flex;
+    align-items: self-end;
+}
+
+.social{
+    margin-right: 10px;
+}
+
+.registration-for{
+    font-weight: 100;
+    margin-top: -10px;
+}
+
+.personal{
+    font-weight: 100;
+}
+
+.socials{
+    display: flex;
+}

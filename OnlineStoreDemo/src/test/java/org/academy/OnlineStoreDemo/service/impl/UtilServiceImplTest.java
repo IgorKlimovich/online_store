@@ -10,6 +10,7 @@ import org.academy.OnlineStoreDemo.model.repository.ProductCategoryRepository;
 import org.academy.OnlineStoreDemo.model.repository.ProductRepository;
 import org.academy.OnlineStoreDemo.model.repository.UserRepository;
 import org.academy.OnlineStoreDemo.service.UtilService;
+import org.academy.OnlineStoreDemo.util.UtilListMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -55,6 +58,13 @@ class UtilServiceImplTest {
     private List<UserDto> usersDto;
 
     private List<ProductCategoryDto> productCategoriesDto;
+
+    @Autowired
+    private UtilListMapper utilListMapper;
+
+    private ProductCategoryDto productCategoryDto;
+
+    private ProductCategoryDto productCategoryDto1;
 
     @BeforeEach
     public void setUp() {
@@ -95,12 +105,14 @@ class UtilServiceImplTest {
         productsDto = new ArrayList<>();
         productsDto.add(productDto);
         productsDto.add(productDto1);
-        ProductCategoryDto productCategoryDto = new ProductCategoryDto();
-        ProductCategoryDto productCategoryDto1 = new ProductCategoryDto();
+        productCategoryDto = new ProductCategoryDto();
+        productCategoryDto1 = new ProductCategoryDto();
         productCategoryDto.setName("name");
         productCategoryDto1.setName("category");
         productCategoryDto.setAmount(5);
         productCategoryDto1.setAmount(2);
+        productCategoryDto.setId(1);
+        productCategoryDto1.setId(2);
         productCategoriesDto = new ArrayList<>();
         productCategoriesDto.add(productCategoryDto);
         productCategoriesDto.add(productCategoryDto1);
@@ -136,21 +148,27 @@ class UtilServiceImplTest {
 
     @Test
     void sortUsersByLogin() {
-        utilService.sortUsersByParameters(usersDto, "login");
-        assertEquals("login", utilService.sortUsersByParameters(usersDto, "login").get(0).getLogin());
+        List<User> users = utilListMapper.mapList(usersDto,User.class);
+        when(userRepository.findAll()).thenReturn(users);
+        utilService.sortUsersByParameters("login");
+        assertEquals("login", utilService.sortUsersByParameters("login").get(0).getLogin());
     }
 
     @Test
     void sortUsersByPhoneNumber() {
-        utilService.sortUsersByParameters(usersDto, "phoneNumber");
-        assertEquals("5489", utilService.sortUsersByParameters(usersDto, "phoneNumber")
+        List<User> users = utilListMapper.mapList(usersDto,User.class);
+        when(userRepository.findAll()).thenReturn(users);
+        utilService.sortUsersByParameters("phoneNumber");
+        assertEquals("5489", utilService.sortUsersByParameters("phoneNumber")
                 .get(0).getPhoneNumber());
     }
 
     @Test
     void sortUsersByFirstName() {
-        utilService.sortUsersByParameters(usersDto, "firstName");
-        assertEquals("first name", utilService.sortUsersByParameters(usersDto, "firstName")
+        List<User> users = utilListMapper.mapList(usersDto,User.class);
+        when(userRepository.findAll()).thenReturn(users);
+        utilService.sortUsersByParameters("firstName");
+        assertEquals("first name", utilService.sortUsersByParameters("firstName")
                 .get(0).getFirstName());
     }
 
@@ -159,7 +177,7 @@ class UtilServiceImplTest {
         User user = modelMapper.map(userDto, User.class);
         when(userRepository.findByLogin(userDto.getLogin())).thenReturn(user);
         utilService.findUserByParameters("login", userDto.getLogin());
-        assertEquals(userDto.getId(), utilService.findUserByParameters("login", userDto.getLogin()).getId());
+        assertEquals(1, utilService.findUserByParameters("login", userDto.getLogin()).size());
     }
 
     @Test
@@ -167,8 +185,7 @@ class UtilServiceImplTest {
         User user = modelMapper.map(userDto, User.class);
         when(userRepository.findByPhoneNumber(userDto.getPhoneNumber())).thenReturn(user);
         utilService.findUserByParameters("phoneNumber", userDto.getPhoneNumber());
-        assertEquals(userDto.getId(), utilService.findUserByParameters("phoneNumber", userDto.getPhoneNumber())
-                .getId());
+        assertEquals(1, utilService.findUserByParameters("phoneNumber", userDto.getPhoneNumber()).size());
     }
 
     @Test
@@ -185,15 +202,19 @@ class UtilServiceImplTest {
 
     @Test
     void sortProductCategoriesByParametersByName() {
-        utilService.sortProductCategoriesByParameters(productCategoriesDto, "name");
+        List<ProductCategory> productCategories = utilListMapper.mapList(productCategoriesDto,ProductCategory.class);
+        when(productCategoryRepository.findAll()).thenReturn(productCategories);
+        utilService.sortProductCategoriesByParameters(Stream.of(1,2).collect(Collectors.toList()), "name");
         assertEquals("category", utilService
-                .sortProductCategoriesByParameters(productCategoriesDto, "name").get(0).getName());
+                .sortProductCategoriesByParameters(Stream.of(1,2).collect(Collectors.toList()), "name").get(0).getName());
     }
 
     @Test
     void sortProductCategoriesByParametersByAmount() {
-        utilService.sortProductCategoriesByParameters(productCategoriesDto, "amount");
+        List<ProductCategory> productCategories = utilListMapper.mapList(productCategoriesDto,ProductCategory.class);
+        when(productCategoryRepository.findAll()).thenReturn(productCategories);
+        utilService.sortProductCategoriesByParameters(Stream.of(1,2).collect(Collectors.toList()), "amount");
         assertEquals(2, utilService
-                .sortProductCategoriesByParameters(productCategoriesDto, "amount").get(0).getAmount());
+                .sortProductCategoriesByParameters(Stream.of(1,2).collect(Collectors.toList()), "amount").get(0).getAmount());
     }
 }

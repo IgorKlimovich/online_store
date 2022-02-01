@@ -4,6 +4,7 @@ import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
 import org.academy.OnlineStoreDemo.dto.UserDto;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
 import org.academy.OnlineStoreDemo.service.UserService;
+import org.academy.OnlineStoreDemo.valid.ProductCategoryValidatorService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.security.Principal;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,6 +43,9 @@ class AdminProductCategoryControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private ProductCategoryValidatorService productCategoryValidatorService;
 
     @MockBean
     private ProductCategoryService productCategoryService;
@@ -77,7 +82,7 @@ class AdminProductCategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(2))
                 .andExpect(MockMvcResultMatchers.model().attribute("productCategoryDto", productCategoryDto))
-                .andExpect(MockMvcResultMatchers.view().name("adminProductCategory"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProductCategory"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findById(productCategoryDto.getId());
     }
@@ -102,27 +107,25 @@ class AdminProductCategoryControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductCategory() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
-        when(productCategoryService.findById(productCategoryDto.getId())).thenReturn(productCategoryDto);
+        when(productCategoryValidatorService.validateProductCategory(productCategoryDto.getName())).thenReturn("");
+        when(productCategoryService.update(productCategoryDto)).thenReturn(productCategoryDto);
         mockMvc.perform(post("/admin/product_category/update")
                         .param("id", productCategoryDto.getId().toString())
                         .param("name", productCategoryDto.getName()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(3))
                 .andExpect(MockMvcResultMatchers.model().attribute("productCategoryDto", productCategoryDto))
-                .andExpect(MockMvcResultMatchers.view().name("adminProductCategory"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProductCategory"))
                 .andDo(MockMvcResultHandlers.print());
-        verify(productCategoryService, times(1)).findById(productCategoryDto.getId());
         verify(productCategoryService, times(1)).update(productCategoryDto);
+        assertEquals(productCategoryDto,productCategoryService.update(productCategoryDto));
     }
 
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductCategoryFailExistCategory() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
-        when(productCategoryService.existsProductCategoryByName(productCategoryDto.getName())).thenReturn(true);
+        when(productCategoryValidatorService
+                .validateProductCategory(productCategoryDto.getName())).thenReturn("existCategory");
         when(productCategoryService.findById(productCategoryDto.getId())).thenReturn(productCategoryDto);
         mockMvc.perform(post("/admin/product_category/update")
                         .param("id", productCategoryDto.getId().toString())
@@ -130,7 +133,7 @@ class AdminProductCategoryControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(5))
                 .andExpect(MockMvcResultMatchers.model().attribute("existCategory", true))
-                .andExpect(MockMvcResultMatchers.view().name("adminProductCategory"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProductCategory"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findById(productCategoryDto.getId());
         verify(productCategoryService, times(0)).update(productCategoryDto);
@@ -139,14 +142,12 @@ class AdminProductCategoryControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void deleteProductCategory() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         mockMvc.perform(post("/admin/product_category/delete")
                         .param("id", productCategoryDto.getId().toString())
                         .param("name", productCategoryDto.getName()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(3))
-                .andExpect(MockMvcResultMatchers.view().name("adminProductCategories"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProductCategories"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).delete(productCategoryDto);
     }

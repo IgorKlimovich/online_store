@@ -27,6 +27,15 @@ public class State {
     @ToString.Exclude
     private List<User> users;
 
+    public State(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public State(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

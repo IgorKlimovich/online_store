@@ -6,7 +6,6 @@ import org.academy.OnlineStoreDemo.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -37,7 +36,7 @@ class AdminOrderControllerTest {
     @Autowired
     private WebApplicationContext context;
 
-    @Mock
+    @MockBean
     private Principal principal;
 
     @MockBean
@@ -125,8 +124,7 @@ class AdminOrderControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void deliverOrder() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
+        when(orderService.setDelivered(orderDto.getId())).thenReturn(orderDto);
         when(orderService.findById(orderDto.getId())).thenReturn(orderDto);
         mockMvc.perform(post("/admin/order/admin/order/deliver/1"))
                 .andExpect(status().isOk())
@@ -134,7 +132,7 @@ class AdminOrderControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("adminOrder"))
                 .andExpect(MockMvcResultMatchers.model().attribute("orderDto", orderDto))
                 .andDo(MockMvcResultHandlers.print());
-        verify(orderService, times(1)).setDelivered(orderDto);
-        verify(orderService, times(2)).findById(orderDto.getId());
+        verify(orderService, times(1)).setDelivered(orderDto.getId());
+        verify(orderService, times(1)).findById(orderDto.getId());
     }
 }

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/profile/profile.css">
+    <title id="title">Мой профиль</title>
+</head>
+<body class="body-back">
+<header th:insert="blocks/header::header"></header>
+
+<div class="user">
+    <div class="user-prof us-pr-col pr-w">
+        <div><h1 class="tit-pr us-tit" th:text="${userForm.firstName}"></h1></div>
+        <td th:if="${userForm.namePhoto==null}">
+            <img src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg" width="450" height="450"
+                 class="img-mb"></td>
+        <td th:if="${userForm.namePhoto!=null}">
+            <img class="img-mb" th:src="@{${userForm.photosImagePath}}" width="450" height="450"/>
+        </td>
+        <div class="prof-items">
+            <div><h4 th:text="#{firstName}">Имя</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userForm.firstName}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{lastName}">Фамилия</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userForm.lastName}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{phoneNumber}">Номер</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userForm.phoneNumber}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{email}">email</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userForm.email}"></h4></div>
+        </div>
+        <div class="prof-items">
+            <div><h4 th:text="#{login}">Логин</h4></div>
+            <div class="prof-data"><h4 class="text-prof" th:text="${userForm.login}"></h4></div>
+        </div>
+        <div class="btn-add">
+            <div>
+                <button class="add-card upd-btn" type="button"
+                        onclick="openModalUpdateProfile();" th:text="#{change}">Изменить
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div>
+            <details class="det">
+                <summary class="sum" th:text="#{myCards}">Мои карты</summary>
+                <div class="modal-body">
+                    <div class="tab">
+                        <table class="table ">
+                            <tbody>
+                            <tr th:each="cardDto : ${cardsDto}">
+                                <td><a th:text="${cardDto.number}"></a></td>
+                                <td>
+                                    <form th:method="get" th:action="@{/profile/update_form/{id}(id=${cardDto.id})}">
+                                        <button type="submit"
+                                                class="btn-choose-card" th:text="#{change}">Изменить
+                                        </button>
+                                    </form>
+                                </td>
+                                <td><h3 class="pref">|</h3></td>
+                                <td>
+                                    <form th:method="post" th:action="@{/profile/remove_card/{id}(id=${cardDto.id})}">
+                                        <button type="submit" class=" btn-del" th:text="#{delete}">Удалить</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="btn-add">
+                        <div>
+                            <button class="add-card" type="button" th:text="#{add}"
+                                    onclick="openModalAddCard(); ">Добавить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </div>
+        <div>
+            <details class="det">
+                <summary class="sum" th:text="#{myPhoto}">Мои фото</summary>
+                <div th:if="${userForm.namePhoto==null}" class="add-photo-prof">
+                    <form method="post" action="/profile/add_photo" enctype="multipart/form-data">
+                        <div>
+                            <label for="file">Выберите фото
+                                <input type="file" id="file" name="file">
+                            </label>
+                        </div>
+                        <div class="add-card-div">
+                            <button class="add-card" type="submit" multiple="true" th:text="#{add}">Добавить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div th:if="${userForm.namePhoto!=null}">
+                    <form method="post" action="/profile/delete_photo">
+                        <input type="hidden" name="id" th:value="${userForm.id}">
+                        <button class="add-card del-photo-prof" type="submit" th:text="#{delete}">Удалить
+                        </button>
+                    </form>
+                </div>
+            </details>
+        </div>
+    </div>
+</div>
+
+<div id="openModalUpdateProfile" class="modal">
+    <div class="modal-dialog modal-dialog-update-profile">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" th:text="#{changeProfile}">Изменить Профиль</h3>
+                <a href="#close" onclick="closeModalUpdateProfile();"
+                   title="Close" id="close" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form method="post" action="/profile/update" th:object="${userForm}">
+                        <div class="dis">
+                            <input type="hidden" id="id" name="id" th:field="${userForm.id}">
+                            <label for="name" th:text="#{enterANewName}">Введите новое имя </label>
+                            <input type="text" id="name" name="name" class="inp-mod"
+                                   th:field="${userForm.firstName}">
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}"></div>
+                        <div class="dis">
+                            <label for="lastName" th:text="#{enterANewlastName}">Введите новую фамилию</label>
+                            <input type="text" id="lastName" class="inp-mod"
+                                   th:field="${userForm.lastName}">
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('lastName')}"
+                             th:errors="*{lastName}"></div>
+                        <div class="dis">
+                            <label for="email" th:text="#{enterANewEmail}">Введите новый email</label>
+                            <input type="email" id="email" name="email" class="inp-mod"
+                                   th:field="${userForm.email}">
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}"></div>
+                        <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                            <div th:each="err : ${#fields.errors('global')}">
+                                <div th:if="${err.equals('existEmail')}" th:text="#{thisEmailAlreadyExists}"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="dis">
+                            <label for="phoneNumber" th:text="#{enterANewPhoneNumber}">
+                                Введите новый номер телефона</label>
+                            <input type="text" id="phoneNumber" th:field="${userForm.phoneNumber}"
+                                   class="inp-mod">
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('phoneNumber')}"
+                             th:errors="*{phoneNumber}"></div>
+                        <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                            <div th:each="err : ${#fields.errors('global')}">
+                                <div th:if="${err.equals('existPhoneNumber')}"
+                                     th:text="#{thisPhoneNumberAlreadyExists}">
+                                    ></div>
+                            </div>
+                        </div>
+
+                        <div class="dis">
+                            <label for="login" th:text="#{enterANewLogin}"> Введите новый логин</label>
+                            <input type="text" id="login" th:field="${userForm.login}"
+                                   class="inp-mod">
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('login')}"
+                             th:errors="*{login}"></div>
+
+                        <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                            <div th:each="err : ${#fields.errors('global')}">
+                                <div th:if="${err.equals('existLogin')}"
+                                     th:text="#{thisLoginAlreadyExists}"    >
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dis pass">
+                            <label for="password" th:text="#{enterANewPassword}"> Введите новый пароль</label>
+                            <input type="password" id="password" th:field="${userForm.password}"
+                                   class="inp-mod ml-password">
+                            <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
+                        </div>
+                        <div class="mb" th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}"></div>
+                        <div class="cont">
+                            <div class="ml-btn">
+                                <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
+                            </div>
+                            <div>
+                                <button type="button" class="modal-btn-no">
+                                    <a onclick="closeModalUpdateProfileButton();" class="ref-close"
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="openModalAddCard" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" th:text="#{addCard}">Добавить карту</h3>
+                <a href="#" onclick="closeModalAddCard();"
+                   title="Close" id="closeAdd" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{/profile/save_card}" th:object="${cardDto}">
+                    <div class="dis">
+                        <label for="cardName" th:text="#{enterTitle}">Введите название</label>
+                        <input type="text" id="cardName" name="name" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                    <div class="dis">
+                        <label for="number" th:text="#{enterNumber}">Введите номер</label>
+                        <input type="number" id="number" name="number" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('number')}"
+                         th:errors="*{number}"></div>
+                    <div class="dis">
+                        <label for="CVV" th:text="#{enterCvv}">Введите CVV</label>
+                        <input type="number" id="CVV" name="cvv" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('cvv')}"
+                         th:errors="*{cvv}"></div>
+                    <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.errors('global')}">
+                            <div th:if="${err.equals('existCard')}"
+                                 th:text="#{youAlreadyHaveSuchACard}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--                    <div class="mb" th:if="${existCard}" th:text="#{youAlreadyHaveSuchACard}"></div>-->
+                    <div class="cont">
+                        <div>
+                            <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
+                        </div>
+                        <div>
+                            <button type="button" class="modal-btn-no">
+                                <a onclick="closeModalAddCardButton();" class="ref-close"
+                                   href="#" th:text="#{cancel}">Отмена</a></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="openModalUpdateCard" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" th:text="#{changeCard}">Изменить карту</h3>
+                <a href="#" onclick="closeModalUpdateCard();"
+                   title="Close" id="closeUpdate" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{/profile/update_card}" th:object="${cardDto}">
+                    <div class="dis">
+                        <input type="hidden" name="id" th:field="${cardDto.id}">
+                        <label for="cardNameUpdate" th:text="#{enterANewTitle}">Введите новое название</label>
+                        <input type="text" id="cardNameUpdate" name="name"
+                               th:field="${cardDto.name}" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('name')}"
+                         th:errors="*{name}"></div>
+                    <div class="dis">
+                        <label for="numberUpdate" th:text="#{enterANewNumber}">Введите новый номер</label>
+                        <input type="number" id="numberUpdate" name="number"
+                               th:field="${cardDto.number}" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('number')}"
+                         th:errors="*{number}"></div>
+                    <div class="dis">
+                        <label for="CVVUpdate" th:text="#{enterANewCvv}">Введите новый CVV</label>
+                        <input type="number" id="CVVUpdate" name="cvv"
+                               th:field="${cardDto.cvv}" class="inp-mod">
+                    </div>
+                    <div class="mb" th:if="${#fields.hasErrors('cvv')}"
+                         th:errors="*{cvv}"></div>
+                    <!--                    <div class="mb" th:if="${existCard}"-->
+                    <!--                         th:text="#{youAlreadyHaveSuchACard}"></div>-->
+                    <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.errors('global')}">
+                            <div th:if="${err.equals('existCard')}"
+                                 th:text="#{youAlreadyHaveSuchACard}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont">
+                        <div>
+                            <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
+                        </div>
+                        <div>
+                            <button type="button" class="modal-btn-no">
+                                <a onclick="closeModalUpdateCardButton();" class="ref-close"
+                                   href="#" th:text="#{cancel}">Отмена</a></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${error}">
+    <input type="hidden" id="flag" th:value="${error}">
+</div>
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+<script type="text/javascript" src="/js/profile/profile.js"></script>
+</body>
+</html>

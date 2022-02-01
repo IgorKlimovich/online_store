@@ -1,17 +1,8 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
-import org.academy.OnlineStoreDemo.dto.OrderDto;
-import org.academy.OnlineStoreDemo.dto.OrderProductDto;
-import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
-import org.academy.OnlineStoreDemo.dto.ProductDto;
-import org.academy.OnlineStoreDemo.model.entity.Order;
-import org.academy.OnlineStoreDemo.model.entity.OrderProduct;
-import org.academy.OnlineStoreDemo.model.entity.Product;
-import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
-import org.academy.OnlineStoreDemo.model.repository.OrderProductRepository;
-import org.academy.OnlineStoreDemo.model.repository.OrderRepository;
-import org.academy.OnlineStoreDemo.model.repository.ProductCategoryRepository;
-import org.academy.OnlineStoreDemo.model.repository.ProductRepository;
+import org.academy.OnlineStoreDemo.dto.*;
+import org.academy.OnlineStoreDemo.model.entity.*;
+import org.academy.OnlineStoreDemo.model.repository.*;
 import org.academy.OnlineStoreDemo.service.OrderProductService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,10 +14,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
@@ -48,14 +38,15 @@ class OrderProductServiceImplTest {
     @MockBean
     private OrderRepository orderRepository;
 
+    @MockBean
+    private UserRepository userRepository;
+
     @Autowired
     private ModelMapper modelMapper;
 
     private OrderProduct orderProduct;
 
     private OrderProductDto orderProductDto;
-
-    private List<OrderProduct> orderProducts;
 
     private ProductDto productDto;
 
@@ -69,9 +60,6 @@ class OrderProductServiceImplTest {
         orderProduct.setId(1);
         OrderProduct orderProduct1 = new OrderProduct();
         orderProduct1.setId(2);
-        orderProducts = new ArrayList<>();
-        orderProducts.add(orderProduct);
-        orderProducts.add(orderProduct1);
         productDto= new ProductDto();
         orderDto = new OrderDto();
         productDto.setId(1);
@@ -101,18 +89,22 @@ class OrderProductServiceImplTest {
     }
 
     @Test
-    void save() {
-        orderProductService.save(orderProduct);
-        verify(orderProductRepository,times(1)).save(orderProduct);
-    }
-
-    @Test
     void removeProductFromOrder() {
+        User user = new User();
+        user.setId(1);
+        user.setLogin("login");
+        Order order = modelMapper.map(orderDto,Order.class);
+        order.setStateOrder(new StateOrder(1, "NEW"));
+        List<Order> orders= new ArrayList<>();
+        orders.add(order);
+        user.setOrders(orders);
         Product product = modelMapper.map(productDto,Product.class);
         ProductCategory productCategory = modelMapper.map(productCategoryDto, ProductCategory.class);
+        when(userRepository.findUserByLogin("login")).thenReturn(Optional.of(user));
         when(productCategoryRepository.getById(1)).thenReturn(productCategory);
-        orderProductService.removeProductFromOrder(orderDto,productDto);
-        Order order = modelMapper.map(orderDto,Order.class);
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
+        when(orderRepository.save(order)).thenReturn(order);
+        orderProductService.removeProductFromOrder(product.getId(),user.getLogin());
         OrderProduct orderProduct = modelMapper.map(orderProductDto,OrderProduct.class);
         verify(productRepository,times(1)).save(product);
         verify(productCategoryRepository,times(1)).save(productCategory);
@@ -122,31 +114,15 @@ class OrderProductServiceImplTest {
 
     @Test
     void saveProductToOrder() {
-        Order order = modelMapper.map(orderDto,Order.class);
-        ProductCategory productCategory = modelMapper.map(productCategoryDto,ProductCategory.class);
-        Product product = modelMapper.map(productDto,Product.class);
-      //  OrderProduct orderProduct = modelMapper.map(orderProductDto,OrderProduct.class);
-        orderProductService.saveProductToOrder(orderDto,productDto);
-        verify(orderRepository,times(1)).save(order);
-        verify(productCategoryRepository,times(1)).save(productCategory);
-        verify(productRepository,times(1)).save(product);
+        Order order = modelMapper.map(orderDto, Order.class);
+        ProductCategory productCategory = modelMapper.map(productCategoryDto, ProductCategory.class);
+        Product product = modelMapper.map(productDto, Product.class);
+        //  OrderProduct orderProduct = modelMapper.map(orderProductDto,OrderProduct.class);
+        orderProductService.saveProductToOrder(orderDto, productDto);
+        verify(orderRepository, times(1)).save(order);
+        verify(productCategoryRepository, times(1)).save(productCategory);
+        verify(productRepository, times(1)).save(product);
 //        verify(orderProductRepository,times(1)).save(orderProduct);
     }
 
-    @Test
-    void findByOrderId() {
-        when(orderProductRepository.findAllByOrderId(1)).thenReturn(orderProducts);
-        List<OrderProductDto> orderProductsDto = orderProductService.findByOrderId(1);
-        verify(orderProductRepository,times(1)).findAllByOrderId(1);
-        assertEquals(2,orderProductsDto.size());
-        assertEquals(1,orderProductsDto.get(0).getId());
-    }
-
-    @Test
-    void findByOrderIdFail() {
-        when(orderProductRepository.findAllByOrderId(1)).thenReturn(Collections.emptyList());
-        List<OrderProductDto> orderProductsDto = orderProductService.findByOrderId(1);
-        verify(orderProductRepository,times(1)).findAllByOrderId(1);
-        assertEquals(0,orderProductsDto.size());
-    }
 }

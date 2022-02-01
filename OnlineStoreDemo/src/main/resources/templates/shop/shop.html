@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/shop/shop.css">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Главная</title>
+</head>
+<body>
+
+<header th:insert="blocks/header::header"></header>
+
+<div class="bl">
+    <div class="search">
+        <h2 class="sf" th:text="#{filterSearch}"> Поиск по фильтрам</h2>
+        <hr class="ha">
+        <div>
+            <form action="/search" method="get">
+                <div class="form-group1">
+                    <label for="category" th:text="#{enterCategory}"> Введите категорию</label>
+                    <input autocomplete="off" list="category" type="text"
+                           id="input" name="category">
+                    <datalist id="category">
+                        <option th:each="productCategoryDto : ${productCategoriesDto}"
+                                th:text="${productCategoryDto.name}"
+                                th:value="${productCategoryDto.name}">
+                        </option>
+                    </datalist>
+                    <div class="ser" th:text="${noCategory}"></div>
+                </div>
+                <div class="form-group1">
+                    <label for="name" th:text="#{enterProductName}"> Введите название</label>
+                    <input autocomplete="off" list="name" type="text" name="name">
+                    <datalist id="name">
+                        <option th:each="productDto : ${productsDto}"
+                                th:text="${productDto.name}"
+                                th:value="${productDto.name}"></option>
+                    </datalist>
+                </div>
+                <div class="ser" th:text="${noName}"></div>
+                <div class="form-group2">
+                    <label for="minPrice" th:text="#{enterMinimumPrice}"> Введите минимальную цену</label>
+                    <input type="number" id="minPrice" name="minPrice">
+                </div>
+                <div class="ser" th:text="${noMinPrice}"></div>
+                <div class="form-group2">
+                    <label for="maxPrice" th:text="#{enterMaximumPrice}"> Введите максимальную цену</label>
+                    <input type="number" id="maxPrice" name="maxPrice">
+                </div>
+                <div class="ser" th:text="${noMaxPrice}"></div>
+                <input type="submit" class="btn-search btn-search-color" th:value="#{search}">
+            </form>
+        </div>
+    </div>
+    <div class="ai">
+        <div><h2 class="tit" th:text="#{latestArrivals}">Последние поступления:</h2></div>
+        <div class="tab">
+            <table class="table ">
+                <thead>
+                <tr>
+                    <th scope="col" th:text="#{title}"> Название</th>
+                    <th scope="col" th:text="#{photo}"> Фото</th>
+                    <th scope="col" th:text="#{category}"> Категория</th>
+                    <th scope="col" th:text="#{price}"> Цена</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="productDto : ${productsLastDto}">
+                    <td class="wid-td"><a class="td-ref" th:text="${productDto.name}"
+                                          th:href="@{/shop/{id}(id=${productDto.id})}"> </a></td>
+                    <td th:if="${productDto.namePhoto!=null}">
+                        <img th:src="@{${productDto.photosImagePath}}" width="150" height="100"/></td>
+                    <td th:if="${productDto.namePhoto==null}">
+                        <img src="https://diamedica.by/uploads/no-image.jpg" width="150" height="100"/></td>
+                    <td th:text="${productDto.productCategoryDto.name}"></td>
+                    <td th:text="${productDto.price}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>

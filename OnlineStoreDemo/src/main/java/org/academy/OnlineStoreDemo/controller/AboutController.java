@@ -1,5 +1,6 @@
 package org.academy.OnlineStoreDemo.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -9,23 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+import static org.academy.OnlineStoreDemo.constants.Constants.ABOUT;
+import static org.academy.OnlineStoreDemo.constants.Constants.USER_PROF;
+
 @Slf4j
+@AllArgsConstructor
 @Controller
 @RequestMapping("/about")
 public class AboutController {
 
-
     private final UserService userService;
 
-    public AboutController( UserService userService) {
-        this.userService = userService;
-    }
-
     @GetMapping
-    public String getAboutPage(Principal principal, Model model){
-        if (principal!=null){
-        model.addAttribute("userProf" , userService.findByLogin(principal.getName()));}
+    public String getAboutPage(Principal principal, Model model) {
+        model.addAttribute(USER_PROF, userService.findByLogin(principal));
         log.info("in get about page: return user to about page");
-        return "about";
+        return ABOUT;
     }
 }

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/auth/sign-up.css" rel="stylesheet">
+    <link href="/css/blocks/footer.css" rel="stylesheet">
+    <title>Sign-up</title>
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <main>
+        <h4 class="h3 mb-3 fw-normal" th:text="#{willSignUp}">Зарегистрируйтесь</h4>
+        <form action="/sign-up" method="post" th:object="${userForm}">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label for="firstName" id="labelName" class="form-label" th:text="#{firstName}">Имя</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName"
+                           th:placeholder="#{firstName}" onfocus="return signNameFocus();" onblur="return signNameBlur();">
+                    <div class="er-col" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="lastName" id="labelLastName" class="form-label" th:text="#{lastName}">Фамилия</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName"
+                           th:placeholder="#{lastName}" onfocus="return signLastNameFocus();"
+                           onblur="return signLastNameBlur();">
+                    <div class="er-col" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="email" id="labelEmail" class="form-label" th:text="#{email}">Email</label>
+                    <input type="text" class="form-control" id="email" name="email"
+                           th:placeholder="#{email}" onfocus="return signEmailFocus();" onblur="return signEmailBlur();">
+                    <div class="er-col" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                    <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.errors('global')}">
+                            <div th:if="${err.equals('existEmail')}" class="er-col" th:text="#{thisEmailAlreadyExists}"
+                            ></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="phoneNumber" id="labelPhoneNumber" class="form-label" th:text="#{phoneNumber}">
+                        Номер телефона</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                           th:placeholder="#{phoneNumber}" onfocus="return signPhoneNumberFocus();"
+                           onblur="return signPhoneNumberBlur();">
+                    <div class="er-col" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+                    <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.errors('global')}">
+                            <div th:if="${err.equals('existPhoneNumber')}"class="er-col"
+                                 th:text="#{thisPhoneNumberAlreadyExists}">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12">
+                    <label for="login" id="labelLogin" class="form-label" th:text="#{login}"> Логин</label>
+                    <input type="text" class="form-control" id="login" name="login"
+                           th:placeholder="#{login}" onfocus="return signLoginFocus();" onblur="return signLoginBlur();">
+                    <div class="er-col" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+                    <div class="mb" th:if="${#fields.hasGlobalErrors()}">
+                        <div th:each="err : ${#fields.errors('global')}">
+                            <div th:if="${err.equals('existLogin')}"class="er-col"
+                                 th:text="#{thisLoginAlreadyExists}"    >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 pass">
+                    <label for="password" id="labelPassword" class="form-label" th:text="#{password}">Пароль</label>
+                    <input type="text" class="form-control" id="password" name="password"
+                           th:placeholder="#{password}" onfocus="return signPasswordFocus();"
+                           onblur="return signPasswordBlur();">
+                    <a href="#" class="password-control" onclick="return show_hide_password(this);"></a>
+                    <div class="er-col "
+                         th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    </div>
+                </div>
+            </div>
+            <button class="bts w-100 btn btn-lg my-btn-log" type="submit" th:text="#{signUp}">
+                Зарегистрироваться</button>
+        </form>
+        <form action="/login">
+            <button class="col-log w-100 btn btn-lg btn-reg"
+                    type="submit" th:text="#{signIn}">Войти
+            </button>
+        </form>
+        <div>
+            <button class="col-log w-100 btn btn-lg btn-reg"
+                    type="button"> <a href="/shop" th:text="#{toShop}"></a>
+            </button>
+        </div>
+    </main>
+</div>
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="js/auth/sign-up.js"></script>
+</body>
+</html>

@@ -38,7 +38,7 @@ class LoginControllerTest {
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.view().name("login"))
+                .andExpect(MockMvcResultMatchers.view().name("auth/login"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
@@ -46,9 +46,9 @@ class LoginControllerTest {
     void logFailUserDisabled() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/login")
                         .requestAttr("error", "User is disabled"))
-                .andExpect(MockMvcResultMatchers.model().size(2))
+                .andExpect(MockMvcResultMatchers.model().size(1))
                 .andExpect(MockMvcResultMatchers.model().attribute("disabled", "Пользователь удален"))
-                .andExpect(MockMvcResultMatchers.view().name("login"))
+                .andExpect(MockMvcResultMatchers.view().name("auth/login"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
@@ -58,7 +58,7 @@ class LoginControllerTest {
                         .requestAttr("error", "Bad credentials"))
                 .andExpect(MockMvcResultMatchers.model().size(1))
                 .andExpect(MockMvcResultMatchers.model().attribute("badCredentials", true))
-                .andExpect(MockMvcResultMatchers.view().name("login"))
+                .andExpect(MockMvcResultMatchers.view().name("auth/login"))
                 .andDo(MockMvcResultHandlers.print());
     }
 }

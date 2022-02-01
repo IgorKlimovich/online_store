@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/admin/adminProductCategories.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <title id="title">Админ</title>
+</head>
+<body>
+<header th:insert="blocks/header::header"></header>
+
+<details class="det-sort">
+    <summary th:text="#{sort}">Сортировать</summary>
+
+    <div class="table-users">
+        <form method="post" action="/admin/sortProductCategories">
+            <div class="sort">
+                <h2 class="sort-tit" th:text="#{sortCategory}"> Сортировать категории,</h2>
+                <tr th:each="productCategoryDto : ${productCategoriesDto}">
+                    <td><input style="display: none" type="hidden" name="idsCategory"
+                               th:value="${productCategoryDto.id}"></td>
+                </tr>
+                <label for="parameter" class="label-users" th:text="#{chooseParameter}">выберите параметр</label>
+                <select class="select-sort" name="parameterCategory" id="parameter">
+                    <option value="name" th:text="#{title}">Название</option>
+                    <option value="amount" th:text="#{amount}">Колличество</option>
+                </select>
+                <button type="submit" class="btn-sort" th:text="#{sort}">Сортировать</button>
+            </div>
+        </form>
+    </div>
+</details>
+<hr>
+<details class="det-search">
+    <summary th:text="#{search}">Поиск</summary>
+    <div class="search-js">
+        <div>
+            <h2 th:text="#{searchOnThePageEnterTheCategoryName}">Поиск на странице, введите название категории:</h2>
+        </div>
+        <div>
+            <input type="text" id="myInput" onkeyup="search()" th:placeholder="#{search.}"
+                   class="input-js" th:title="#{enterCategory}">
+        </div>
+    </div>
+</details>
+
+<div>
+    <hr>
+    <div class="tab">
+        <table class="table " id="myTable">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{title}"> Название</th>
+                <th scope="col" th:text="#{amount}"> Колличество</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productCategoryDto : ${productCategoriesDto}">
+                <td><a th:text="${productCategoryDto.name}" class="name-prod"
+                       th:href="@{/admin/product_category/{id}(id=${productCategoryDto.id})}"></a></td>
+                <td><h3 th:text="${productCategoryDto.amount}"></h3></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div id="openModalCategory" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" th:text="#{addCategory}">Добавить категорию</h3>
+                <a href="#close" onclick="closeModal();"
+                   title="Close" id="close" class="close">×</a>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form method="post" action="/admin/saveCategory">
+                        <div class="dis">
+                            <label for="cardName" th:text="#{enterCategoryNam}">Введите название категории</label>
+                            <input type="text" id="cardName" name="addCategory" class="inp-mod">
+                        </div>
+                        <div th:if="${moreNumber}" class="mb"
+                             th:text="#{theNumberOfCharactersCanNotBeMore}">
+                        </div>
+                        <div th:if="${emptyCategoryName}" class="mb"
+                             th:text="#{categoryNameCanNotBeEmpty}">
+                        </div>
+                        <div th:if="${existCategory}" class="mb"
+                             th:text="#{categoryAlreadyExist}">
+                        </div>
+                        <div class="cont">
+                            <div>
+                                <button class="modal-btn-yes" type="submit" th:text="#{save}">Сохранить</button>
+                            </div>
+                            <div>
+                                <button type="button" class="modal-btn-no">
+                                    <a onclick="closeModalButton();" class="ref-close"
+                                       href="#close" th:text="#{cancel}">Отмена</a></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${error}">
+    <input type="hidden" id="flag" th:value="${error}">
+</div>
+
+<button class="add-card">
+    <a href="#" class="add-pr" onclick="openModal();" th:text="#{addCategory}">Добавить категорию</a>
+</button>
+
+<script type="text/javascript" src="/js/admin/adminProductCategories.js"></script>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+<footer th:insert="blocks/footer::footer"></footer>
+</body>
+</html>

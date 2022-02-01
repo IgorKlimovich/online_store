@@ -34,7 +34,6 @@ public class Order {
     @ManyToOne
     private StateOrder stateOrder;
 
-
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<OrderProduct> orderProducts ;
 

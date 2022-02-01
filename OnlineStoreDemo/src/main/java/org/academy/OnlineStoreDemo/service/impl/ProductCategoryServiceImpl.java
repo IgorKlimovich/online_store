@@ -1,10 +1,13 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
+import org.academy.OnlineStoreDemo.exception.ProductCategoryNotFoundException;
 import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
 import org.academy.OnlineStoreDemo.model.repository.ProductCategoryRepository;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
+import org.academy.OnlineStoreDemo.util.UtilListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -12,38 +15,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class ProductCategoryServiceImpl implements ProductCategoryService {
 
-    private final ProductCategoryRepository productCategoryRepository;
     private final ModelMapper modelMapper;
-
-    public ProductCategoryServiceImpl(ProductCategoryRepository productCategoryRepository, ModelMapper modelMapper) {
-        this.productCategoryRepository = productCategoryRepository;
-        this.modelMapper = modelMapper;
-    }
+    private final UtilListMapper utilListMapper;
+    private final ProductCategoryRepository productCategoryRepository;
 
     @Override
     public List<ProductCategoryDto> findAll() {
         List<ProductCategory> productCategories = productCategoryRepository.findAll();
         log.info("in find all product categories: founded {} product categories", productCategories.size());
-        List<ProductCategoryDto> productCategoriesDto= new ArrayList<>();
-        for (ProductCategory productCategory : productCategories) {
-            ProductCategoryDto map = modelMapper.map(productCategory, ProductCategoryDto.class);
-            productCategoriesDto.add(map);
-        }
-        return productCategoriesDto;
+        return utilListMapper.mapList(productCategories,ProductCategoryDto.class);
     }
 
     @Override
     public ProductCategoryDto findByName(String name) {
         ProductCategory productCategory = productCategoryRepository.findByName(name);
-        if (productCategory==null){
-            log.error("in find product category by name: product category not found by name {}",name);
-            return null;
-        }
         log.info("in find product category by name: product category {} founded by name {}", productCategory, name);
-        return modelMapper.map(productCategory,ProductCategoryDto.class);
+        return modelMapper.map(productCategory, ProductCategoryDto.class);
+    }
+
+    @Override
+    public ProductCategoryDto findCategoryByName(String name){
+        ProductCategory productCategory =
+                productCategoryRepository.findProductCategoryByName(name).orElse(new ProductCategory());
+        log.info("in find product category by name: product category {} founded by name {}", productCategory, name);
+        return modelMapper.map(productCategory, ProductCategoryDto.class);
     }
 
     @Override
@@ -69,41 +68,31 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
                 res.add(productCategory);
             }
         }
-        List<ProductCategoryDto> productCategoriesDto= new ArrayList<>();
-        for (ProductCategory productCategory:res){
-            ProductCategoryDto map = modelMapper.map(productCategory, ProductCategoryDto.class);
-            productCategoriesDto.add(map);
-        }
         log.info("in find product categories by ids: founded {} product categories ", res.size());
-        return productCategoriesDto;
+        return utilListMapper.mapList(productCategories,ProductCategoryDto.class);
     }
 
     @Override
     public ProductCategoryDto findById(Integer id) {
-        ProductCategory productCategory = null;
-        try {
-            productCategory = productCategoryRepository.findById(id).orElseThrow(Exception::new);
-        } catch (Exception e) {
-            log.error("in find by id product category : product category not found by id {}", id);
-            return null;
-        }
+        ProductCategory productCategory = productCategoryRepository
+                        .findById(id).orElseThrow(()->new ProductCategoryNotFoundException("product category not found"));
         log.info("in find by id product category : product category {} founded by id {}", productCategory, id);
         return modelMapper.map(productCategory, ProductCategoryDto.class);
-
     }
 
     @Override
-    public void update(ProductCategoryDto productCategoryDto) {
+    public ProductCategoryDto update(ProductCategoryDto productCategoryDto) {
         ProductCategoryDto forUpdateProductCategoryDto = findById(productCategoryDto.getId());
         forUpdateProductCategoryDto.setName(productCategoryDto.getName());
-        ProductCategory productCategoryForUpdate=modelMapper.map(forUpdateProductCategoryDto,ProductCategory.class);
-        productCategoryRepository.save(productCategoryForUpdate);
-        log.info("in update product category: product category {} updated", productCategoryForUpdate);
+        ProductCategory productCategoryForUpdate = modelMapper.map(forUpdateProductCategoryDto, ProductCategory.class);
+        ProductCategory productCategory = productCategoryRepository.save(productCategoryForUpdate);
+        log.info("in update product category: product category {} updated", productCategory);
+        return modelMapper.map(productCategory, ProductCategoryDto.class);
     }
 
     @Override
     public void delete(ProductCategoryDto productCategoryDto) {
-        ProductCategory productCategory =modelMapper.map(productCategoryDto,ProductCategory.class);
+        ProductCategory productCategory = modelMapper.map(productCategoryDto, ProductCategory.class);
         productCategoryRepository.delete(productCategory);
         log.info("in delete product category: product category {} deleted", productCategory);
     }

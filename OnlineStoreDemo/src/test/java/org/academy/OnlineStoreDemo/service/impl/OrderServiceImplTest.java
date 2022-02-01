@@ -1,6 +1,7 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
 import org.academy.OnlineStoreDemo.dto.*;
+import org.academy.OnlineStoreDemo.exception.OrderNotFoundException;
 import org.academy.OnlineStoreDemo.mail.EmailService;
 import org.academy.OnlineStoreDemo.model.entity.*;
 import org.academy.OnlineStoreDemo.model.repository.CardRepository;
@@ -134,7 +135,9 @@ class OrderServiceImplTest {
         userDto.setEmail("email");
         orderDto.setUserDto(userDto);
         Order order = modelMapper.map(orderDto, Order.class);
-        orderService.setDelivered(orderDto);
+        when(orderRepository.findById(order.getId())).thenReturn(Optional.of(order));
+        when(orderRepository.save(order)).thenReturn(order);
+        orderService.setDelivered(orderDto.getId());
         verify(orderRepository, times(1)).save(order);
         verify(emailService, times(1)).sendDeliverMessage(userDto.getEmail(), userDto.getFirstName());
     }
@@ -150,9 +153,7 @@ class OrderServiceImplTest {
     @Test
     void findByIdFail() {
         when(orderRepository.findById(1)).thenReturn(Optional.empty());
-        OrderDto orderDto = orderService.findById(1);
-        verify(orderRepository, times(1)).findById(1);
-        assertNull(orderDto);
+        Exception exception = assertThrows(OrderNotFoundException.class, () -> orderService.findById(1));
+        assertEquals("order not found", exception.getMessage());
     }
-
 }

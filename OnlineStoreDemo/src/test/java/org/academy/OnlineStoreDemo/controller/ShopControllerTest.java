@@ -88,8 +88,8 @@ class ShopControllerTest {
         when(productService.findLast()).thenReturn(productsDto);
         mockMvc.perform(get("/shop"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(3))
-                .andExpect(MockMvcResultMatchers.view().name("shop"))
+                .andExpect(MockMvcResultMatchers.model().size(4))
+                .andExpect(MockMvcResultMatchers.view().name("shop/shop"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productService, times(1)).findAll();
         verify(productCategoryService, times(1)).findAll();
@@ -102,8 +102,8 @@ class ShopControllerTest {
         when(productService.findById(productDto.getId())).thenReturn(productDto);
         mockMvc.perform(get("/shop/1"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.view().name("product"))
+                .andExpect(MockMvcResultMatchers.model().size(2))
+                .andExpect(MockMvcResultMatchers.view().name("product/product"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productService, times(1)).findById(productDto.getId());
         assertEquals(productDto, productService.findById(productDto.getId()));

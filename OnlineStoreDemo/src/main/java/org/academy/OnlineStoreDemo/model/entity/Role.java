@@ -27,6 +27,10 @@ public class Role {
     @ToString.Exclude
     private List<User> users;
 
+    public Role(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

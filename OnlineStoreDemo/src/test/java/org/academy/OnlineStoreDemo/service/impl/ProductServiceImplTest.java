@@ -2,6 +2,7 @@ package org.academy.OnlineStoreDemo.service.impl;
 
 import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
 import org.academy.OnlineStoreDemo.dto.ProductDto;
+import org.academy.OnlineStoreDemo.exception.ProductNotFoundException;
 import org.academy.OnlineStoreDemo.model.entity.Product;
 import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
 import org.academy.OnlineStoreDemo.model.repository.ProductCategoryRepository;
@@ -15,6 +16,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -108,28 +111,9 @@ class ProductServiceImplTest {
     @Test
     void findByIdFail() {
         when(productRepository.findById(1)).thenReturn(Optional.empty());
-        ProductDto productDto = productService.findById(1);
-        verify(productRepository, times(1)).findById(1);
-        assertNull(productDto);
+        Exception exception = assertThrows(ProductNotFoundException.class, () -> productService.findById(1));
+        assertEquals("product not found", exception.getMessage());
     }
-
-
-    @Test
-    void existsProductByName() {
-        when(productRepository.existsProductByName("name")).thenReturn(true);
-        Boolean exist = productService.existsProductByName("name");
-        verify(productRepository, times(1)).existsProductByName("name");
-        assertTrue(exist);
-    }
-
-    @Test
-    void existsProductByNameFail() {
-        when(productRepository.existsProductByName("name")).thenReturn(false);
-        Boolean notExist = productService.existsProductByName("name");
-        verify(productRepository, times(1)).existsProductByName("name");
-        assertFalse(notExist);
-    }
-
 
     @Test
     void findAllByName() {
@@ -160,9 +144,12 @@ class ProductServiceImplTest {
 
     @Test
     void saveWithCategoryName() {
+        MockMultipartFile file = new MockMultipartFile("file", "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
         Product product = modelMapper.map(productDto, Product.class);
         when(productCategoryRepository.findByName(productCategory.getName())).thenReturn(productCategory);
-        productService.saveWithCategoryName(productDto, productCategory.getName());
+        when(productRepository.save(product)).thenReturn(product);
+        productService.save(productDto, productCategory.getName(), file);
         verify(productRepository, times(1)).save(product);
         verify(productCategoryRepository, times(1)).save(productCategory);
     }
@@ -174,6 +161,7 @@ class ProductServiceImplTest {
         Product product = modelMapper.map(productDto, Product.class);
         when(productRepository.findById(productDto.getId())).thenReturn(Optional.of(product));
         when(productCategoryRepository.findByName(productCategory.getName())).thenReturn(productCategory);
+        when(productRepository.save(product)).thenReturn(product);
         productService.update(productDto);
         verify(productRepository, times(1)).save(product);
         verify(productCategoryRepository, times(2)).save(productCategory);
@@ -184,7 +172,7 @@ class ProductServiceImplTest {
         ProductCategoryDto productCategoryDto = modelMapper.map(productCategory, ProductCategoryDto.class);
         productDto.setProductCategoryDto(productCategoryDto);
         Product product = modelMapper.map(productDto, Product.class);
-        when(productRepository.getById(productDto.getId())).thenReturn(product);
+        when(productRepository.findById(product.getId())).thenReturn(Optional.of(product));
         productService.delete(productDto);
         verify(productCategoryRepository, times(1)).save(productCategory);
         verify(productRepository, times(1)).delete(product);
@@ -203,32 +191,22 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void findByPhotoName() {
-        when(productRepository.findByNamePhoto("photoName")).thenReturn(product);
-        ProductDto productDto = productService.findByPhotoName("photoName");
-        verify(productRepository, times(1)).findByNamePhoto("photoName");
-        assertEquals("photoName", productDto.getNamePhoto());
-    }
-
-    @Test
-    void findByPhotoNameFail() {
-        when(productRepository.findByNamePhoto("photoName")).thenReturn(null);
-        ProductDto productDto = productService.findByPhotoName("photoName");
-        verify(productRepository, times(1)).findByNamePhoto("photoName");
-        assertNull(productDto);
-    }
-
-    @Test
     void addPhoto() {
-        ProductDto productDto = modelMapper.map(product, ProductDto.class);
-        productService.addPhoto(productDto);
+        MockMultipartFile file = new MockMultipartFile("file", "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
+        when(productRepository.getById(productDto.getId())).thenReturn(product);
+        when(productRepository.save(product)).thenReturn(product);
+        productService.addPhoto(productDto.getId(), file);
         verify(productRepository, times(1)).save(product);
     }
 
     @Test
     void deletePhoto() {
-        ProductDto productDto = modelMapper.map(product, ProductDto.class);
-        productService.addPhoto(productDto);
+        MockMultipartFile file = new MockMultipartFile("file", "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
+        when(productRepository.getById(productDto.getId())).thenReturn(product);
+        when(productRepository.save(product)).thenReturn(product);
+        productService.addPhoto(productDto.getId(), file);
         verify(productRepository, times(1)).save(product);
     }
 }

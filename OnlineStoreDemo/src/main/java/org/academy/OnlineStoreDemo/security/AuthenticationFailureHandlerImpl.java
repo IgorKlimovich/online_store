@@ -15,7 +15,6 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        System.out.println(exception.getMessage());
         String login=request.getParameter("login");
         if (exception.getMessage().equals("User is disabled")){
             request.setAttribute("error","User is disabled");

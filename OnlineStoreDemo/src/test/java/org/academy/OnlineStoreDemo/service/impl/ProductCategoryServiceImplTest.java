@@ -1,6 +1,7 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
 import org.academy.OnlineStoreDemo.dto.ProductCategoryDto;
+import org.academy.OnlineStoreDemo.exception.ProductCategoryNotFoundException;
 import org.academy.OnlineStoreDemo.model.entity.ProductCategory;
 import org.academy.OnlineStoreDemo.model.repository.ProductCategoryRepository;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
@@ -76,10 +77,10 @@ class ProductCategoryServiceImplTest {
 
     @Test
     void findByNameFail() {
-        when(productCategoryRepository.findByName("name")).thenReturn(null);
-        ProductCategoryDto productCategoryDto = productCategoryService.findByName("name");
-        verify(productCategoryRepository, times(1)).findByName("name");
-        assertNull(productCategoryDto);
+        when(productCategoryRepository.findProductCategoryByName("name")).thenReturn(Optional.of(new ProductCategory()));
+        ProductCategoryDto productCategoryDto = productCategoryService.findCategoryByName("name");
+        verify(productCategoryRepository, times(1)).findProductCategoryByName("name");
+        assertEquals(new ProductCategoryDto(), productCategoryDto);
     }
 
     @Test
@@ -105,7 +106,7 @@ class ProductCategoryServiceImplTest {
         ids.add(3);
         productCategoryService.findAllByIds(ids);
         when(productCategoryRepository.findAll()).thenReturn(productCategories);
-        assertEquals(1, productCategoryService.findAllByIds(ids).size());
+        assertEquals(2, productCategoryService.findAllByIds(ids).size());
     }
 
     @Test
@@ -119,15 +120,15 @@ class ProductCategoryServiceImplTest {
     @Test
     void findByIdFail() {
         when(productCategoryRepository.findById(1)).thenReturn(Optional.empty());
-        ProductCategoryDto productCategoryDto = productCategoryService.findById(1);
-        verify(productCategoryRepository, times(1)).findById(1);
-        assertNull(productCategoryDto);
+        Exception exception = assertThrows(ProductCategoryNotFoundException.class, () -> productCategoryService.findById(1));
+        assertEquals("product category not found", exception.getMessage());
     }
 
     @Test
     void update() {
         ProductCategory productCategory = modelMapper.map(productCategoryDto, ProductCategory.class);
-        when(productCategoryRepository.findById(productCategory.getId())).thenReturn(Optional.ofNullable(productCategory));
+        when(productCategoryRepository.findById(productCategory.getId())).thenReturn(Optional.of(productCategory));
+        when(productCategoryRepository.save(productCategory)).thenReturn(productCategory);
         productCategoryService.update(productCategoryDto);
         verify(productCategoryRepository, times(1)).save(productCategory);
     }

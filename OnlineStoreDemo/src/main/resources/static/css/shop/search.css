@@ -1,0 +1,62 @@
+
+.tit-prod {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 24px;
+    margin-left: 100px;
+}
+
+body {
+    background-color: white;
+}
+
+.input-js {
+    margin-left: 40px;
+    padding: 7px 20px;
+    border: 2px solid #d4d4d4;
+    border-radius: 3px;
+}
+
+.search-js {
+    display: flex;
+    align-items: baseline;
+    margin-left: 339px;
+    margin-bottom: -23px;
+    margin-top: 20px;
+}
+
+h4 {
+    font-weight: 100;
+}
+
+.td-width {
+    width: 545px;
+}
+
+hr {
+    height: 2px;
+    border: none;
+    background-color: #d0cccc;
+}
+
+/*.num {*/
+/*    display: none;*/
+/*}*/
+
+/*.paginator {*/
+/*    line-height: 150%;*/
+/*    margin-left: 50px;*/
+/*}*/
+
+/*.paginator > span {*/
+/*    cursor:pointer;*/
+/*    float: left;*/
+/*    padding: 2px 16px;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*.paginator_active {*/
+/*    border-radius: 16px;*/
+/*    background-color: darkred;*/
+/*    color: white;*/
+/*}*/

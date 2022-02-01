@@ -2,22 +2,21 @@ package org.academy.OnlineStoreDemo.service;
 
 
 import org.academy.OnlineStoreDemo.dto.OrderDto;
-import org.academy.OnlineStoreDemo.dto.OrderProductDto;
 import org.academy.OnlineStoreDemo.dto.ProductDto;
-import org.academy.OnlineStoreDemo.model.entity.Order;
-import org.academy.OnlineStoreDemo.model.entity.OrderProduct;
-import org.academy.OnlineStoreDemo.model.entity.Product;
-import org.academy.OnlineStoreDemo.model.entity.User;
-
-import java.util.List;
-
 
 public interface OrderProductService {
-    void save(OrderProduct orderProduct);
 
-    void removeProductFromOrder(OrderDto order, ProductDto productDto);
+    /**
+     * This method removes the product from the user's order
+     * @param productId id of the product to be removed from the order
+     * @param login login of the user in whose order the product will be removed
+     * @return an updated order
+     */
+    OrderDto removeProductFromOrder(Integer productId, String login);
 
+    /**
+     * @param orderDto the order to which the product will be saved
+     * @param productDto product to be added to the order
+     */
     void saveProductToOrder(OrderDto orderDto, ProductDto productDto);
-
-    List<OrderProductDto> findByOrderId(Integer id);
 }

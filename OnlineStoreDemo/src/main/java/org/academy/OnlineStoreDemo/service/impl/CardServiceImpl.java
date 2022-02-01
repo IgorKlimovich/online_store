@@ -1,29 +1,28 @@
 package org.academy.OnlineStoreDemo.service.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.academy.OnlineStoreDemo.dto.CardDto;
 import org.academy.OnlineStoreDemo.dto.UserDto;
+import org.academy.OnlineStoreDemo.exception.CardNotFoundException;
 import org.academy.OnlineStoreDemo.model.entity.Card;
 import org.academy.OnlineStoreDemo.model.entity.User;
 import org.academy.OnlineStoreDemo.model.repository.CardRepository;
 import org.academy.OnlineStoreDemo.service.CardService;
+import org.academy.OnlineStoreDemo.util.UtilListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class CardServiceImpl implements CardService {
 
-    private final CardRepository cardRepository;
     private final ModelMapper modelMapper;
-
-    public CardServiceImpl(CardRepository cardRepository, ModelMapper modelMapper) {
-        this.cardRepository = cardRepository;
-        this.modelMapper = modelMapper;
-    }
+    private final CardRepository cardRepository;
+    private final UtilListMapper utilListMapper;
 
     @Override
     public void save(CardDto cardDto, UserDto userDto) {
@@ -36,17 +35,9 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public CardDto findById(Integer cardId){
-        Card card= null;
-        try {
-            card = cardRepository.findById(cardId).orElseThrow(Exception::new);
-        } catch (Exception e) {
-            log.error("in find by id: card by id{} not found",cardId);
-            return null;
-        }
-        CardDto cardDto=modelMapper.map(card, CardDto.class);
+        Card card = cardRepository.findById(cardId).orElseThrow(()->new CardNotFoundException("card not found"));
         log.info("in find by id: card{} founded by id{}", card,cardId);
-        return cardDto;
-
+        return modelMapper.map(card, CardDto.class);
     }
 
     @Override
@@ -69,12 +60,7 @@ public class CardServiceImpl implements CardService {
     public List<CardDto> findAllByUser(UserDto userDto) {
         User user= modelMapper.map(userDto, User.class);
         List<Card> cards=cardRepository.findAllByUser(user);
-        List<CardDto> cardsDto =new ArrayList<>();
-        for (Card card : cards) {
-            CardDto map = modelMapper.map(card, CardDto.class);
-            cardsDto.add(map);
-        }
         log.info("in find all cards by user: founded {} cards by user {}", cards.size(), user);
-       return cardsDto;
+       return utilListMapper.mapList(cards,CardDto.class) ;
     }
 }

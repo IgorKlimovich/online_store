@@ -35,7 +35,7 @@
                         </form>
                     </div>
                     <div class="text-end " sec:authorize="isAuthenticated()">
-                        <div class="prof">
+                        <div class="prof" th:if="${userProf!=null}">
                             <a href="#" class="dropdown-toggle" onclick="openListProfile()">
                                 <img th:if="${userProf.namePhoto==null}"
                                      src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg"

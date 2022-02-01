@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Корзина</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/order/orders.css">
+</head>
+<body>
+
+<header th:insert="blocks/header::header"></header>
+
+<div th:if="${!userDto.getOrdersDto().isEmpty()}">
+    <h2 class="order-tit" th:text="#{listOfYourOrders}">Список ваших заказов</h2>
+</div>
+<div th:if="${userDto.getOrdersDto().isEmpty()}">
+    <h2 class="order-tit" th:text="#{youHaveNoOrdersYet}"> У вас пока нету заказов</h2>
+</div>
+
+<div class="container">
+    <div class="row">
+        <table class="table ">
+            <tbody>
+            <tr th:each="orderDto : ${userDto.getOrdersDto()}">
+                <td>
+                    <div class="prof-items">
+                        <div><h4 th:text="#{orderNumber}">Номер заказ</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.id}"></h4></div>
+                    </div>
+                    <div class="prof-items">
+                        <div><h4 th:text="#{dateOfCreation}">Дата создания</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.date}"></h4></div>
+                    </div>
+                    <div class="prof-items mb-ord">
+                        <div><h4 th:text="#{costOfProducts}">Стоимость товаров</h4></div>
+                        <div class="prof-data"><h4 class="text-prof" th:text="${orderDto.fullPrice}"></h4></div>
+                    </div>
+                    <div>
+                        <div class="tab-td" style="display: flex">
+                            <form method="get" action="/orders/show_products">
+                                <input type="hidden" name="id" th:value="${orderDto.id}">
+                                <button class="add-card upd-btn mt-btn" type="submit" th:text="#{look}">Посмотреть
+                                </button>
+                            </form>
+                            <div class="state" th:if="${orderDto.stateOrderDto.name.equals('NEW')}">
+                                <h3 class="state-text" th:text="#{new}">Новый</h3>
+                            </div>
+                            <div class="state" th:if="${orderDto.stateOrderDto.name.equals('PAID')}">
+                                <h3 class="state-text" th:text="#{paid}">Оплачено</h3>
+                            </div>
+                            <div class="state" th:if="${orderDto.stateOrderDto.name.equals('DELIVERED')}">
+                                <h3 class="state-text" th:text="#{delivered}">Выполнено</h3>
+                            </div>
+                        </div>
+                    </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+</body>
+</html>

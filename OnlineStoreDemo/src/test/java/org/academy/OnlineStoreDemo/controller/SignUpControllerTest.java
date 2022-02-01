@@ -1,47 +1,54 @@
 package org.academy.OnlineStoreDemo.controller;
 
+import org.academy.OnlineStoreDemo.dto.UserDto;
 import org.academy.OnlineStoreDemo.form.UserForm;
 
 import org.academy.OnlineStoreDemo.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.junit.runner.RunWith;
 
-import org.mockito.junit.jupiter.MockitoExtension;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.context.WebApplicationContext;
 
+import java.util.Collections;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class SignUpControllerTest {
 
-    @Mock
+    @MockBean
     private UserService userService;
 
-    @InjectMocks
-    private SignUpController signUpController;
+    @Autowired
+    private WebApplicationContext context;
 
     private MockMvc mockMvc;
 
     private UserForm userForm;
 
+    private UserDto userDto;
+
     @BeforeEach
     void setUp() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/resources/templates/");
-        viewResolver.setSuffix(".html");
-        mockMvc = MockMvcBuilders.standaloneSetup(signUpController).setViewResolvers(viewResolver).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+        userDto = new UserDto();
+        userDto.setLogin("login");
+        userDto.setEmail("email@mail.rr");
+        userDto.setPhoneNumber("8765456787654");
         userForm = new UserForm();
         userForm.setFirstName("name");
         userForm.setLastName("last");
@@ -57,15 +64,12 @@ class SignUpControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(1))
                 .andExpect(MockMvcResultMatchers.model().attribute("userForm", new UserForm()))
-                .andExpect(MockMvcResultMatchers.view().name("sign-up"))
+                .andExpect(MockMvcResultMatchers.view().name("auth/sign-up"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     void signUp() throws Exception {
-        when(userService.existsUserByLogin(userForm.getLogin())).thenReturn(false);
-        when(userService.existsUserByEmail(userForm.getEmail())).thenReturn(false);
-        when(userService.existsUserByPhoneNumber(userForm.getPhoneNumber())).thenReturn(false);
         mockMvc.perform(post("/sign-up")
                         .param("firstName", userForm.getFirstName())
                         .param("lastName", userForm.getLastName())
@@ -74,7 +78,7 @@ class SignUpControllerTest {
                         .param("login", userForm.getLogin())
                         .param("password", userForm.getPassword()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.model().size(1))
+                .andExpect(MockMvcResultMatchers.model().size(0))
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/login"))
                 .andDo(MockMvcResultHandlers.print());
         verify(userService, times(1)).create(userForm);
@@ -91,13 +95,13 @@ class SignUpControllerTest {
                         .param("password", userForm.getPassword()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(1))
-                .andExpect(MockMvcResultMatchers.view().name("sign-up"))
+                .andExpect(MockMvcResultMatchers.view().name("auth/sign-up"))
                 .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     void signUpFailExistByLogin() throws Exception {
-        when(userService.existsUserByLogin(userForm.getLogin())).thenReturn(true);
+        when(userService.findAll()).thenReturn(Collections.singletonList(userDto));
         mockMvc.perform(post("/sign-up")
                         .param("firstName", userForm.getFirstName())
                         .param("lastName", userForm.getLastName())
@@ -106,10 +110,8 @@ class SignUpControllerTest {
                         .param("login", userForm.getLogin())
                         .param("password", userForm.getPassword()))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(2))
-                .andExpect(MockMvcResultMatchers.model().attribute("existLogin", true))
-                .andExpect(MockMvcResultMatchers.view().name("sign-up"))
+                .andExpect(MockMvcResultMatchers.model().size(1))
+                .andExpect(MockMvcResultMatchers.view().name("auth/sign-up"))
                 .andDo(MockMvcResultHandlers.print());
-        verify(userService, times(1)).existsUserByLogin(userForm.getLogin());
     }
 }

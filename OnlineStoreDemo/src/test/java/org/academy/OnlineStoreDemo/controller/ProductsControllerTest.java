@@ -5,46 +5,45 @@ import org.academy.OnlineStoreDemo.dto.ProductDto;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class ProductsControllerTest {
 
-    @Mock
+    @MockBean
     private ProductCategoryService productCategoryService;
 
-    @InjectMocks
-    private ProductsController productsController;
+    @Autowired
+    private WebApplicationContext context;
 
     private MockMvc mockMvc;
-
-    private ProductCategoryDto productCategoryDto;
 
     private List<ProductCategoryDto> productCategoriesDto;
 
     @BeforeEach
     void setUp() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/resources/templates/");
-        viewResolver.setSuffix(".html");
-        mockMvc = MockMvcBuilders.standaloneSetup(productsController).setViewResolvers(viewResolver).build();
-        productCategoryDto = new ProductCategoryDto();
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+        ProductCategoryDto productCategoryDto = new ProductCategoryDto();
         ProductCategoryDto productCategoryDto1 = new ProductCategoryDto();
         productCategoryDto.setId(1);
         productCategoryDto.setName("name");
@@ -67,21 +66,9 @@ class ProductsControllerTest {
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(1))
+                .andExpect(MockMvcResultMatchers.model().size(2))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findAll();
         assertEquals(2, productCategoryService.findAll().size());
-    }
-
-    @Test
-    void getListProductByCategory() throws Exception {
-        when(productCategoryService.findByName(productCategoryDto.getName())).thenReturn(productCategoryDto);
-        mockMvc.perform(get("/products/list/name"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("list"))
-                .andExpect(MockMvcResultMatchers.model().size(1))
-                .andDo(MockMvcResultHandlers.print());
-        verify(productCategoryService, times(1)).findByName(productCategoryDto.getName());
-        assertEquals(2, productCategoryService.findByName(productCategoryDto.getName()).getProductsDto().size());
     }
 }

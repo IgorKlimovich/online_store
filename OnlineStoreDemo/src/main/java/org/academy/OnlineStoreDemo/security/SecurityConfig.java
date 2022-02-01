@@ -1,5 +1,6 @@
 package org.academy.OnlineStoreDemo.security;
 
+import lombok.AllArgsConstructor;
 import org.academy.OnlineStoreDemo.security.details.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+@AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -18,23 +20,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AuthenticationFailureHandlerImpl authenticationFailureHandler;
 
-    public SecurityConfig(PersistentTokenRepository jdbcTokenRepository,
-                          UserDetailsServiceImpl userDetailsService,
-                          BCryptPasswordEncoder bCryptPasswordEncoder,
-                          AuthenticationFailureHandlerImpl authenticationFailureHandler) {
-        this.jdbcTokenRepository = jdbcTokenRepository;
-        this.userDetailsService = userDetailsService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.authenticationFailureHandler = authenticationFailureHandler;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/shop/**").permitAll()
-//                .antMatchers("/demo/**").permitAll()
+                .antMatchers("/orders/**").authenticated()
+                .antMatchers("/profile/**").authenticated()
                 .antMatchers("/sign-up/**").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .and()

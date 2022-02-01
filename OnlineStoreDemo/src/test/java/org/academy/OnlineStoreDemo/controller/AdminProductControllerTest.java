@@ -6,6 +6,7 @@ import org.academy.OnlineStoreDemo.dto.UserDto;
 import org.academy.OnlineStoreDemo.service.ProductCategoryService;
 import org.academy.OnlineStoreDemo.service.ProductService;
 import org.academy.OnlineStoreDemo.service.UserService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -111,7 +112,7 @@ class AdminProductControllerTest {
         mockMvc.perform(get("/admin/product/1"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(3))
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productService, times(1)).findById(1);
         verify(productCategoryService, times(1)).findAll();
@@ -139,12 +140,10 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProduct() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
-        when(productService.findById(productDto.getId())).thenReturn(productDto);
+        Boolean exist=true;
+        when(productCategoryService.existsProductCategoryByName(productCategoryDto.getName())).thenReturn(exist);
+        when(productService.update(productDto)).thenReturn(productDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
-        when(productCategoryService.existsProductCategoryByName(productDto.getProductCategoryDto().getName()))
-                .thenReturn(true);
         mockMvc.perform(post("/admin/product/update")
                         .param("id", productDto.getId().toString())
                         .param("name", productDto.getName())
@@ -156,18 +155,15 @@ class AdminProductControllerTest {
                         .param("productCategoryDto.name", productCategoryDto.getName()))
                 .andExpect(MockMvcResultMatchers.model().size(3))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productService, times(1)).update(productDto);
         verify(productCategoryService, times(1)).findAll();
-        verify(productService, times(1)).findById(productDto.getId());
     }
 
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductFailName() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         when(productService.findById(productDto.getId())).thenReturn(productDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
         mockMvc.perform(post("/admin/product/update")
@@ -180,7 +176,7 @@ class AdminProductControllerTest {
                         .param("productCategoryDto.name", productCategoryDto.getName()))
                 .andExpect(MockMvcResultMatchers.model().size(5))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findAll();
         verify(productService, times(1)).findById(productDto.getId());
@@ -189,8 +185,6 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductFailPrice() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         when(productService.findById(productDto.getId())).thenReturn(productDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
         mockMvc.perform(post("/admin/product/update")
@@ -203,7 +197,7 @@ class AdminProductControllerTest {
                         .param("productCategoryDto.name", productCategoryDto.getName()))
                 .andExpect(MockMvcResultMatchers.model().size(5))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findAll();
         verify(productService, times(1)).findById(productDto.getId());
@@ -212,8 +206,6 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductFailAmount() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         when(productService.findById(productDto.getId())).thenReturn(productDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
         mockMvc.perform(post("/admin/product/update")
@@ -226,7 +218,7 @@ class AdminProductControllerTest {
                         .param("productCategoryDto.name", productCategoryDto.getName()))
                 .andExpect(MockMvcResultMatchers.model().size(5))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findAll();
         verify(productService, times(1)).findById(productDto.getId());
@@ -235,12 +227,8 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void updateProductFailProductCategory() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         when(productService.findById(productDto.getId())).thenReturn(productDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
-        when(productCategoryService.existsProductCategoryByName(productDto.getProductCategoryDto().getName()))
-                .thenReturn(false);
         mockMvc.perform(post("/admin/product/update")
                         .param("id", productDto.getId().toString())
                         .param("name", productDto.getName())
@@ -249,10 +237,9 @@ class AdminProductControllerTest {
                         .param("price", productDto.getPrice().toString())
                         .param("productCategoryDto.id", productCategoryDto.getId().toString())
                         .param("productCategoryDto.name", productCategoryDto.getName()))
-                .andExpect(MockMvcResultMatchers.model().attribute("categoryNotExist", true))
                 .andExpect(MockMvcResultMatchers.model().size(5))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productCategoryService, times(1)).findAll();
         verify(productService, times(1)).findById(productDto.getId());
@@ -261,8 +248,6 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void deleteProduct() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         when(productService.findAll()).thenReturn(productsDto);
         when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
         mockMvc.perform(post("/admin/product/delete")
@@ -276,7 +261,7 @@ class AdminProductControllerTest {
                         .param("productCategoryDto.name", productCategoryDto.getName()))
                 .andExpect(MockMvcResultMatchers.model().size(4))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("adminProducts"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProducts"))
                 .andDo(MockMvcResultHandlers.print());
         verify(productService, times(1)).delete(productDto);
         verify(productService, times(1)).findAll();
@@ -286,37 +271,29 @@ class AdminProductControllerTest {
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void addPhoto() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
         MockMultipartFile file = new MockMultipartFile("file", "hello.txt",
                 MediaType.TEXT_PLAIN_VALUE, "Hello, World!".getBytes());
-        when(productService.findById(productDto.getId())).thenReturn(productDto);
+        when(productService.addPhoto(productDto.getId(), file)).thenReturn(productDto);
         mockMvc.perform(multipart("/admin/product/add_photo").file(file)
                         .param("id", productDto.getId().toString()))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.model().size(3))
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
-        verify(productService, times(1)).addPhoto(productDto);
-        verify(productService, times(1)).findById(productDto.getId());
+        verify(productService, times(1)).addPhoto(productDto.getId(), file);
         verify(productCategoryService, times(1)).findAll();
     }
 
     @Test
     @WithMockUser(username = "login", authorities = "ADMIN")
     void deletePhotoProduct() throws Exception {
-        when(principal.getName()).thenReturn("login");
-        when(userService.findByLogin("login")).thenReturn(userDto);
-        when(productService.findById(productDto.getId())).thenReturn(productDto);
-        when(productCategoryService.findAll()).thenReturn(productCategoriesDto);
+        when(productService.deletePhoto(productDto.getId())).thenReturn(productDto);
         mockMvc.perform(post("/admin/product/delete_photo")
                         .param("id", productDto.getId().toString()))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.model().size(3))
-                .andExpect(MockMvcResultMatchers.view().name("adminProduct"))
+                .andExpect(MockMvcResultMatchers.model().size(2))
+                .andExpect(MockMvcResultMatchers.view().name("admin/adminProduct"))
                 .andDo(MockMvcResultHandlers.print());
-        verify(productService, times(1)).deletePhoto(productDto);
-        verify(productService, times(1)).findById(productDto.getId());
-        verify(productCategoryService, times(1)).findAll();
+        verify(productService, times(1)).deletePhoto(productDto.getId());
     }
 }

@@ -1,0 +1,68 @@
+
+hr {
+  height: 2px;
+  border: none;
+  background-color: #d0cccc;
+}
+
+.ref-close {
+  text-decoration: none;
+  color: white;
+}
+
+textarea:focus {
+  outline: 0;
+  outline-offset: 0;
+  border: 5px solid rgba(234, 155, 154, 0.8);
+}
+
+INPUT:focus {
+  outline: 0;
+  outline-offset: 0;
+  border: 5px solid rgba(234, 155, 154, 0.8);
+}
+
+.del-err {
+  margin-top: 20px;
+}
+
+.err-btn {
+  margin-left: 280px;
+}
+
+.lab-upd {
+  margin-top: 6px;
+}
+body {
+  background: url("https://www.arteks.ooo/upload/iblock/5e7/5e7ad1d9283ad6525c31f0b3ef20a855.jpg");
+}
+.ord {
+  width: 700px;
+  height: auto;
+  border: 2px solid #b2afaf;
+  border-radius: 43px;
+  background-color: white;
+}
+.ord-btn {
+  margin-left: 37px;
+  margin-bottom: 25px;
+  margin-top: 15px;
+}
+.tit-ord {
+  display: -webkit-inline-box;
+  margin-top: 50px;
+}
+.del-cat{
+  color: white;
+  background-color: #9a9073;
+  padding: 6px 24px;
+  border-radius: 49px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 5px;
+}
+.del-cat:hover {
+  background-color: #706954;
+  color: white;
+}

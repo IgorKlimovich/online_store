@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title id="title">Пользователи</title>
+    <link rel="stylesheet" href="/css/blocks/header.css">
+    <link rel="stylesheet" href="/css/blocks/footer.css">
+    <link rel="stylesheet" href="/css/blocks/modal.css">
+    <link rel="stylesheet" href="/css/admin/users.css">
+</head>
+<body>
+<header th:insert="blocks/header::header"></header>
+
+<details class="det-sort">
+    <summary th:text="#{sort}">Сортировать</summary>
+    <div class="table-users">
+        <form method="get" action="/admin/users">
+            <div class="sort">
+                <h2 class="sort-tit" th:text="#{sortUsers}"> Сортировать пользователей,</h2>
+                <label for="parameter" class="label-users" th:text="#{chooseParameter}">выберите параметр</label>
+                <select class="select-sort" name="parameter" id="parameter">
+                    <option value="login" th:text="#{login}">Логин</option>
+                    <option value="email" th:text="#{email}">Email</option>
+                    <option value="phoneNumber" th:text="#{phoneNumber}">Номер телефона</option>
+                    <option value="firstName" th:text="#{firstName}">Имя</option>
+                    <option value="lastName" th:text="#{lastName}">Фамилия</option>
+                </select>
+                <button type="submit" class="btn-sort" th:text="#{sort}">Сортировать</button>
+            </div>
+        </form>
+    </div>
+</details>
+<hr>
+<details class="det-search">
+    <summary th:text="#{search}">Поиск</summary>
+    <div class="search-js">
+        <div>
+            <h2 th:text="#{searchPageNameUser}">Поиск на странице, введите имя пользователя:</h2>
+        </div>
+        <div>
+            <input type="text" id="myInput" onkeyup="search()" th:placeholder="#{search.}"
+                   class="input-js" title="Введите категорию">
+        </div>
+    </div>
+</details>
+
+<div>
+    <hr>
+    <div class="tab">
+        <table class="table " id="myTable">
+            <thead>
+            <tr>
+                <th scope="col" th:text="#{firstName}"> Имя</th>
+                <th scope="col" th:text="#{lastName}"> Фамилия</th>
+                <th scope="col" th:text="#{photo}"> Фото</th>
+                <th scope="col" th:text="#{email}"> email</th>
+                <th scope="col" th:text="#{login}"> логин</th>
+                <th scope="col" th:text="#{phoneNumber}"> номер телефона</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="userDto : ${usersDto}">
+                <td><a th:text="${userDto.firstName}" class="name-prod"
+                       th:href="@{/admin/user/{id}(id=${userDto.id})}"></a></td>
+                <td><h3 th:text="${userDto.lastName}"></h3></td>
+                <td th:if="${userDto.namePhoto==null}">
+                    <img src="https://i02.fotocdn.net/s121/fced1b9cb79eecf2/user_xl/2762630212.jpg"
+                         width="150" height="100" class="img-mb">
+                </td>
+                <td th:if="${userDto.namePhoto!=null}">
+                    <img th:src="@{${userDto.photosImagePath}}" width="150" height="100"/>
+                </td>
+                <td><h3 th:text="${userDto.email}"></h3></td>
+                <td><h3 th:text="${userDto.login}"></h3></td>
+                <td><h3 th:text="${userDto.phoneNumber}"></h3></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<footer th:insert="blocks/footer::footer"></footer>
+<script type="text/javascript" src="/js/blocks/header.js"></script>
+<script type="text/javascript" src="/js/admin/users.js"></script>
+</body>
+</html>
