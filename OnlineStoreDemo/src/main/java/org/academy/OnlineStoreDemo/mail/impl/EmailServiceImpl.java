@@ -20,17 +20,6 @@ public class EmailServiceImpl implements EmailService {
         this.simpleMailMessage = simpleMailMessage;
     }
 
-    @Override
-    public void sendSimpleMessage(String to, String subject, String text) {
-
-        simpleMailMessage.setFrom("garic.8761@gmail.com");
-        simpleMailMessage.setTo(to);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(text);
-        emailSender.send(simpleMailMessage);
-        log.info("in send message: message {} sended to {}", text,to);
-    }
-
     public void sendWelcomeMessage(String to, String firstName){
         simpleMailMessage.setFrom("garic.8761@gmail.com");
         simpleMailMessage.setTo(to);
@@ -44,10 +33,10 @@ public class EmailServiceImpl implements EmailService {
     public void sendDeliverMessage (String to, String firstName){
         simpleMailMessage.setFrom("garic.8761@gmail.com");
         simpleMailMessage.setTo(to);
-        simpleMailMessage.setSubject("Successfull!");
+        simpleMailMessage.setSubject("Successfully!");
         String message = String.format("Hello %s, your order has been successfully completed.",firstName);
         simpleMailMessage.setText(message);
         emailSender.send(simpleMailMessage);
-        log.info("in send deliver message: message {} send to new user {}",message,firstName);
+        log.info("in send deliver message: message {} send to user {}",message,firstName);
     }
 }

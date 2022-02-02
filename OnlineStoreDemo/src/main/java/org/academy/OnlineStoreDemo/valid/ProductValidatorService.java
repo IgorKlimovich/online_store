@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.academy.OnlineStoreDemo.constants.Constants.*;
+
 @Service
 @AllArgsConstructor
 public class ProductValidatorService {
@@ -19,35 +21,35 @@ public class ProductValidatorService {
     public String validateProduct(ProductDto productDto, String productCategoryName) {
         String message = "";
         if (productDto.getName().trim().equals("")) {
-            message = "emptyProductName";
+            message = EMPTY_PRODUCT_NAME;
         }
         if (productDto.getPrice() == null) {
-            message = "emptyPriceProduct";
+            message = EMPTY_PRICE_PRODUCT;
         }
         if (productDto.getAmount() == null) {
-            message = "emptyAmountProduct";
+            message = EMPTY_AMOUNT_PRODUCT;
         }
         if (Boolean.FALSE.equals(productCategoryService.existsProductCategoryByName(productCategoryName.trim()))) {
-            message = "categoryNotExist";
+            message = CATEGORY_NOT_EXIST;
         }
         return message;
     }
 
     public String validateSearchProduct(String parameter, String name) {
         String message = "";
-        if (parameter.equals("category")) {
-            ProductCategoryDto productCategoryDto = productCategoryService.findCategoryByName(name.trim());
-            if (productCategoryDto.getId()==null) {
-                message = "categoryNotFound";
+        if (parameter.equals(CATEGORY)) {
+            if (Boolean.FALSE.equals(productCategoryService.existsProductCategoryByName(name))){
+                message = CATEGORY_NOT_FOUND;
             }
-            if (productCategoryDto.getProductsDto().isEmpty()) {
-                message = "emptyCategory";
+            ProductCategoryDto productCategoryDto = productCategoryService.findCategoryByName(name.trim());
+            if (productCategoryDto.getId()!=null&&productCategoryDto.getProductsDto().isEmpty()){
+                message = EMPTY_CATEGORY;
             }
         }
-        if (parameter.equals("nameProd")) {
+        if (parameter.equals(NAME_PROD)) {
             List<ProductDto> productsDto = productService.findAllByName(name.trim());
             if (productsDto.isEmpty()) {
-                message = "productNotFound";
+                message = PRODUCT_NOT_FOUND;
             }
         }
         return message;

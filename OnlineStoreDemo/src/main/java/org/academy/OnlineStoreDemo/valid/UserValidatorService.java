@@ -6,19 +6,21 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.academy.OnlineStoreDemo.constants.Constants.*;
+
 @Service
 public class UserValidatorService {
 
     public String validateUser(List<UserDto> usersDto, UserForm userForm) {
         String message = "";
         if (usersDto.stream().anyMatch(item -> item.getEmail().equals(userForm.getEmail()))) {
-            message = "existEmail";
+            message = EXIST_EMAIL;
         }
         if (usersDto.stream().anyMatch(item -> item.getPhoneNumber().equals(userForm.getPhoneNumber()))) {
-            message = "existPhoneNumber";
+            message = EXIST_PHONE_NUMBER;
         }
         if (usersDto.stream().anyMatch(item -> item.getLogin().equals(userForm.getLogin()))) {
-            message = "existLogin";
+            message = EXIST_LOGIN;
         }
         return message;
     }

@@ -30,7 +30,6 @@
                     <input type="checkbox" class="check" name="remember-me" id="remember-me" th:text="#{rememberMe}">
                 </label>
             </div>
-
             <div th:if="${disabled}" id="openModal" class="modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -45,7 +44,7 @@
                             <div>
                                 <form method="get"
                                       action="erfre" style="display: none">
-                                    <input type="button" style="display: none"></input>
+                                    <input type="button" style="display: none"/>
                                 </form>
                             </div>
                             <div class="cont">
@@ -75,7 +74,7 @@
         </button>
     </form>
     <div>
-        <a href="/shop" th:text="#{toShop}"></a>
+        <a href="/shop" class="to-shop" th:text="#{toShop}"></a>
     </div>
 </main>
 <footer th:insert="blocks/footer::footer"></footer>

@@ -2,6 +2,7 @@ package org.academy.OnlineStoreDemo.service;
 
 import org.academy.OnlineStoreDemo.dto.ProductDto;
 import org.academy.OnlineStoreDemo.exception.ProductNotFoundException;
+import org.academy.OnlineStoreDemo.model.entity.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -28,6 +29,14 @@ public interface ProductService {
      * @return list of product
      */
     List<ProductDto> findAllByName(String name);
+
+    /**
+     * Returns the products from database by id
+     * @param id product id for search
+     * @return product by id
+     * @throws ProductNotFoundException if there is no products with the id in database
+     */
+    Product findProductById(Integer id);
 
     /**
      * Returns a list products from database by list ids

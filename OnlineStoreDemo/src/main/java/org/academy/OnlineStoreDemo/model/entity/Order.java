@@ -1,6 +1,5 @@
 package org.academy.OnlineStoreDemo.model.entity;
 
-
 import lombok.*;
 import org.hibernate.Hibernate;
 

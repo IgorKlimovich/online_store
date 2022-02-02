@@ -159,11 +159,14 @@ tr {
 }
 
 .inp-choose {
-    margin-left: 152px;
+    /*margin-left: 146px;*/
 }
 
 .err-choose {
-    margin-left: 356px;
+    margin-right: 20px;
+    margin-inline-start: auto;
+    margin-top: 10px;
+    color: darkred;
 }
 
 .success {
@@ -193,4 +196,8 @@ tr {
     border-top-left-radius: 27px;
     border-top-right-radius: 27px;
     margin: -2px;
+}
+
+.form-group1{
+    display: flex;
 }

@@ -41,8 +41,8 @@ public class AdminController {
     }
 
     @GetMapping("/search")
-    public String searchUser(@RequestParam("parameter") String parameter, Principal principal,
-                             @RequestParam("name") String name, Model model) {
+    public String searchUser(@RequestParam String parameter, Principal principal,
+                             @RequestParam String name, Model model) {
         List<UserDto> usersDto = utilService.findUserByParameters(parameter, name);
         if (usersDto == null || usersDto.isEmpty()) {
             model.addAttribute(USER_NOT_FOUND, true)
@@ -57,7 +57,7 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public String getUsersPage(@RequestParam("parameter") String parameter, Principal principal, Model model) {
+    public String getUsersPage(@RequestParam String parameter, Principal principal, Model model) {
         model.addAttribute(USERS_DTO, utilService.sortUsersByParameters(parameter))
                 .addAttribute(USER_PROF, userService.findByLogin(principal));
         log.info("in get users page:  sort user by parameter {}", parameter);
@@ -107,7 +107,7 @@ public class AdminController {
     }
 
     @PostMapping("/sortProducts")
-    public String getSortedProductsPage(HttpServletRequest request, @RequestParam("parameter")
+    public String getSortedProductsPage(HttpServletRequest request, @RequestParam
             String parameter, Model model, Principal principal) {
         List<Integer> integers = Arrays.asList(request.getParameterMap().get("ids")).stream()
                 .map(Integer::parseInt).collect(Collectors.toList());

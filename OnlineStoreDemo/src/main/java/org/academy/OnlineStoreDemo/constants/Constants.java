@@ -3,7 +3,6 @@ package org.academy.OnlineStoreDemo.constants;
 public class Constants {
 
     private Constants(){
-
     }
 
     public static final Integer FLAG = 1;
@@ -18,6 +17,7 @@ public class Constants {
     public static final Integer UPDATE_CARD_FORM = 10;
     public static final Integer ERROR_UPDATE_CARD = 8;
     public static final Integer ERROR_UPDATE_PROFILE = 7;
+    public static final String URL = "url";
     public static final String ABOUT = "about/about";
     public static final String USER = "admin/user";
     public static final String USERS = "admin/users";
@@ -31,6 +31,7 @@ public class Constants {
     public static final String USER_ITEM = "user";
     public static final String LOGIN = "auth/login";
     public static final String DISABLED = "disabled";
+    public static final String MESSAGE = "message";
     public static final String CREDENTIALS = "badCredentials";
     public static final String BAD_CREDENTIALS = "Bad credentials";
     public static final String USER_DELETED = "Пользователь удален";
@@ -38,6 +39,7 @@ public class Constants {
     public static final String ERROR_PAGE = "error/error";
     public static final String NOT_FOUND = "notFound";
     public static final String USER_PROF = "userProf";
+    public static final String EXIST_CARD = "existCard";
     public static final String FORBIDDEN = "forbidden";
     public static final String ERROR_SERVER = "errorServer";
     public static final String PROFILE = "profile/profile";
@@ -45,25 +47,41 @@ public class Constants {
     public static final String CARDS_DTO = "cardsDto";
     public static final String GLOBAL_ERROR = "globalError";
     public static final String PRODUCTS = "product/products";
+    public static final String CATEGORY = "category";
     public static final String SHOP = "shop/shop";
     public static final String SEARCH = "shop/search";
     public static final String NO_CATEGORY = "noCategory";
     public static final String PRODUCTS_DTO = "productsDto";
     public static final String ORDER = "order/order";
+    public static final String EMPTY = "empty";
     public static final String ORDERS = "order/orders";
     public static final String NO_CARD = "noCard";
     public static final String PRODUCT = "product/product";
     public static final String ORDER_DTO = "orderDto";
     public static final String CONTACTS = "contacts/contacts";
     public static final String USERS_DTO = "usersDto";
+    public static final String NAME_PROD = "nameProd";
+    public static final String NOT_EMPTY = "notEmpty";
+    public static final String EXIST_EMAIL = "existEmail";
+    public static final String EXIST_LOGIN = "existLogin";
     public static final String ORDERS_DTO = "ordersDto";
     public static final String ADMIN_ORDERS = "admin/adminOrders";
     public static final String ADMIN_ORDER = "admin/adminOrder";
     public static final String PRODUCTS_LAST_DTO = "productsLastDto";
     public static final String NOT_EXIST_CATEGORY = "такой категории нету";
+    public static final String EXIST_CATEGORY = "existCategory";
+    public static final String EMPTY_CATEGORY = "emptyCategory";
     public static final String PRODUCT_CATEGORY_DTO = "productCategoryDto";
     public static final String EMPTY_MESSAGE = "не найдено ни одного товара";
+    public static final String EMPTY_PRICE_PRODUCT = "emptyPriceProduct";
+    public static final String PRODUCT_NOT_FOUND = "productNotFound";
+    public static final String EXIST_PHONE_NUMBER = "existPhoneNumber";
+    public static final String EMPTY_PRODUCT_NAME = "emptyProductName";
+    public static final String EMPTY_CATEGORY_NAME = "emptyCategoryName";
+    public static final String EMPTY_AMOUNT_PRODUCT = "emptyAmountProduct";
     public static final String PRODUCT_CATEGORIES_DTO = "productCategoriesDto";
+    public static final String CATEGORY_NOT_EXIST = "categoryNotExist";
+    public static final String CATEGORY_NOT_FOUND = "categoryNotFound";
     public static final String ADMIN_PRODUCT_CATEGORY = "admin/adminProductCategory";
     public static final String ADMIN_PRODUCT_CATEGORIES = "admin/adminProductCategories";
     public static final String ADMIN_PRODUCT = "admin/adminProduct";

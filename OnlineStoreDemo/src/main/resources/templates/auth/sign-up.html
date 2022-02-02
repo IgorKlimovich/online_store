@@ -10,7 +10,7 @@
 
 <div class="container">
     <main>
-        <h4 class="h3 mb-3 fw-normal" th:text="#{willSignUp}">Зарегистрируйтесь</h4>
+        <h4 class="h3 mb-9 fw-normal" th:text="#{willSignUp}">Зарегистрируйтесь</h4>
         <form action="/sign-up" method="post" th:object="${userForm}">
             <div class="row">
                 <div class="col-sm-6">
@@ -51,11 +51,9 @@
                         <div th:each="err : ${#fields.errors('global')}">
                             <div th:if="${err.equals('existPhoneNumber')}"class="er-col"
                                  th:text="#{thisPhoneNumberAlreadyExists}">
-
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-12">
                     <label for="login" id="labelLogin" class="form-label" th:text="#{login}"> Логин</label>
@@ -90,9 +88,7 @@
             </button>
         </form>
         <div>
-            <button class="col-log w-100 btn btn-lg btn-reg"
-                    type="button"> <a href="/shop" th:text="#{toShop}"></a>
-            </button>
+           <a href="/shop" class="to-shop" th:text="#{toShop}"></a>
         </div>
     </main>
 </div>

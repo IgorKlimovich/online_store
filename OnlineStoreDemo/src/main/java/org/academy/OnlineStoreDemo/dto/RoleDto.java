@@ -32,7 +32,6 @@ public class RoleDto {
         if (o == null || getClass() != o.getClass()) return false;
         RoleDto roleDto = (RoleDto) o;
         return Objects.equals(id, roleDto.id) && Objects.equals(name, roleDto.name);
-            //    && Objects.equals(usersDto.size(), roleDto.usersDto.size());
     }
 
     @Override

@@ -14,8 +14,9 @@ import org.academy.OnlineStoreDemo.service.OrderService;
 import org.academy.OnlineStoreDemo.util.UtilListMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.*;
 
 @Slf4j
@@ -31,6 +32,7 @@ public class OrderServiceImpl implements OrderService {
     private final ShopCountRepository shopCountRepository;
 
     @Override
+    @Transactional
     public OrderDto createOrderIfNotActive(UserDto userDto) {
         User user = modelMapper.map(userDto, User.class);
         if (user.getOrders()
@@ -85,6 +87,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderDto setDelivered(Integer id) {
         OrderDto orderDto = findById(id);
         Order order = modelMapper.map(orderDto, Order.class);

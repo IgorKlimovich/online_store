@@ -188,7 +188,9 @@
                                             th:value="${cardDto.number}"
                                     ></option>
                                 </datalist>
-                                <div th:if="${noCard}" class="err-mod err-choose"
+                            </div>
+                            <div style="display: flex">
+                                <div th:if="${noCard}" class="err-choose"
                                      th:text="#{noSuchCardFound}">
                                 </div>
                             </div>
@@ -223,7 +225,7 @@
                     <h3 th:text="#{operationFailed}">Операция не выполнена</h3>
                 </div>
                 <div>
-                    <button class="modal-btn no-money-btn" type="submit" onclick="closeModalErrorNoMoneyButton();"
+                    <button class="modal-btn-yes no-money-btn" type="submit" onclick="closeModalErrorNoMoneyButton();"
                             th:text="#{ok}">Хорошо
                     </button>
                 </div>

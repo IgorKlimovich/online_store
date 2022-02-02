@@ -4,8 +4,6 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import java.util.Objects;
 
 @Getter
@@ -20,19 +18,12 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotEmpty(message = "название не может быть пустым")
     @Column(name = "name")
     private String name;
 
-    @NotEmpty(message = "номер не может быть пустым")
-    @Pattern(regexp = "[0-9]{16}",
-            message = "номер должен содержать 16 цифр")
     @Column(name="number")
     private String number;
 
-    @Pattern(regexp = "[0-9]{3}",
-            message = "CVV должен содержать 3 цифры")
-    @NotEmpty(message = "CVV не может быть пустым")
     @Column(name="cvv")
     private String cvv;
 

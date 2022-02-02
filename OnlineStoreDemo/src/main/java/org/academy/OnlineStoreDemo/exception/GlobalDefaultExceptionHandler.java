@@ -8,10 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+import static org.academy.OnlineStoreDemo.constants.Constants.*;
+
 @Slf4j
 @ControllerAdvice
 class GlobalDefaultExceptionHandler {
-    public static final String DEFAULT_ERROR_VIEW = "error";
 
     private final UserService userService;
 
@@ -20,12 +21,12 @@ class GlobalDefaultExceptionHandler {
     }
 
     @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e, Principal principal) throws Exception {
+    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e, Principal principal) {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("message", e.getMessage());
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName(DEFAULT_ERROR_VIEW);
-        mav.addObject("userProf",userService.findByLogin(principal));
+        mav.addObject(MESSAGE, e.getMessage());
+        mav.addObject(URL, req.getRequestURL());
+        mav.setViewName(ERROR);
+        mav.addObject(USER_PROF,userService.findByLogin(principal));
         log.error("in default error handler",e);
         return mav;
     }

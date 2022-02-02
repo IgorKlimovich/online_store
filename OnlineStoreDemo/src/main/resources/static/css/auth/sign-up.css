@@ -13,6 +13,7 @@ body {
     "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";;
     font-size: 18px;
     line-height: 1.5;
+    text-align: center;
 }
 
 *, ::after, ::before {
@@ -106,9 +107,9 @@ INPUT:focus {
     color: #6c757d !important;
 }
 
-.mb-3 {
-
+.mb-9 {
     margin-top: 20px;
+    margin-bottom: 15px;
 }
 
 .er-col {
@@ -181,3 +182,8 @@ input::placeholder {
     background: url(https://snipp.ru/demo/495/no-view.svg) 0 0 no-repeat;
 }
 
+.to-shop{
+    text-decoration: none;
+    color: black;
+    font-size: 24px;
+}

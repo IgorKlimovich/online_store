@@ -9,9 +9,21 @@ if (flag.value==='3'){
 function closeModalErrorAdd() {
     modalErrorAdd.style.opacity='0';
     modalErrorAdd.style.pointerEvents='none';
-
 }
 function closeModalErrorAddButton(){
     modalErrorAdd.style.opacity='0';
     modalErrorAdd.style.pointerEvents='none';
+}
+
+
+function closeModalChoosePathButton(){
+    modalChoosePath.style.opacity='0';
+    modalChoosePath.style.pointerEvents='none'
+}
+
+
+if (flag.value==='12'){
+    console.log(flag.value);
+    modalChoosePath.style.opacity='1';
+    modalChoosePath.style.pointerEvents='auto';
 }

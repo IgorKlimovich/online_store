@@ -51,6 +51,7 @@ public class OrderController {
             log.warn("in add product to order: product {} not exist", productDto);
             return PRODUCT;
         }
+
         orderProductService.saveProductToOrder(orderDto, productDto);
         ProductDto productDtoAfterSave = productService.findById(productId);
         model.addAttribute(PRODUCT_DTO, productDtoAfterSave)

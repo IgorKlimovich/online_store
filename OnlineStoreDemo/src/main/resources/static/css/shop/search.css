@@ -39,24 +39,12 @@ hr {
     background-color: #d0cccc;
 }
 
-/*.num {*/
-/*    display: none;*/
-/*}*/
+.not-found{
+    text-align: center;
+    margin-top: 60px;
+    font-size: 50px;
+}
 
-/*.paginator {*/
-/*    line-height: 150%;*/
-/*    margin-left: 50px;*/
-/*}*/
-
-/*.paginator > span {*/
-/*    cursor:pointer;*/
-/*    float: left;*/
-/*    padding: 2px 16px;*/
-/*    text-decoration: none;*/
-/*}*/
-
-/*.paginator_active {*/
-/*    border-radius: 16px;*/
-/*    background-color: darkred;*/
-/*    color: white;*/
-/*}*/
+.not-found-img{
+    text-align: center;
+}

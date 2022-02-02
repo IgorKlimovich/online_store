@@ -3,7 +3,6 @@ package org.academy.OnlineStoreDemo.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.academy.OnlineStoreDemo.model.entity.User;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
@@ -12,7 +11,6 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CardDto {
-
 
     private Integer id;
 

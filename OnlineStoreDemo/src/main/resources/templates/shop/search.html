@@ -58,7 +58,13 @@
 
 
 
-<div th:if="${empty}" th:text="#{noProductsFound}">
+<div th:if="${empty}" >
+    <h1 th:text="#{noProductsFound}" class="not-found"></h1>
+    <div class="not-found-img">
+        <img src="https://cdn.pixabay.com/photo/2015/11/03/09/09/magnifying-glass-1020142_1280.jpg"
+             height="700">
+    </div>
+
 </div>
 <div class="paginator" onclick="pagination(event)"></div>
 <footer th:insert="blocks/footer::footer"></footer>
